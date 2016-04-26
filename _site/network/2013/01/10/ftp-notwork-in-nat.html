@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>局域网无法访问外网FTP</title>
+	
+	<meta name="description" content="在工作中遇到个无法访问FTP服务器的问题，本地是在一个路由器后面的，是私有的IP地址，使用windows自带的FTP命令行无法与路由器以外的FTP服务器建立数据链接。后来仔细研究了一下FTP协议原理，最后明白了，原来是windows自带的FTP命令行不支持FTP PASV模式导致的。牵扯出本文讨论的话题：FTP原理以及NAT原理">
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>局域网无法访问外网FTP </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   January 
+	   10th,
+	   
+	   2013
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <h2 id="ftp">FTP基础知识</h2>
+
+<p><code class="highlighter-rouge">FTP</code>是<code class="highlighter-rouge">File Transfer Protocol</code>（文件传输协议）的缩写，用来在两台计算机之间互相传送文件。相比于HTTP，FTP协议要复杂得多。复杂的原因，是因为FTP协议要用到两个TCP连接，一个是命令链路，用来在FTP客户端与服务器之间传递命令；另一个是数据链路，用来上传或下载数据。通常在访问FTP服务端之初指定的是FTP命令链路的端口，默认为<code class="highlighter-rouge">21</code>，客户端向服务器的FTP端口发送连接请求，服务器接受连接，建立一条命令链路，之后的所有命令都是在这个端口上进行的。</p>
+
+<p>随后FTP协议在要求数据传输时会建立数据链路（即双方都使用有别于命令链路的端口）。建立数据链路有两种模式</p>
+
+<ul>
+  <li>主动模式（<code class="highlighter-rouge">PORT</code>）：客户端通知服务端自己打开的数据链路端口，由服务端的端口（默认是<code class="highlighter-rouge">20</code>）发起TCP链接，建立链接后开始数据传输。</li>
+  <li>被动模式（<code class="highlighter-rouge">PASV</code>）：服务端通知客户端自己打开的数据链路端口，由客户端发起TCP链接，建立连接后开始数据传输。</li>
+</ul>
+
+<p>由此可见，位于路由器（NAT网关）后方的客户端，如果使用主动模式的话，是无法建立数据链路的，因为NAT之外的FTP服务器无法向NAT后端的客户端发起TCP链接。</p>
+
+<h2 id="nat">NAT</h2>
+
+<p>从上面的问题衍生出NAT的原理，事实上，我们生活中处处都在接触NAT，家里的宽带路由器实际上就是NAT网关。NAT的全称为“Network Address Transaction”，它工作在网络层，能够修改IP数据包的源IP和目的IP，对上层透明。而我们家用的NAT网关更准确的说，实际上是NAPT（Network Address Port Transaction），除了能够修改IP地址，还能工作在TCP层，修改源和目的的端口。</p>
+
+<p>NAT网关，它对外有一个外网端口和IP、对内有一个内网端口和IP。内网的终端向外网发送的TCP或UDP包都会被NAT网关修改IP和端口，并且将记住端口的映射关系。反之，外网返回的数据包虽然目的IP和端口都是NAT网关的，但是由于前面网关记住了端口映射关系，因此它能再次修改回正确的内网IP和端口，并转发给相应的内网主机。整个过程对通信双发是透明的。</p>
+
+<p><img src="/assets/img/ftp-notwork-in-nat-img1.png" alt="ftp-notwork-in-nat-img1" /></p>
+
+<p>但是，这个过程有个缺点，外网主机无法主动向内网主机建立TCP链接，因为，外网主机仅仅知道的是NAT网关的IP和端口，如果发起TCP链接，会出现两种可能：</p>
+
+<ul>
+  <li>如果这个请求的端口不在网关的映射表中，包就被丢弃了</li>
+  <li>如果这个请求的端口恰好是网关映射表中的某条记录，包就会被转发给对应的主机</li>
+</ul>
+
+<p>因此，考虑上面的第二种情况，如果静态的在映射表中配置一条映射：目的端口为端口A的TCP或UDP包转发给 主机 A 的端口A。那么外网可以通过这个确定的端口A访问内网的主机，虽然IP地址还是网关的IP。这种机制就是路由器的“端口映射规则”：目的就是让外网访问内网主机。</p>
+
+<h2 id="section">如何解决</h2>
+
+<p>有了端口映射，理论上说，可以让客户端在PORT模式下，打开固定的端口，并配置该端口的端口映射。不过，普通的windows命令行FTP工具没有这个功能。</p>
+
+<p>还有一种办法就是用PASV模式，这取决于服务端是否支持，并且windows的FTP命令行工具没有该功能。</p>
+
+<p>另外，IE8以上的浏览器可以作为FTP客户端，并且支持PASV模式：</p>
+
+<p><img src="/assets/img/ftp-notwork-in-nat-img0.png" alt="ftp-notwork-in-nat-img0" /></p>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#network">
+					network <span>(7)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#FTP">
+					FTP <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#NAT">
+					NAT <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/web-build/2013/01/09/build-github-blog-page-06.html" title="一步步在GitHub上创建博客主页(6)">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/c-cpp/2013/01/11/net-cpp-hobby.html" title=".NET程序员的C\C++情结(3)">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

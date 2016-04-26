@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>【吐槽】BMC ITSM的"七宗罪"</title>
+	
+	<meta name="description" content="BMC的Remedy业界出名，但是作为有些真正实施经验的人，多少会吐槽其ITSM产品">
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>【吐槽】BMC ITSM的"七宗罪" </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   February 
+	   27th,
+	   
+	   2013
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <h2 id="section">设计冗余</h2>
+
+<p>ITSM试图构建一个可以通过配置来完成不同业务需求的IT服务管理系统。尽管ITSM在设计上号称符合ITIL，但是ITIL本身在落地上就有不少困难，不同的公司需求差异很大，很难在应用程序层面通过配置满足需求。在这种情况下，就要求供应商进行所谓的“定制化”。殊不知，“定制化”到最后的结果经常是表面看似没变，实际进行了大刀阔斧的开发工作，费时费力，还必须顾忌ITSM本身的bug，到最后ITSM反而成为了系统的包袱。究其原因，个人认为，主要还是ITSM产品的复杂度实在太高，用户其实根本不需要。</p>
+
+<h2 id="section-1">性能问题</h2>
+
+<p>性能是ITSM的一大诟病。AR系统本身实际上不算一个十分庞大的产品，但是在安装ITSM后，AR系统整体会变得十分慢。我们曾经完全基于AR开发过一些系统，这些系统工作的都十分良好，用户和测试人员很少抱怨性能问题。但是最近的ITSM项目却完全暴露的性能问题。就拿事件举例，我们在定制化结束后，事件单的字段数量尽然多达390个，即使这些字段什么都不存也会占用数据库文件的空间，这无疑增加了数据库的IO负担（我统计过，事件表中，sql server一个8k数据页只能存放3条事件记录！）。而这些字段通常不敢轻易的去除，很多字段都是用来进行“无谓”的工作流驱动用的，只能不断的增加新字段。提到工作流，ITSM产品中的工作流数量多的惊人，实际上其中的绝大部分都无用！！要知道执行工作流的开销是很大的。我们曾经对事件单进行数据导入动作，每秒钟竟然只能导入2-3条，这还是对导入程序经过过优化的结果，究其原因就是庞大而复杂的工作流！</p>
+
+<h2 id="section-2">设计不一致</h2>
+
+<p>在进行深度定制化的过程中，我们发现ITSM的各个模块在设计上存在严重的不一致性，而且冗余的设计不在少数，这对需要进行深度工作流跟踪造成的困难。开发人员对此抱怨不断。结果就是“宁可保留原有功能，只是简单的隐藏，也不去动它”。</p>
+
+<h2 id="bug">BUG不断</h2>
+
+<p>当一个系统的复杂度提升的时候，随之而来的一定是BUG的增多。BMC的ITSM产品也不例外，从安装到使用，BUG无处不在，有木有？</p>
+
+<p>一般产品都有相当完善的开发和测试流程，当然，相信BMC的产品也不例外。不过，我很难想象一个完全基于AR的应用如何进行基本的“单元测试”或“白盒测试”，如果只做集成测试的话，怎么保证产品的持续迭代。所以，就我个人理解，AR只适合开发一些简单的应用，大型复杂的应用还是需要考虑一下的。</p>
+
+<h2 id="section-3">售后支持乏力</h2>
+
+<p>我曾经跟很多支持人员打过交道，他们基本无法真正给予我们实际的帮助，总是无谓的要求我们提供各种日志，最后要求我们升级。最终，我们一般是自己研究发现问题并通过直接或间接的方式解决的。我很难想象，如果没有很扎实技术功底的实施人员如何解决问题的，无脑升级？对BMC的售后支持已经无力吐槽了，我发现不少技术支持没有什么扎实的技术基础，感觉仅仅是“熟读文档”。</p>
+
+<h2 id="section-4">升级困难</h2>
+
+<p>如果在定制化过程中介入产品较深的话，几乎无法对ITSM进行升级。因为，所谓的ITSM的升级就是导入表单、工作流，如果表单加过字段（基本上不可避免），如何接受其他途径的导入呢？</p>
+
+<h2 id="web">Web用户界面</h2>
+
+<p>用户界面也一直被人所诟病。在web高速发展的今天，bmc remedy那套早己过时，无论是响应速度还是操作方式早已不适用了。而且在浏览器竞争的大背景以及HTML5的风潮中，ITSM的界面在非IE浏览器下的糟糕表现已经让人受够了，冗余的js和html元素已经严重影响了用户的体验。但是话又说回来，我也是程序员，我也清楚在web上要实现所见即所得的开发方式有多难，看看微软的asp.net设计器才多少人用就知道了。抛开性能不说，BMC的mid-tier能够做到这样已经实属不易。</p>
+
+<p>本文没有别的意思，仅仅吐槽一下罢了！</p>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#BMC">
+					BMC <span>(8)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#Remedy">
+					Remedy <span>(7)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#ITSM">
+					ITSM <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/bmc/2013/02/26/bmc-remedy-construction.html" title="BMC Remedy 系统架构">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/bmc/2013/03/02/bmc-license.html" title="BMC AR license那些事儿">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

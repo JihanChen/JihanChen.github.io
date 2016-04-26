@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>BMC AR 指派引擎</title>
+	
+	<meta name="description" content="Assignment Engine指派引擎是AR的一个组件，可以有选择性的安装。指派引擎可以用来代替工作流实现自动指派功能，这种自动指派可以实现所谓了“负载均衡”，即将工单按照一定的策略自动分派给同一组的受派人，以满足一定意义上的平均分派。">
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>BMC AR 指派引擎 </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   March 
+	   7th,
+	   
+	   2013
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <h2 id="section">什么是指派引擎</h2>
+
+<p>假如有这样的需求：有一个业务组，组内有若干员工，他们需要在某个流程中处理一类工单，当工单数量达到一定数量，处理人员不够时，负责指派工单的人犯难了，组内的每个人都能完成这类工单，但是如何指派工单以使得大家的工作是相对比较平均的呢？因为分派员无法得知每个处理人员的工作量。在这种情况下，指派引擎就可以充当这个处理人了。</p>
+
+<p>Assignment Engine指派引擎是AR的一个组件，可以有选择性的安装。指派引擎可以用来代替工作流实现自动指派功能，这种自动指派可以实现所谓了“负载均衡”，即将工单按照一定的策略自动分派给同一组的受派人，以满足一定意义上的平均分派。</p>
+
+<p>在AR中，指派引擎是以进程的形式存在的（在windows下是<code class="highlighter-rouge">apsvcae.exe</code>）。在AR的Filter中需要Run Process来启动一个指派：</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">Application-Command AE-ASSIGN DoAssign -t <span class="s2">"processName"</span> -e <span class="s2">"RequestID"</span></code></pre></figure>
+
+<p>在这个调用中，需要两个参数：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">processName</code>：指定某个流程名，流程需要预先在配套的管理界面中添加和配置，下文会提到</li>
+  <li><code class="highlighter-rouge">RequestID</code>：工单的<code class="highlighter-rouge">RequestID</code></li>
+</ul>
+
+<p>事实上，指派引擎可以看作是AR的一个外挂程序，所以也就可以作为<code class="highlighter-rouge">Server Group</code>的一个可分离组件，可以被分离到其他AR的集群服务器上运行。armonitor在启动过程中会自动创建<code class="highlighter-rouge">apsvcae</code>的子进程。如果想要停止指派引擎，可以直接终止<code class="highlighter-rouge">apsvcae.exe</code>这个进程。</p>
+
+<h2 id="section-1">配置指派引擎</h2>
+
+<p>指派引擎在AR中，将添加少数几个表单，包括管理控制台、流程、规则等。这里不罗列表单细节，可以查看相关文档。<code class="highlighter-rouge">Assignment Engine Administration</code>是配置控制台，这里不打算详细介绍配置的细节，只从大方向上给予总结。</p>
+
+<p>在指派引擎中有下面几个概念：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Processes</code>流程：每一个流程能够包含一个工单和指派表单以及几种规则。在某种意义上说，流程就等同于工单表单，可以认为流程是工单的抽象表现形式，流程就是把工单和多种规则捆绑在一起。</li>
+  <li><code class="highlighter-rouge">Request Forms</code>工单表单：工单表单可以属于一个或多个流程，指派引擎以工单为单位，为工单设置指派。</li>
+  <li><code class="highlighter-rouge">Assignee Forms</code>指派表单：即人员表单，指派引擎会从这个表单中按照规则选取人员作为指派对象。</li>
+  <li><code class="highlighter-rouge">Rules</code>规则：即指派引擎在设置指派的时候需要遵循的规则，规则主要包括“指派算法”和“匹配规则”。指派算法在下文会提到，匹配规则实际上就是一个条件表达式，该条件用来在指派表单中选定一个人员范围，然后在这个人员范围内，根据算法选取指派对象。</li>
+</ul>
+
+<p>任何表单都可以成为工单表单和指派表单，只要在这些表单中添加一些特殊的字段，并配置到流程中即可工作。</p>
+
+<p><code class="highlighter-rouge">在指派表单中需要包含如下意义的字段</code>：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Assignee Unique ID</code>：即人员的唯一标识，可以是GUID或者RequestID</li>
+  <li><code class="highlighter-rouge">Number Assigned</code>：记录被指派次数的整形字段，用于实现指派算法</li>
+  <li><code class="highlighter-rouge">Capacity Rating</code>：人员可以同时处理工单的容量，比如设置10，表示某人员可以同时处理10个工单</li>
+  <li><code class="highlighter-rouge">Last Assigned Time</code>：最后被指派的时间</li>
+</ul>
+
+<p><code class="highlighter-rouge">在工单表单中需要包含如下意义的字段</code>：</p>
+
+<ul>
+  <li>Assignee Unique ID：即人员的唯一标识，指派引擎会将指派结果写入该字段</li>
+</ul>
+
+<p>除此之外还有还有一些可选字段可以出现在两种表单中，详见相关文档。下面给出一些配置界面的截图：</p>
+
+<p><img src="/assets/img/2013-03-07-img0.png" alt="" /></p>
+
+<p>配置Request Form</p>
+
+<p><img src="/assets/img/2013-03-07-img1.png" alt="" /></p>
+
+<p>配置Assignee Form</p>
+
+<p><img src="/assets/img/2013-03-07-img2.png" alt="" /></p>
+
+<p>配置Rule</p>
+
+<p><img src="/assets/img/2013-03-07-img3.png" alt="" /></p>
+
+<p>配置Process</p>
+
+<h2 id="section-2">指派引擎是如何工作的</h2>
+
+<p>首先，<code class="highlighter-rouge">Application-Command AE-ASSIGN DoAssign</code>在ARServer进程中执行，<code class="highlighter-rouge">arserver</code>通知<code class="highlighter-rouge">apsvcae</code>进程。注意此时apsvcae进程可以在另外的AR集群（Server Group）服务器上</p>
+
+<p><img src="/assets/img/2013-03-07-img4.png" alt="" /></p>
+
+<p>然后，<code class="highlighter-rouge">apsvcae</code>进程将执行如下一系列动作：</p>
+
+<ol>
+  <li>根据ProcessName查询相关的Request Form和Assignee Form，以及对应的Rules</li>
+  <li>根据Request Form的RequestId，查询该工单记录，并根据Rules中定义的匹配规则，从Assignee Form中过滤合适的人选</li>
+  <li>如果人选不止一个人，那么查询所有候选人的Number Assigned、Capacity Rating、Last Assigned Time</li>
+  <li>根据上述值和指定的指派算法，选择第一个符合条件的人，将其写入Request Form这条记录的Assignee Unique ID，并相应更新此人的Number Assigned、Last Assigned Time</li>
+</ol>
+
+<h2 id="section-3">指派算法</h2>
+
+<p>有三种内置的指派算法，可以在Rules中选择：</p>
+
+<ol>
+  <li>Round Robin：即最后一次被指派的时间越早的人员将被优先考虑，依赖Last Assigned Time字段</li>
+  <li>Load Balance by Number：根据当前被指派数，平均分配，依赖Number Assigned字段
+3.Load Balance by Capacity：根据人员的处理能力来分配，依赖Number Assigned和Capacity Rating字段。比如A员工设置Capacity Rating为10，当前Number Assigned为5，B员工设置Capacity Rating为20，当前Number Assigned为8，因为8/20&lt;5/10，所以会选择指派给B</li>
+</ol>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#BMC">
+					BMC <span>(8)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#BMC">
+					BMC <span>(6)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#Remedy">
+					Remedy <span>(7)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/bmc/2013/03/02/bmc-license.html" title="BMC AR license那些事儿">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/bmc/network/2013/05/05/bmc-portmapper-detail.html" title="从BMC AR Portmapper展开说去">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

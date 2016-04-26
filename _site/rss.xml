@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title></title>
+		<description>JihanChen Tech Space, share technology post</description>
+		<link>/</link>
+		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+		
+			<item>
+				<title>博客之旅</title>
+				<description>&lt;p&gt;我们写程序都是从hello world 开始的，每当学习一门新的语言我们总是尝试写出hello world，从今天开始建一个属于自己的博客，我对世界说hello world！&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 26 Apr 2016 00:00:00 +0800</pubDate>
+				<link>/life/2016/04/26/hello.html</link>
+				<guid isPermaLink="true">/life/2016/04/26/hello.html</guid>
+			</item>
+		
+	</channel>
+</rss>

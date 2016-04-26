@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>nginx配置技巧汇总</title>
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>nginx配置技巧汇总 </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   March 
+	   16th,
+	   
+	   2014
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <p>本文记录了一些nginx作为反向代理和文件服务器的配置技巧和解决方案，持续更新</p>
+
+<h2 id="nginx">Nginx作为文件服务</h2>
+
+<h3 id="section">避免浏览器自动播放文件</h3>
+
+<p>有时对于图片、视频，浏览器会视能力，自动为用户显示或播放。这主要是由于Web服务器在返回文件本身数据的同时，返回了一些特殊的MIME类型，比如：<code class="highlighter-rouge">image/jpeg</code>（JPEG图像）,<code class="highlighter-rouge">application/pdf</code>（PDF文档）,<code class="highlighter-rouge">video/mpeg</code>（MPEG动画）。这些MIMIE类型实际上是告诉浏览器，文件数据到底是什么，这样浏览器就能更好的为用户展示数据。现在像图片、pdf、甚至是视频基本都是可以直接在浏览器中展示和播放的。但是有时，我们需要浏览器为用户下载文件而不是直接播放，而Nginx在默认配置下，会根据文件的后缀来匹配相应的MIME类型，并写入Response header，导致浏览器播放文件而不是下载，这时需要通过配置让Nginx返回的MIME类型为下面这个类型：</p>
+
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">application/octet-stream</span></code></pre></figure>
+
+<p>这个类型会让浏览器认为响应是普通的文件流，并提示用户下载文件。可以通过在Nginx的配置文件中做如下配置达到这样的目的：</p>
+
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="n">/download/</span> <span class="p">{</span>
+    <span class="kn">types</span>        <span class="p">{</span> <span class="p">}</span>
+    <span class="kn">default_type</span> <span class="nc">application/octet-stream</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>这样当Url路径中包含<code class="highlighter-rouge">/download/</code>时，MIME类型会被重置为<code class="highlighter-rouge">application/octet-stream</code>。另外，nginx自带的MIME类型映射表保存在<code class="highlighter-rouge">conf/mime.types</code>中。</p>
+
+<h3 id="section-1">文件上传大小限制放开</h3>
+
+<p>有的时候后端的Web-Server提供文件上传的服务，但是如果前端使用Nginx做反向代理时，会出现文件无法上传的问题，这可能是由于Ngxin默认对客户端请求的body的限制。因为，默认情况下Nginx对客户端请求的大小限制是1m，而上传的文件往往超过1m。可以通过修改如下配置项，来放宽这个限制：</p>
+
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">client_max_body_size</span> <span class="mi">10m</span><span class="p">;</span></code></pre></figure>
+
+<p>将这个值设置为0，可以取消这个限制。这个配置项可以用在<code class="highlighter-rouge">http</code>, <code class="highlighter-rouge">server</code>, <code class="highlighter-rouge">location</code>配置节中。详见<a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size">client_max_body_size</a></p>
+
+<h3 id="section-2">下载文件重命名</h3>
+
+<p>通常情况下，为了保证用户上传的文件在服务器的文件系统中不至于重名，一般会将文件名修改成guid后保存，并在数据库中保持guid与文件名的映射。此时，如果使用Nginx来提供对这些用户文件的下载功能的话，文件下载到用户浏览器，会以文件的guid名作为文件名，这显然是用户不想看到的。可以考虑用这个方案。
+假设我们有一个文件的原始文件名为<code class="highlighter-rouge">test.txt</code>，对应的guid文件名是<code class="highlighter-rouge">21EC2020-3AEA-1069-A2DD-08002B30309D.txt</code>，文件的虚拟路径是<code class="highlighter-rouge">/download/</code></p>
+
+<p>使用服务器端编程语言，在输出的html中使用如下链接提供文件的下载：</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/download/21EC2020-3AEA-1069-A2DD-08002B30309D.txt?n=test.txt"</span> <span class="na">target=</span><span class="s">'_blank'</span><span class="nt">&gt;</span>下载test.txt<span class="nt">&lt;/a&gt;</span></code></pre></figure>
+
+<p>可以看到，将原始文件名以QueryString的方式带在请求中，这样可以在Nginx端，利用<code class="highlighter-rouge">$arg_name</code>变量来取到这个QueryString的值，从而重写response header：</p>
+
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">add_header</span> <span class="s">Content-Disposition</span> <span class="s">"attachment</span><span class="p">;</span> <span class="k">filename=</span><span class="nv">$arg_n</span><span class="s">"</span><span class="p">;</span></code></pre></figure>
+
+<p>这会在response header中加入如下键值：</p>
+
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">Content-Disposition:</span> <span class="s">"attachment</span><span class="p">;</span> <span class="k">filename=test.txt"</span><span class="p">;</span></code></pre></figure>
+
+<p>经测试，无论是IE还是Chrome都可以支持这个header。</p>
+
+<blockquote>
+  <p>关于Content-Disposition，详见<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1">这里</a></p>
+
+  <p>关于Nginx的标准http模块的嵌入变量，详见<a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#variables">这里</a></p>
+</blockquote>
+
+<h3 id="flv">提供flv视频播放</h3>
+
+<p>使用<code class="highlighter-rouge">jwplayer</code>+<code class="highlighter-rouge">Nginx</code>能够实现视频在线播放，视频格式为flv。Nginx有一个flv模块<a href="http://nginx.org/en/docs/http/ngx_http_flv_module.html">ngx_http_flv_module</a>，能够支持flv视频的快进播放。在安装Nginx的时候可能需要手动添加<code class="highlighter-rouge">--with-http_flv_module</code>，不过笔者使用的yum安装，自动带上了这个模块。</p>
+
+<p>其实从这个模块的文档中可以看到，它只是能够处理<code class="highlighter-rouge">start</code>的带参数http请求，需要像下面这样配置：</p>
+
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="p">~</span> <span class="sr">\.flv</span> <span class="p">{</span>
+	<span class="kn">root</span> <span class="n">/var/video</span><span class="p">;</span>
+	<span class="kn">flv</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>从客户端播放器的角度看，还需要配置播放器的一些参数，以jwplayer为例：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">jwplayer</span><span class="p">(</span><span class="s2">"flashContent"</span><span class="p">).</span><span class="nx">setup</span><span class="p">({</span>
+	<span class="na">flashplayer</span><span class="p">:</span> <span class="s2">"/jwplayer/player.swf"</span><span class="p">,</span>
+	<span class="na">height</span><span class="p">:</span> <span class="mi">270</span><span class="p">,</span>
+	<span class="na">width</span><span class="p">:</span> <span class="mi">480</span><span class="p">,</span>
+	<span class="na">file</span><span class="p">:</span> <span class="s2">"${file_url}.flv"</span><span class="p">,</span> <span class="c1">//flv文件路径</span>
+	<span class="na">image</span><span class="p">:</span><span class="s2">"${file_url}.jpg"</span><span class="p">,</span> <span class="c1">//缩略图</span>
+	<span class="na">streamer</span><span class="p">:</span><span class="s2">"start"</span><span class="p">,</span>
+	<span class="na">provider</span><span class="p">:</span> <span class="s2">"http"</span><span class="p">,</span> <span class="c1">//有时可能是type:"http"</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>这里的关键参数是<code class="highlighter-rouge">provider</code>，用来告诉jwplayer使用http方式请求视频(还有其他协议，比如<a href="http://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol">RTSP</a>)，<code class="highlighter-rouge">streamer</code>参数是配合Nginx支持的<code class="highlighter-rouge">start</code>参数来设置的。</p>
+
+<p>如果想要实现快进播放的话，还有一个关键点，就是视频需要包含有<strong>关键帧信息</strong>。关键帧信息其实就是一系列<code class="highlighter-rouge">时间点</code>+<code class="highlighter-rouge">byte位</code>。可以用<a href="http://yamdi.sourceforge.net/">yamdi</a>为flv注入关键帧:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">yamdi -i a_without_meta.flv -o b_with_meta.flv</code></pre></figure>
+
+<p>这样jwplayer能够根据快进的时间从关键帧信息中找到最近的关键帧的起始二进制点，并将这个byte作为start参数回传给Nginx。如果关键帧信息越密集的话，越占空间，但是快进也能够越精确：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//刚开始播放的时候，产生的http：</span>
+<span class="p">...</span><span class="o">/</span><span class="nx">b_with_meta</span><span class="p">.</span><span class="nx">flv</span><span class="p">?</span><span class="nx">start</span><span class="o">=</span><span class="mi">0</span>
+<span class="c1">//用户快进后，产生的http：</span>
+<span class="p">...</span><span class="o">/</span><span class="nx">b_with_meta</span><span class="p">.</span><span class="nx">flv</span><span class="p">?</span><span class="nx">start</span><span class="o">=</span><span class="mi">37682252</span></code></pre></figure>
+
+<h3 id="section-3">附件批量打包下载</h3>
+
+<p>利用第三方模块<a href="https://github.com/evanmiller/mod_zip">mod_zip</a>。详见<a href="/open-source/2014/07/28/nginx-mod-zip.html">利用Nginx第三方模块，实现附件打包下载</a></p>
+
+<h2 id="nginx-1">Nginx作为反向代理</h2>
+
+<h3 id="ip">一个IP多个域名</h3>
+
+<p>如果只有一个公网IP，但是网站功能需要划分为多个不同的子网站或者子域名，可以用Nginx来搭建反向代理来“复用”IP资源。假设有如下几个域名都是abc.com这个主域的：</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">www.abc.com
+image.abc.com
+video.abc.com</code></pre></figure>
+
+<ol>
+  <li>首先在DNS出注册这3个域名同时指向同一个IP，Nginx作为前端的web服务器，让所有访问这个IP地址80端口的请求全部指向Nginx</li>
+  <li>然后，配置Nginx，根据域名将请求转发转发给内网的上游服务器，例如下面的配置：</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="s">www.abc.com</span><span class="p">;</span>
+    <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+            <span class="kn">proxy_pass</span> <span class="s">http://192.168.1.100</span><span class="p">;</span>
+    <span class="p">}</span>
+ <span class="p">}</span>
+
+<span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="s">image.abc.com</span><span class="p">;</span>
+    <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+            <span class="kn">alias</span> <span class="n">/var/www/image</span><span class="p">;</span>
+    <span class="p">}</span>
+ <span class="p">}</span>
+
+<span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="s">video.abc.com</span><span class="p">;</span>
+    <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+            <span class="kn">proxy_pass</span> <span class="s">http://192.168.1.100:8081/video</span><span class="p">;</span>
+    <span class="p">}</span>
+ <span class="p">}</span></code></pre></figure>
+
+<p>在上述配置中，将三个域名分发给了不同的模块处理：</p>
+
+<ol>
+  <li><code class="highlighter-rouge">www.abc.com</code> 分发给上游的http://192.168.1.100服务器处理</li>
+  <li><code class="highlighter-rouge">image.abc.com</code> 则直接映射到了Nginx本机的一个目录</li>
+  <li><code class="highlighter-rouge">video.abc.com</code> 分发给上游的http://192.168.1.100:8081/video服务器处理（video是上游web-server的某虚拟目录)</li>
+</ol>
+
+<h3 id="section-4">上游服务器超时</h3>
+<p>Nginx作为反向代理的时候，如果上游服务器处理时间过长的话，有时会返回504网关超时，从nginx的错误日志看出如果是upstream timed out，就表示是上游服务器处理时间过长，Nginx认为服务超时。Nginx在请求上游服务器时默认的超时时间为1分钟，可以通过调整<code class="highlighter-rouge">proxy_read_timeout</code>属性增加这个超时时间</p>
+
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">proxy_read_timeout</span>	<span class="s">180s</span><span class="p">;</span></code></pre></figure>
+
+<h3 id="header">默认的header过滤</h3>
+<p>Nginx默认对客户端的http请求进行很多验证，其中容易忽视的是header的验证，默认由下面两个配置节控制：</p>
+
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">underscores_in_headers</span> <span class="no">on</span><span class="s">|off</span><span class="p">;</span>
+<span class="k">ignore_invalid_headers</span> <span class="no">on</span><span class="s">|off</span><span class="p">;</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">underscores_in_headers off</code>表示对包含有下划线(_)的header认为是<strong>不合法的</strong>，而<code class="highlighter-rouge">ignore_invalid_headers on</code>则表示对于<strong>不合法的header都过滤掉（无视掉）</strong>。如果在客户端自定义header的话，要注意尽量不要包含下划线，否则会碰到被Nginx过滤掉的问题。如果不可避免的要使用下划线的话，就考虑配置成这样的组合：</p>
+
+<figure class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">underscores_in_headers</span> <span class="no">on</span><span class="p">;</span>
+<span class="k">ignore_invalid_headers</span> <span class="no">off</span><span class="p">;</span></code></pre></figure>
+
+<p>可以把上面的配置节设置在<code class="highlighter-rouge">http</code>或者<code class="highlighter-rouge">server</code>段中。</p>
+
+<p>对于排查这个问题，可以通过将错误日志的告警级别调整到debug，并查看error日志，一般错误日志里面会包含有类似这样的信息</p>
+
+<blockquote>
+  <p>…client sent invalid header line:…</p>
+</blockquote>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#web">
+					web <span>(3)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#web-server">
+					web-server <span>(3)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#nginx">
+					nginx <span>(4)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/javascript/2014/03/13/javascript-template-engine.html" title="javascript模板引擎和实现原理">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/javascript/2014/03/21/asp-net-mvc-build-by-grunt.html" title="grunt和使用grunt发布ASP.NET MVC项目">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

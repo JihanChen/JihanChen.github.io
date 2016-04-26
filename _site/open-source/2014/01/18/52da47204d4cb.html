@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>【译】Python Lex Yacc手册</title>
+	
+	<meta name="description" content="PLY是基于Python的lex和yacc实现，由David Beazley开发并维护。相比C语言版的lex和yacc，发挥了Python的语言特点，使得开发类似编译器或解释器变得更轻松。">
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>【译】Python Lex Yacc手册 </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   January 
+	   18th,
+	   
+	   2014
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <p>本文是<a href="http://www.dabeaz.com/ply/ply.html">PLY</a> (Python Lex-Yacc)的中文翻译版。转载请注明出处。</p>
+
+<p>如果你从事编译器或解析器的开发工作，你可能对lex和yacc不会陌生，<a href="http://www.dabeaz.com/ply/">PLY</a>是David Beazley实现的基于Python的lex和yacc。作者最著名的成就可能是其撰写的Python Cookbook, 3rd Edition。我因为偶然的原因接触了PLY，觉得是个好东西，但是似乎国内没有相关的资料。于是萌生了翻译的想法，虽然内容不算多，但是由于能力有限，很多概念不了解，还专门补习了编译原理，这对我有很大帮助。为了完成翻译，经过初译，复审，排版等，花费我很多时间，最终还是坚持下来了，希望对需要的人有所帮助。另外，第一次大规模翻译英文，由于水平有限，如果错误或者不妥的地方还请指正，非常感谢。</p>
+
+<h2 id="section">0 一些翻译约定</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>token</td>
+      <td>标记</td>
+    </tr>
+    <tr>
+      <td>context free grammar</td>
+      <td>上下文无关文法</td>
+    </tr>
+    <tr>
+      <td>syntax directed translation</td>
+      <td>语法制导的翻译</td>
+    </tr>
+    <tr>
+      <td>ambiguity</td>
+      <td>二义</td>
+    </tr>
+    <tr>
+      <td>terminals</td>
+      <td>终结符</td>
+    </tr>
+    <tr>
+      <td>non-terminals</td>
+      <td>非终结符</td>
+    </tr>
+    <tr>
+      <td>documentation string</td>
+      <td>文档字符串（python中的<code class="highlighter-rouge">_docstring_</code>）</td>
+    </tr>
+    <tr>
+      <td>shift-reduce</td>
+      <td>移进-归约</td>
+    </tr>
+    <tr>
+      <td>Empty Productions</td>
+      <td>空产生式</td>
+    </tr>
+    <tr>
+      <td>Panic mode recovery</td>
+      <td>悲观恢复模式</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="section-1">1 前言和预备</h2>
+
+<p>本文指导你使用PLY进行词法分析和语法解析的，鉴于解析本身是个复杂性的事情，在你使用PLY投入大规模的开发前，我强烈建议你完整地阅读或者浏览本文档。</p>
+
+<p>PLY-3.0能同时兼容<code class="highlighter-rouge">Python2</code>和<code class="highlighter-rouge">Python3</code>。需要注意的是，对于Python3的支持是新加入的，还没有广泛的测试（尽管所有的例子和单元测试都能够在Pythone3下通过）。如果你使用的是Python2，应该使用Python2.4以上版本，虽然，PLY最低能够支持到Python2.2，不过一些可选的功能需要新版本模块的支持。</p>
+
+<h2 id="section-2">2 介绍</h2>
+
+<p>PLY是纯粹由Python实现的Lex和yacc（流行的编译器构建工具）。PLY的设计目标是尽可能的沿袭传统lex和yacc工具的工作方式，包括支持LALR(1)分析法、提供丰富的输入验证、错误报告和诊断。因此，如果你曾经在其他编程语言下使用过yacc，你应该能够很容易的迁移到PLY上。</p>
+
+<p>2001年，我在芝加哥大学教授“编译器简介”课程时开发了的早期的PLY。学生们使用Python和PLY构建了一个类似Pascal的语言的完整编译器，其中的语言特性包括：词法分析、语法分析、类型检查、类型推断、嵌套作用域，并针对SPARC处理器生成目标代码等。最终他们大约实现了30种不同的编译器！PLY在接口设计上影响使用的问题也被学生们所提出。从2001年以来，PLY继续从用户的反馈中不断改进。为了适应对未来的改进需求，PLY3.0在原来基础上进行了重大的重构。</p>
+
+<p>由于PLY是作为教学工具来开发的，你会发现它对于标记和语法规则是相当严谨的，这一定程度上是为了帮助新手用户找出常见的编程错误。不过，高级用户也会发现这有助于处理真实编程语言的复杂语法。还需要注意的是，PLY没有提供太多花哨的东西（例如，自动构建抽象语法树和遍历树），我也不认为它是个分析框架。相反，你会发现它是一个用Python实现的，基本的，但能够完全胜任的lex/yacc。</p>
+
+<p>本文的假设你多少熟悉分析理论、语法制导的翻译、基于其他编程语言使用过类似lex和yacc的编译器构建工具。如果你对这些东西不熟悉，你可能需要先去一些书籍中学习一些基础，比如：Aho, Sethi和Ullman的《Compilers: Principles, Techniques, and Tools》（《编译原理》），和O’Reilly’出版的John Levine的《lex and yacc》。事实上，《lex and yacc》和PLY使用的概念几乎相同。</p>
+
+<h2 id="ply">3 PLY概要</h2>
+
+<p>PLY包含两个独立的模块：<code class="highlighter-rouge">lex.py</code>和<code class="highlighter-rouge">yacc.py</code>，都定义在ply包下。lex.py模块用来将输入字符通过一系列的正则表达式分解成标记序列，yacc.py通过一些上下文无关的文法来识别编程语言语法。yacc.py使用LR解析法，并使用LALR(1)算法（默认）或者SLR算法生成分析表。</p>
+
+<p>这两个工具是为了一起工作的。lex.py通过向外部提供<code class="highlighter-rouge">token()</code>方法作为接口，方法每次会从输入中返回下一个有效的标记。yacc.py将会不断的调用这个方法来获取标记并匹配语法规则。yacc.py的的功能通常是生成抽象语法树(<code class="highlighter-rouge">AST</code>)，不过，这完全取决于用户，如果需要，yacc.py可以直接用来完成简单的翻译。</p>
+
+<p>就像相应的unix工具，yacc.py提供了大多数你期望的特性，其中包括：丰富的错误检查、语法验证、支持空产生式、错误的标记、通过优先级规则解决二义性。事实上，传统yacc能够做到的PLY都应该支持。</p>
+
+<p>yacc.py与Unix下的yacc的主要不同之处在于，yacc.py没有包含一个独立的代码生成器，而是在PLY中依赖反射来构建词法分析器和语法解析器。不像传统的lex/yacc工具需要一个独立的输入文件，并将之转化成一个源文件，Python程序必须是一个可直接可用的程序，这意味着不能有额外的源文件和特殊的创建步骤（像是那种执行yacc命令来生成Python代码）。又由于生成分析表开销较大，PLY会缓存生成的分析表，并将它们保存在独立的文件中，除非源文件有变化，会重新生成分析表，否则将从缓存中直接读取。</p>
+
+<h2 id="lex">4 Lex</h2>
+
+<p><code class="highlighter-rouge">lex.py</code>是用来将输入字符串标记化。例如，假设你正在设计一个编程语言，用户的输入字符串如下：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">x</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">42</span> <span class="o">*</span> <span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span></code></pre></figure>
+
+<p>标记器将字符串分割成独立的标记：</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">'x','=', '3', '+', '42', '*', '(', 's', '-', 't', ')'</code></pre></figure>
+
+<p>标记通常用一组名字来命名和表示：</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">'ID','EQUALS','NUMBER','PLUS','NUMBER','TIMES','LPAREN','ID','MINUS','ID','RPAREN'</code></pre></figure>
+
+<p>将标记名和标记值本身组合起来：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="s">'ID'</span><span class="p">,</span><span class="s">'x'</span><span class="p">),</span> <span class="p">(</span><span class="s">'EQUALS'</span><span class="p">,</span><span class="s">'='</span><span class="p">),</span> <span class="p">(</span><span class="s">'NUMBER'</span><span class="p">,</span><span class="s">'3'</span><span class="p">),(</span><span class="s">'PLUS'</span><span class="p">,</span><span class="s">'+'</span><span class="p">),</span> <span class="p">(</span><span class="s">'NUMBER'</span><span class="p">,</span><span class="s">'42), ('</span><span class="n">TIMES</span><span class="s">','</span><span class="o">*</span><span class="s">'),('</span><span class="n">LPAREN</span><span class="s">','</span><span class="p">(</span><span class="s">'), ('</span><span class="n">ID</span><span class="s">','</span><span class="n">s</span><span class="s">'),('</span><span class="n">MINUS</span><span class="s">','</span><span class="o">-</span><span class="s">'),('</span><span class="n">ID</span><span class="s">','</span><span class="n">t</span><span class="s">'), ('</span><span class="n">RPAREN</span><span class="s">','</span><span class="p">)</span></code></pre></figure>
+
+<p>正则表达式是描述标记规则的典型方法，下一节展示如何用lex.py实现。</p>
+
+<h3 id="lex-1">4.1 Lex的例子</h3>
+
+<p>下面的例子展示了如何使用lex.py对输入进行标记</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># ------------------------------------------------------------</span>
+<span class="c"># calclex.py</span>
+<span class="c">#</span>
+<span class="c"># tokenizer for a simple expression evaluator for</span>
+<span class="c"># numbers and +,-,*,/</span>
+<span class="c"># ------------------------------------------------------------</span>
+<span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
+
+<span class="c"># List of token names.   This is always required</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="p">(</span>
+   <span class="s">'NUMBER'</span><span class="p">,</span>
+   <span class="s">'PLUS'</span><span class="p">,</span>
+   <span class="s">'MINUS'</span><span class="p">,</span>
+   <span class="s">'TIMES'</span><span class="p">,</span>
+   <span class="s">'DIVIDE'</span><span class="p">,</span>
+   <span class="s">'LPAREN'</span><span class="p">,</span>
+   <span class="s">'RPAREN'</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c"># Regular expression rules for simple tokens</span>
+<span class="n">t_PLUS</span>    <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">+'</span>
+<span class="n">t_MINUS</span>   <span class="o">=</span> <span class="s">r'-'</span>
+<span class="n">t_TIMES</span>   <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">*'</span>
+<span class="n">t_DIVIDE</span>  <span class="o">=</span> <span class="s">r'/'</span>
+<span class="n">t_LPAREN</span>  <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">('</span>
+<span class="n">t_RPAREN</span>  <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">)'</span>
+
+<span class="c"># A regular expression rule with some action code</span>
+<span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>    
+    <span class="k">return</span> <span class="n">t</span>
+
+<span class="c"># Define a rule so we can track line numbers</span>
+<span class="k">def</span> <span class="nf">t_newline</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">n+'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+<span class="c"># A string containing ignored characters (spaces and tabs)</span>
+<span class="n">t_ignore</span>  <span class="o">=</span> <span class="s">' </span><span class="se">\t</span><span class="s">'</span>
+
+<span class="c"># Error handling rule</span>
+<span class="k">def</span> <span class="nf">t_error</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">"Illegal character '</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c"># Build the lexer</span>
+<span class="n">lexer</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">()</span></code></pre></figure>
+
+<p>为了使lexer工作，你需要给定一个输入，并传递给<code class="highlighter-rouge">input()</code>方法。然后，重复调用<code class="highlighter-rouge">token()</code>方法来获取标记序列，下面的代码展示了这种用法：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Test it out</span>
+<span class="n">data</span> <span class="o">=</span> <span class="s">'''
+3 + 4 * 10
+  + -20 *2
+'''</span>
+
+<span class="c"># Give the lexer some input</span>
+<span class="n">lexer</span><span class="o">.</span><span class="nb">input</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c"># Tokenize</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">tok</span> <span class="o">=</span> <span class="n">lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tok</span><span class="p">:</span> <span class="k">break</span>      <span class="c"># No more input</span>
+    <span class="k">print</span> <span class="n">tok</span></code></pre></figure>
+
+<p>程序执行，将给出如下输出：</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ python example.py
+LexToken(NUMBER,3,2,1)
+LexToken(PLUS,'+',2,3)
+LexToken(NUMBER,4,2,5)
+LexToken(TIMES,'*',2,7)
+LexToken(NUMBER,10,2,10)
+LexToken(PLUS,'+',3,14)
+LexToken(MINUS,'-',3,16)
+LexToken(NUMBER,20,3,18)
+LexToken(TIMES,'*',3,20)
+LexToken(NUMBER,2,3,21)</code></pre></figure>
+
+<p>Lexers也同时支持迭代，你可以把上面的循环写成这样：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">lexer</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">tok</span></code></pre></figure>
+
+<p>由lexer.token()方法返回的标记是LexToken类型的实例，拥有<code class="highlighter-rouge">tok.type</code>,<code class="highlighter-rouge">tok.value</code>,<code class="highlighter-rouge">tok.lineno</code>和<code class="highlighter-rouge">tok.lexpos</code>属性，下面的代码展示了如何访问这些属性：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Tokenize</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">tok</span> <span class="o">=</span> <span class="n">lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tok</span><span class="p">:</span> <span class="k">break</span>      <span class="c"># No more input</span>
+    <span class="k">print</span> <span class="n">tok</span><span class="o">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">tok</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">tok</span><span class="o">.</span><span class="n">line</span><span class="p">,</span> <span class="n">tok</span><span class="o">.</span><span class="n">lexpos</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">tok.type</code>和<code class="highlighter-rouge">tok.value</code>属性表示标记本身的类型和值。<code class="highlighter-rouge">tok.line</code>和<code class="highlighter-rouge">tok.lexpos</code>属性包含了标记的位置信息，<code class="highlighter-rouge">tok.lexpos</code>表示标记相对于输入串起始位置的偏移。</p>
+
+<h3 id="section-3">4.2 标记列表</h3>
+
+<p>词法分析器必须提供一个标记的列表，这个列表将所有可能的标记告诉分析器，用来执行各种验证，同时也提供给yacc.py作为终结符。</p>
+
+<p>在上面的例子中，是这样给定标记列表的：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">tokens</span> <span class="o">=</span> <span class="p">(</span>
+   <span class="s">'NUMBER'</span><span class="p">,</span>
+   <span class="s">'PLUS'</span><span class="p">,</span>
+   <span class="s">'MINUS'</span><span class="p">,</span>
+   <span class="s">'TIMES'</span><span class="p">,</span>
+   <span class="s">'DIVIDE'</span><span class="p">,</span>
+   <span class="s">'LPAREN'</span><span class="p">,</span>
+   <span class="s">'RPAREN'</span><span class="p">,</span>
+<span class="p">)</span></code></pre></figure>
+
+<h3 id="section-4">4.3 标记的规则</h3>
+
+<p>每种标记用一个正则表达式规则来表示，每个规则需要以”t_“开头声明，表示该声明是对标记的规则定义。对于简单的标记，可以定义成这样（在Python中使用raw string能比较方便的书写正则表达式）：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t_PLUS</span> <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">+'</span></code></pre></figure>
+
+<p>这里，紧跟在t_后面的单词，必须跟标记列表中的某个标记名称对应。如果需要执行动作的话，规则可以写成一个方法。例如，下面的规则匹配数字字串，并且将匹配的字符串转化成Python的整型：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t</span></code></pre></figure>
+
+<p>如果使用方法的话，正则表达式写成方法的文档字符串。方法总是需要接受一个LexToken实例的参数，该实例有一个t.type的属性（字符串表示）来表示标记的类型名称，t.value是标记值（匹配的实际的字符串），t.lineno表示当前在源输入串中的作业行，t.lexpos表示标记相对于输入串起始位置的偏移。默认情况下，t.type是以t_开头的变量或方法的后面部分。方法可以在方法体里面修改这些属性。但是，如果这样做，应该返回结果token，否则，标记将被丢弃。</p>
+
+<p>在lex内部，lex.py用<code class="highlighter-rouge">re</code>模块处理模式匹配，在构造最终的完整的正则式的时候，用户提供的规则按照下面的顺序加入：</p>
+
+<ol>
+  <li>所有由方法定义的标记规则，按照他们的出现顺序依次加入</li>
+  <li>由字符串变量定义的标记规则按照其正则式长度倒序后，依次加入（长的先入）</li>
+  <li>顺序的约定对于精确匹配是必要的。比如，如果你想区分‘=’和‘==’，你需要确保‘==’优先检查。如果用字符串来定义这样的表达式的话，通过将较长的正则式先加入，可以帮助解决这个问题。用方法定义标记，可以显示地控制哪个规则优先检查。</li>
+</ol>
+
+<p>为了处理保留字，你应该写一个单一的规则来匹配这些标识，并在方法里面作特殊的查询：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">reserved</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s">'if'</span> <span class="p">:</span> <span class="s">'IF'</span><span class="p">,</span>
+   <span class="s">'then'</span> <span class="p">:</span> <span class="s">'THEN'</span><span class="p">,</span>
+   <span class="s">'else'</span> <span class="p">:</span> <span class="s">'ELSE'</span><span class="p">,</span>
+   <span class="s">'while'</span> <span class="p">:</span> <span class="s">'WHILE'</span><span class="p">,</span>
+   <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="s">'LPAREN'</span><span class="p">,</span><span class="s">'RPAREN'</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s">'ID'</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">reserved</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">t_ID</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'[a-zA-Z_][a-zA-Z_0-9]*'</span>
+    <span class="n">t</span><span class="o">.</span><span class="nb">type</span> <span class="o">=</span> <span class="n">reserved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="s">'ID'</span><span class="p">)</span>    <span class="c"># Check for reserved words</span>
+    <span class="k">return</span> <span class="n">t</span></code></pre></figure>
+
+<p>这样做可以大大减少正则式的个数，并稍稍加快处理速度。注意：你应该避免为保留字编写单独的规则，例如，如果你像下面这样写：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t_FOR</span>   <span class="o">=</span> <span class="s">r'for'</span>
+<span class="n">t_PRINT</span> <span class="o">=</span> <span class="s">r'print'</span></code></pre></figure>
+
+<p>但是，这些规则照样也能够匹配以这些字符开头的单词，比如’forget’或者’printed’，这通常不是你想要的。</p>
+
+<h3 id="section-5">4.4 标记的值</h3>
+
+<p>标记被lex返回后，它们的值被保存在<code class="highlighter-rouge">value</code>属性中。正常情况下，value是匹配的实际文本。事实上，value可以被赋为任何Python支持的类型。例如，当扫描到标识符的时候，你可能不仅需要返回标识符的名字，还需要返回其在符号表中的位置，可以像下面这样写：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">t_ID</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="c"># Look up symbol table information and return a tuple</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">symbol_lookup</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">t</span></code></pre></figure>
+
+<p>需要注意的是，不推荐用其他属性来保存值，因为yacc.py模块只会暴露出标记的value属性，访问其他属性会变得不自然。如果想保存多种属性，可以将元组、字典、或者对象实例赋给value。</p>
+
+<h3 id="section-6">4.5 丢弃标记</h3>
+
+<p>想丢弃像注释之类的标记，只要不返回value就行了，像这样：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">t_COMMENT</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">#.*'</span>
+    <span class="k">pass</span>
+    <span class="c"># No return value. Token discarded</span></code></pre></figure>
+
+<p>为标记声明添加”ignore_“前缀同样可以达到目的：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t_ignore_COMMENT</span> <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">#.*'</span></code></pre></figure>
+
+<p>如果有多种文本需要丢弃，建议使用方法来定义规则，因为方法能够提供更精确的匹配优先级控制（方法根据出现的顺序，而字符串的正则表达式依据正则表达式的长度）</p>
+
+<h3 id="section-7">4.6 行号和位置信息</h3>
+
+<p>默认情况下，lex.py对行号一无所知。因为lex.py根本不知道何为”行”的概念（换行符本身也作为文本的一部分）。不过，可以通过写一个特殊的规则来记录行号：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Define a rule so we can track line numbers</span>
+<span class="k">def</span> <span class="nf">t_newline</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">n+'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></code></pre></figure>
+
+<p>在这个规则中，当前lexer对象t.lexer的lineno属性被修改了，而且空行被简单的丢弃了，因为没有任何的返回。</p>
+
+<p>lex.py也不自动做列跟踪。但是，位置信息被记录在了每个标记对象的<code class="highlighter-rouge">lexpos</code>属性中，这样，就有可能来计算列信息了。例如：每当遇到新行的时候就重置列值：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Compute column. </span>
+<span class="c">#     input is the input text string</span>
+<span class="c">#     token is a token instance</span>
+<span class="k">def</span> <span class="nf">find_column</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span><span class="n">token</span><span class="p">):</span>
+    <span class="n">last_cr</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">token</span><span class="o">.</span><span class="n">lexpos</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">last_cr</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">last_cr</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">lexpos</span> <span class="o">-</span> <span class="n">last_cr</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">column</span></code></pre></figure>
+
+<p>通常，计算列的信息是为了指示上下文的错误位置，所以只在必要时有用。</p>
+
+<h3 id="section-8">4.7 忽略字符</h3>
+
+<p><code class="highlighter-rouge">t_ignore</code>规则比较特殊，是lex.py所保留用来忽略字符的，通常用来跳过空白或者不需要的字符。虽然可以通过定义像<code class="highlighter-rouge">t_newline()</code>这样的规则来完成相同的事情，不过使用t_ignore能够提供较好的词法分析性能，因为相比普通的正则式，它被特殊化处理了。</p>
+
+<h3 id="section-9">4.8 字面字符</h3>
+
+<p>字面字符可以通过在词法模块中定义一个<code class="highlighter-rouge">literals</code>变量做到，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">literals</span> <span class="o">=</span> <span class="p">[</span> <span class="s">'+'</span><span class="p">,</span><span class="s">'-'</span><span class="p">,</span><span class="s">'*'</span><span class="p">,</span><span class="s">'/'</span> <span class="p">]</span></code></pre></figure>
+
+<p>或者</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">literals</span> <span class="o">=</span> <span class="s">"+-*/"</span></code></pre></figure>
+
+<p>字面字符是指单个字符，表示把字符本身作为标记，标记的<code class="highlighter-rouge">type</code>和<code class="highlighter-rouge">value</code>都是字符本身。不过，字面字符是在其他正则式之后被检查的，因此如果有规则是以这些字符开头的，那么这些规则的优先级较高。</p>
+
+<h3 id="section-10">4.9 错误处理</h3>
+
+<p>最后，在词法分析中遇到非法字符时，<code class="highlighter-rouge">t_error()</code>用来处理这类错误。这种情况下，<code class="highlighter-rouge">t.value</code>包含了余下还未被处理的输入字串，在之前的例子中，错误处理方法是这样的：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Error handling rule</span>
+<span class="k">def</span> <span class="nf">t_error</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">"Illegal character '</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></code></pre></figure>
+
+<p>这个例子中，我们只是简单的输出不合法的字符，并且通过调用<code class="highlighter-rouge">t.lexer.skip(1)</code>跳过一个字符。</p>
+
+<h3 id="lexer">4.10 构建和使用lexer</h3>
+
+<p>函数<code class="highlighter-rouge">lex.lex()</code>使用Python的反射机制读取调用上下文中的正则表达式，来创建lexer。lexer一旦创建好，有两个方法可以用来控制lexer对象：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">lexer.input(data)</code> 重置lexer和输入字串</li>
+  <li><code class="highlighter-rouge">lexer.token()</code> 返回下一个LexToken类型的标记实例，如果进行到输入字串的尾部时将返回<code class="highlighter-rouge">None</code></li>
+</ul>
+
+<p>推荐直接在lex()函数返回的lexer对象上调用上述接口，尽管也可以向下面这样用模块级别的lex.input()和lex.token()：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">()</span>
+<span class="n">lex</span><span class="o">.</span><span class="nb">input</span><span class="p">(</span><span class="n">sometext</span><span class="p">)</span>
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">tok</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tok</span><span class="p">:</span> <span class="k">break</span>
+    <span class="k">print</span> <span class="n">tok</span></code></pre></figure>
+
+<p>在这个例子中，lex.input()和lex.token()是模块级别的方法，在lex模块中，input()和token()方法绑定到最新创建的lexer对象的对应方法上。最好不要这样用，因为这种接口可能不知道在什么时候就失效（译者注：垃圾回收？）</p>
+
+<h3 id="token">4.11 @TOKEN装饰器</h3>
+
+<p>在一些应用中，你可能需要定义一系列辅助的记号来构建复杂的正则表达式，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">digit</span>            <span class="o">=</span> <span class="s">r'([0-9])'</span>
+<span class="n">nondigit</span>         <span class="o">=</span> <span class="s">r'([_A-Za-z])'</span>
+<span class="n">identifier</span>       <span class="o">=</span> <span class="s">r'('</span> <span class="o">+</span> <span class="n">nondigit</span> <span class="o">+</span> <span class="s">r'('</span> <span class="o">+</span> <span class="n">digit</span> <span class="o">+</span> <span class="s">r'|'</span> <span class="o">+</span> <span class="n">nondigit</span> <span class="o">+</span> <span class="s">r')*)'</span>        
+
+<span class="k">def</span> <span class="nf">t_ID</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="c"># want docstring to be identifier above. ?????</span>
+    <span class="o">...</span></code></pre></figure>
+
+<p>在这个例子中，我们希望ID的规则引用上面的已有的变量。然而，使用文档字符串无法做到，为了解决这个问题，你可以使用<code class="highlighter-rouge">@TOKEN</code>装饰器：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">ply.lex</span> <span class="kn">import</span> <span class="n">TOKEN</span>
+
+<span class="nd">@TOKEN</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">t_ID</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="o">...</span></code></pre></figure>
+
+<p>装饰器可以将identifier关联到t_ID()的文档字符串上以使lex.py正常工作，一种等价的做法是直接给文档字符串赋值：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">t_ID</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="n">t_ID</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">identifier</span></code></pre></figure>
+
+<p>注意：@TOKEN装饰器需要Python-2.4以上的版本。如果你在意老版本Python的兼容性问题，使用上面的等价办法。</p>
+
+<h3 id="section-11">4.12 优化模式</h3>
+
+<p>为了提高性能，你可能希望使用Python的优化模式（比如，使用-o选项执行Python）。然而，这样的话，Python会忽略文档字串，这是lex.py的特殊问题，可以通过在创建lexer的时候使用optimize选项：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lexer</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">optimize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code></pre></figure>
+
+<p>接着，用Python常规的模式运行，这样，lex.py会在当前目录下创建一个lextab.py文件，这个文件会包含所有的正则表达式规则和词法分析阶段的分析表。然后，lextab.py可以被导入用来构建lexer。这种方法大大改善了词法分析程序的启动时间，而且可以在Python的优化模式下工作。</p>
+
+<p>想要更改生成的文件名，使用如下参数：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lexer</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">optimize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">lextab</span><span class="o">=</span><span class="s">"footab"</span><span class="p">)</span></code></pre></figure>
+
+<p>在优化模式下执行，需要注意的是lex会被禁用大多数的错误检查。因此，建议只在确保万事俱备准备发布最终代码时使用。</p>
+
+<h3 id="section-12">4.13 调试</h3>
+
+<p>如果想要调试，可以使lex()运行在调试模式：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lexer</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code></pre></figure>
+
+<p>这将打出一些调试信息，包括添加的规则、最终的正则表达式和词法分析过程中得到的标记。</p>
+
+<p>除此之外，lex.py有一个简单的主函数，不但支持对命令行参数输入的字串进行扫描，还支持命令行参数指定的文件名：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+     <span class="n">lex</span><span class="o">.</span><span class="n">runmain</span><span class="p">()</span></code></pre></figure>
+
+<p>想要了解高级调试的详情，请移步至最后的高级调试部分。</p>
+
+<h3 id="section-13">4.14 其他方式定义词法规则</h3>
+
+<p>上面的例子，词法分析器都是在单个的Python模块中指定的。如果你想将标记的规则放到不同的模块，使用module关键字参数。例如，你可能有一个专有的模块，包含了标记的规则：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># module: tokrules.py</span>
+<span class="c"># This module just contains the lexing rules</span>
+
+<span class="c"># List of token names.   This is always required</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="p">(</span>
+   <span class="s">'NUMBER'</span><span class="p">,</span>
+   <span class="s">'PLUS'</span><span class="p">,</span>
+   <span class="s">'MINUS'</span><span class="p">,</span>
+   <span class="s">'TIMES'</span><span class="p">,</span>
+   <span class="s">'DIVIDE'</span><span class="p">,</span>
+   <span class="s">'LPAREN'</span><span class="p">,</span>
+   <span class="s">'RPAREN'</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c"># Regular expression rules for simple tokens</span>
+<span class="n">t_PLUS</span>    <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">+'</span>
+<span class="n">t_MINUS</span>   <span class="o">=</span> <span class="s">r'-'</span>
+<span class="n">t_TIMES</span>   <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">*'</span>
+<span class="n">t_DIVIDE</span>  <span class="o">=</span> <span class="s">r'/'</span>
+<span class="n">t_LPAREN</span>  <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">('</span>
+<span class="n">t_RPAREN</span>  <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">)'</span>
+
+<span class="c"># A regular expression rule with some action code</span>
+<span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>    
+    <span class="k">return</span> <span class="n">t</span>
+
+<span class="c"># Define a rule so we can track line numbers</span>
+<span class="k">def</span> <span class="nf">t_newline</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">n+'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+<span class="c"># A string containing ignored characters (spaces and tabs)</span>
+<span class="n">t_ignore</span>  <span class="o">=</span> <span class="s">' </span><span class="se">\t</span><span class="s">'</span>
+
+<span class="c"># Error handling rule</span>
+<span class="k">def</span> <span class="nf">t_error</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">"Illegal character '</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></code></pre></figure>
+
+<p>现在，如果你想要从不同的模块中构建分析器，应该这样（在交互模式下）：</p>
+
+<figure class="highlight"><pre><code class="language-pycon" data-lang="pycon">&gt;&gt;&gt; import tokrules
+&gt;&gt;&gt; lexer = lex.lex(module=tokrules)
+&gt;&gt;&gt; lexer.input("3 + 4")
+&gt;&gt;&gt; lexer.token()
+LexToken(NUMBER,3,1,1,0)
+&gt;&gt;&gt; lexer.token()
+LexToken(PLUS,'+',1,2)
+&gt;&gt;&gt; lexer.token()
+LexToken(NUMBER,4,1,4)
+&gt;&gt;&gt; lexer.token()
+None</code></pre></figure>
+
+<p><code class="highlighter-rouge">module</code>选项也可以指定类型的实例，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
+
+<span class="k">class</span> <span class="nc">MyLexer</span><span class="p">:</span>
+    <span class="c"># List of token names.   This is always required</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="p">(</span>
+       <span class="s">'NUMBER'</span><span class="p">,</span>
+       <span class="s">'PLUS'</span><span class="p">,</span>
+       <span class="s">'MINUS'</span><span class="p">,</span>
+       <span class="s">'TIMES'</span><span class="p">,</span>
+       <span class="s">'DIVIDE'</span><span class="p">,</span>
+       <span class="s">'LPAREN'</span><span class="p">,</span>
+       <span class="s">'RPAREN'</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c"># Regular expression rules for simple tokens</span>
+    <span class="n">t_PLUS</span>    <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">+'</span>
+    <span class="n">t_MINUS</span>   <span class="o">=</span> <span class="s">r'-'</span>
+    <span class="n">t_TIMES</span>   <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">*'</span>
+    <span class="n">t_DIVIDE</span>  <span class="o">=</span> <span class="s">r'/'</span>
+    <span class="n">t_LPAREN</span>  <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">('</span>
+    <span class="n">t_RPAREN</span>  <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">)'</span>
+
+    <span class="c"># A regular expression rule with some action code</span>
+    <span class="c"># Note addition of self parameter since we're in a class</span>
+    <span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>    
+        <span class="k">return</span> <span class="n">t</span>
+
+    <span class="c"># Define a rule so we can track line numbers</span>
+    <span class="k">def</span> <span class="nf">t_newline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="s">r'</span><span class="err">\</span><span class="s">n+'</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="c"># A string containing ignored characters (spaces and tabs)</span>
+    <span class="n">t_ignore</span>  <span class="o">=</span> <span class="s">' </span><span class="se">\t</span><span class="s">'</span>
+
+    <span class="c"># Error handling rule</span>
+    <span class="k">def</span> <span class="nf">t_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"Illegal character '</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c"># Build the lexer</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lexer</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="c"># Test it output</span>
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="nb">input</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+             <span class="n">tok</span> <span class="o">=</span> <span class="n">lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
+             <span class="k">if</span> <span class="ow">not</span> <span class="n">tok</span><span class="p">:</span> <span class="k">break</span>
+             <span class="k">print</span> <span class="n">tok</span>
+
+<span class="c"># Build the lexer and try it out</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">MyLexer</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>           <span class="c"># Build the lexer</span>
+<span class="n">m</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="s">"3 + 4"</span><span class="p">)</span>     <span class="c"># Test it</span></code></pre></figure>
+
+<p>当从类中定义lexer，你需要创建类的实例，而不是类本身。这是因为，lexer的方法只有被绑定（bound-methods）对象后才能使PLY正常工作。</p>
+
+<p>当给lex()方法使用module选项时，PLY使用<code class="highlighter-rouge">dir()</code>方法，从对象中获取符号信息，因为不能直接访问对象的<code class="highlighter-rouge">__dict__</code>属性。（译者注：可能是因为兼容性原因，__dict__这个方法可能不存在）</p>
+
+<p>最后，如果你希望保持较好的封装性，但不希望什么东西都写在类里面，lexers可以在闭包中定义，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">ply.lex</span> <span class="kn">as</span> <span class="nn">lex</span>
+
+<span class="c"># List of token names.   This is always required</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="s">'NUMBER'</span><span class="p">,</span>
+  <span class="s">'PLUS'</span><span class="p">,</span>
+  <span class="s">'MINUS'</span><span class="p">,</span>
+  <span class="s">'TIMES'</span><span class="p">,</span>
+  <span class="s">'DIVIDE'</span><span class="p">,</span>
+  <span class="s">'LPAREN'</span><span class="p">,</span>
+  <span class="s">'RPAREN'</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">MyLexer</span><span class="p">():</span>
+    <span class="c"># Regular expression rules for simple tokens</span>
+    <span class="n">t_PLUS</span>    <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">+'</span>
+    <span class="n">t_MINUS</span>   <span class="o">=</span> <span class="s">r'-'</span>
+    <span class="n">t_TIMES</span>   <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">*'</span>
+    <span class="n">t_DIVIDE</span>  <span class="o">=</span> <span class="s">r'/'</span>
+    <span class="n">t_LPAREN</span>  <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">('</span>
+    <span class="n">t_RPAREN</span>  <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">)'</span>
+
+    <span class="c"># A regular expression rule with some action code</span>
+    <span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+        <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>    
+        <span class="k">return</span> <span class="n">t</span>
+
+    <span class="c"># Define a rule so we can track line numbers</span>
+    <span class="k">def</span> <span class="nf">t_newline</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+        <span class="s">r'</span><span class="err">\</span><span class="s">n+'</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="c"># A string containing ignored characters (spaces and tabs)</span>
+    <span class="n">t_ignore</span>  <span class="o">=</span> <span class="s">' </span><span class="se">\t</span><span class="s">'</span>
+
+    <span class="c"># Error handling rule</span>
+    <span class="k">def</span> <span class="nf">t_error</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"Illegal character '</span><span class="si">%</span><span class="s">s'"</span> <span class="o">%</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c"># Build the lexer from my environment and return it    </span>
+    <span class="k">return</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">()</span></code></pre></figure>
+
+<h3 id="section-14">4.15 额外状态维护</h3>
+
+<p>在你的词法分析器中，你可能想要维护一些状态。这可能包括模式设置，符号表和其他细节。例如，假设你想要跟踪<code class="highlighter-rouge">NUMBER</code>标记的出现个数。</p>
+
+<p>一种方法是维护一个全局变量：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">num_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+    <span class="k">global</span> <span class="n">num_count</span>
+    <span class="n">num_count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>    
+    <span class="k">return</span> <span class="n">t</span></code></pre></figure>
+
+<p>如果你不喜欢全局变量，另一个记录信息的地方是lexer对象内部。可以通过当前标记的lexer属性访问：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">num_count</span> <span class="o">+=</span> <span class="mi">1</span>     <span class="c"># Note use of lexer attribute</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>    
+    <span class="k">return</span> <span class="n">t</span>
+
+<span class="n">lexer</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">()</span>
+<span class="n">lexer</span><span class="o">.</span><span class="n">num_count</span> <span class="o">=</span> <span class="mi">0</span>            <span class="c"># Set the initial count</span></code></pre></figure>
+
+<p>上面这样做的优点是当同时存在多个lexer实例的情况下，简单易行。不过这看上去似乎是严重违反了面向对象的封装原则。lexer的内部属性（除了lineno）都是以lex开头命名的（lexdata、lexpos）。因此，只要不以lex开头来命名属性就很安全的。</p>
+
+<p>如果你不喜欢给lexer对象赋值，你可以自定义你的lexer类型，就像前面看到的那样：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MyLexer</span><span class="p">:</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>    
+        <span class="k">return</span> <span class="n">t</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lexer</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="nb">object</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_count</span> <span class="o">=</span> <span class="mi">0</span></code></pre></figure>
+
+<p>如果你的应用会创建很多lexer的实例，并且需要维护很多状态，上面的类可能是最容易管理的。</p>
+
+<p>状态也可以用闭包来管理，比如，在Python3中：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">MyLexer</span><span class="p">():</span>
+    <span class="n">num_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+        <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+        <span class="n">nonlocal</span> <span class="n">num_count</span>
+        <span class="n">num_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>    
+        <span class="k">return</span> <span class="n">t</span>
+    <span class="o">...</span></code></pre></figure>
+
+<h3 id="lexer-1">4.16 Lexer克隆</h3>
+
+<p>如果有必要的话，lexer对象可以通过<code class="highlighter-rouge">clone()</code>方法来复制：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lexer</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="n">newlexer</span> <span class="o">=</span> <span class="n">lexer</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span></code></pre></figure>
+
+<p>当lexer被克隆后，复制品能够精确的保留输入串和内部状态，不过，新的lexer可以接受一个不同的输出字串，并独立运作起来。这在几种情况下也许有用：当你在编写的解析器或编译器涉及到递归或者回退处理时，你需要扫描先前的部分，你可以clone并使用复制品，或者你在实现某种预编译处理，可以clone一些lexer来处理不同的输入文件。</p>
+
+<p>创建克隆跟重新调用lex.lex()的不同点在于，PLY不会重新构建任何的内部分析表或者正则式。当lexer是用类或者闭包创建的，需要注意类或闭包本身的的状态。换句话说你要注意新创建的lexer会共享原始lexer的这些状态，比如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">m</span> <span class="o">=</span> <span class="n">MyLexer</span><span class="p">()</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="nb">object</span><span class="o">=</span><span class="n">m</span><span class="p">)</span>      <span class="c"># Create a lexer</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>              <span class="c"># Clone the lexer</span></code></pre></figure>
+
+<h3 id="lexer-2">4.17 Lexer的内部状态</h3>
+
+<p>lexer有一些内部属性在特定情况下有用：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">lexer.lexpos</code>。这是一个表示当前分析点的位置的整型值。如果你修改这个值的话，这会改变下一个token()的调用行为。在标记的规则方法里面，这个值表示紧跟匹配字串后面的第一个字符的位置，如果这个值在规则中修改，下一个返回的标记将从新的位置开始匹配</li>
+  <li><code class="highlighter-rouge">lexer.lineno</code>。表示当前行号。PLY只是声明这个属性的存在，却永远不更新这个值。如果你想要跟踪行号的话，你需要自己添加代码（ 4.6 行号和位置信息）</li>
+  <li><code class="highlighter-rouge">lexer.lexdata</code>。当前lexer的输入字串，这个字符串就是input()方法的输入字串，更改它可能是个糟糕的做法，除非你知道自己在干什么。</li>
+  <li><code class="highlighter-rouge">lexer.lexmatch</code>。PLY内部调用Python的re.match()方法得到的当前标记的原始的Match对象，该对象被保存在这个属性中。如果你的正则式中包含分组的话，你可以通过这个对象获得这些分组的值。注意：这个属性只在有标记规则定义的方法中才有效。</li>
+</ul>
+
+<h3 id="section-15">4.18 基于条件的扫描和启动条件</h3>
+
+<p>在高级的分析器应用程序中，使用状态化的词法扫描是很有用的。比如，你想在出现特定标记或句子结构的时候触发开始一个不同的词法分析逻辑。PLY允许lexer在不同的状态之间转换。每个状态可以包含一些自己独特的标记和规则等。这是基于GNU flex的“启动条件”来实现的，关于flex详见<a href="http://flex.sourceforge.net/manual/Start-Conditions.html#Start-Conditions">http://flex.sourceforge.net/manual/Start-Conditions.html#Start-Conditions</a></p>
+
+<p>要使用lex的状态，你必须首先声明。通过在lex模块中声明”states”来做到：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">states</span> <span class="o">=</span> <span class="p">(</span>
+   <span class="p">(</span><span class="s">'foo'</span><span class="p">,</span><span class="s">'exclusive'</span><span class="p">),</span>
+   <span class="p">(</span><span class="s">'bar'</span><span class="p">,</span><span class="s">'inclusive'</span><span class="p">),</span>
+<span class="p">)</span></code></pre></figure>
+
+<p>这个声明中包含有两个状态：’foo’和’bar’。状态可以有两种类型：’排他型’和’包容型’。排他型的状态会使得lexer的行为发生完全的改变：只有能够匹配在这个状态下定义的规则的标记才会返回；包容型状态会将定义在这个状态下的规则添加到默认的规则集中，进而，只要能匹配这个规则集的标记都会返回。</p>
+
+<p>一旦声明好之后，标记规则的命名需要包含状态名：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t_foo_NUMBER</span> <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>                      <span class="c"># Token 'NUMBER' in state 'foo'        </span>
+<span class="n">t_bar_ID</span>     <span class="o">=</span> <span class="s">r'[a-zA-Z_][a-zA-Z0-9_]*'</span>   <span class="c"># Token 'ID' in state 'bar'</span>
+
+<span class="k">def</span> <span class="nf">t_foo_newline</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">n'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span> <span class="o">+=</span> <span class="mi">1</span></code></pre></figure>
+
+<p>一个标记可以用在多个状态中，只要将多个状态名包含在声明中：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t_foo_bar_NUMBER</span> <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>         <span class="c"># Defines token 'NUMBER' in both state 'foo' and 'bar'</span></code></pre></figure>
+
+<p>同样的，在任何状态下都生效的声明可以在命名中使用<code class="highlighter-rouge">ANY</code>：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t_ANY_NUMBER</span> <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>         <span class="c"># Defines a token 'NUMBER' in all states</span></code></pre></figure>
+
+<p>不包含状态名的情况下，标记被关联到一个特殊的状态<code class="highlighter-rouge">INITIAL</code>，比如，下面两个声明是等价的：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t_NUMBER</span> <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+<span class="n">t_INITIAL_NUMBER</span> <span class="o">=</span> <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span></code></pre></figure>
+
+<p>特殊的<code class="highlighter-rouge">t_ignore()</code>和<code class="highlighter-rouge">t_error()</code>也可以用状态关联：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">t_foo_ignore</span> <span class="o">=</span> <span class="s">" </span><span class="se">\t\n</span><span class="s">"</span>       <span class="c"># Ignored characters for state 'foo'</span>
+
+<span class="k">def</span> <span class="nf">t_bar_error</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>          <span class="c"># Special error handler for state 'bar'</span>
+    <span class="k">pass</span> </code></pre></figure>
+
+<p>词法分析默认在<code class="highlighter-rouge">INITIAL</code>状态下工作，这个状态下包含了所有默认的标记规则定义。对于不希望使用“状态”的用户来说，这是完全透明的。在分析过程中，如果你想要改变词法分析器的这种的状态，使用<code class="highlighter-rouge">begin()</code>方法：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">t_begin_foo</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'start_foo'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="s">'foo'</span><span class="p">)</span>             <span class="c"># Starts 'foo' state</span></code></pre></figure>
+
+<p>使用begin()切换回初始状态：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">t_foo_end</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'end_foo'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="s">'INITIAL'</span><span class="p">)</span>        <span class="c"># Back to the initial state</span></code></pre></figure>
+
+<p>状态的切换可以使用栈：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">t_begin_foo</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'start_foo'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">push_state</span><span class="p">(</span><span class="s">'foo'</span><span class="p">)</span>             <span class="c"># Starts 'foo' state</span>
+
+<span class="k">def</span> <span class="nf">t_foo_end</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'end_foo'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">pop_state</span><span class="p">()</span>                   <span class="c"># Back to the previous state</span></code></pre></figure>
+
+<p>当你在面临很多状态可以选择进入，而又仅仅想要回到之前的状态时，状态栈比较有用。</p>
+
+<p>举个例子会更清晰。假设你在写一个分析器想要从一堆C代码中获取任意匹配的闭合的大括号里面的部分：这意味着，当遇到起始括号’{‘，你需要读取与之匹配的’}’以上的所有部分。并返回字符串。使用通常的正则表达式几乎不可能，这是因为大括号可以嵌套，而且可以有注释，字符串等干扰。因此，试图简单的匹配第一个出现的’}’是不行的。这里你可以用lex的状态来做到：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Declare the state</span>
+<span class="n">states</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="p">(</span><span class="s">'ccode'</span><span class="p">,</span><span class="s">'exclusive'</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c"># Match the first {. Enter ccode state.</span>
+<span class="k">def</span> <span class="nf">t_ccode</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">{'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">code_start</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lexpos</span>        <span class="c"># Record the starting position</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="mi">1</span>                          <span class="c"># Initial brace level</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="s">'ccode'</span><span class="p">)</span>                     <span class="c"># Enter 'ccode' state</span>
+
+<span class="c"># Rules for the ccode state</span>
+<span class="k">def</span> <span class="nf">t_ccode_lbrace</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>     
+    <span class="s">r'</span><span class="err">\</span><span class="s">{'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">level</span> <span class="o">+=</span><span class="mi">1</span>                
+
+<span class="k">def</span> <span class="nf">t_ccode_rbrace</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'</span><span class="err">\</span><span class="s">}'</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">level</span> <span class="o">-=</span><span class="mi">1</span>
+
+    <span class="c"># If closing brace, return the code fragment</span>
+    <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">level</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+         <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lexdata</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">code_start</span><span class="p">:</span><span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lexpos</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+         <span class="n">t</span><span class="o">.</span><span class="nb">type</span> <span class="o">=</span> <span class="s">"CCODE"</span>
+         <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">lineno</span> <span class="o">+=</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+         <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="s">'INITIAL'</span><span class="p">)</span>           
+         <span class="k">return</span> <span class="n">t</span>
+
+<span class="c"># C or C++ comment (ignore)    </span>
+<span class="k">def</span> <span class="nf">t_ccode_comment</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">r'(/</span><span class="err">\</span><span class="s">*(.|</span><span class="err">\</span><span class="s">n)*?*/)|(//.*)'</span>
+    <span class="k">pass</span>
+
+<span class="c"># C string</span>
+<span class="k">def</span> <span class="nf">t_ccode_string</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+   <span class="s">r'</span><span class="err">\</span><span class="s">"([^</span><span class="se">\\</span><span class="err">\</span><span class="s">n]|(</span><span class="se">\\</span><span class="s">.))*?</span><span class="err">\</span><span class="s">"'</span>
+
+<span class="c"># C character literal</span>
+<span class="k">def</span> <span class="nf">t_ccode_char</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+   <span class="s">r'</span><span class="se">\'</span><span class="s">([^</span><span class="se">\\</span><span class="err">\</span><span class="s">n]|(</span><span class="se">\\</span><span class="s">.))*?</span><span class="se">\'</span><span class="s">'</span>
+
+<span class="c"># Any sequence of non-whitespace characters (not braces, strings)</span>
+<span class="k">def</span> <span class="nf">t_ccode_nonspace</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+   <span class="s">r'[^</span><span class="err">\</span><span class="s">s</span><span class="err">\</span><span class="s">{</span><span class="err">\</span><span class="s">}</span><span class="se">\'</span><span class="err">\</span><span class="s">"]+'</span>
+
+<span class="c"># Ignored characters (whitespace)</span>
+<span class="n">t_ccode_ignore</span> <span class="o">=</span> <span class="s">" </span><span class="se">\t\n</span><span class="s">"</span>
+
+<span class="c"># For bad characters, we just skip over it</span>
+<span class="k">def</span> <span class="nf">t_ccode_error</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></code></pre></figure>
+
+<p>这个例子中，第一个’{‘使得lexer记录了起始位置，并且进入新的状态’ccode’。一系列规则用来匹配接下来的输入，这些规则只是丢弃掉标记（不返回值），如果遇到闭合右括号，t_ccode_rbrace规则收集其中所有的代码（利用先前记录的开始位置），并保存，返回的标记类型为’CCODE’，与此同时，词法分析的状态退回到初始状态。</p>
+
+<h3 id="section-16">4.19 其他问题</h3>
+
+<ul>
+  <li>lexer需要输入的是一个字符串。好在大多数机器都有足够的内存，这很少导致性能的问题。这意味着，lexer现在还不能用来处理文件流或者socket流。这主要是受到re模块的限制。</li>
+  <li>lexer支持用Unicode字符描述标记的匹配规则，也支持输入字串包含Unicode</li>
+  <li>如果你想要向<code class="highlighter-rouge">re.compile()</code>方法提供flag，使用reflags选项：lex.lex(reflags=re.UNICODE)</li>
+  <li>由于lexer是全部用Python写的，性能很大程度上取决于Python的re模块，即使已经尽可能的高效了。当接收极其大量的输入文件时表现并不尽人意。如果担忧性能，你可以升级到最新的Python，或者手工创建分析器，或者用C语言写lexer并做成扩展模块。</li>
+</ul>
+
+<p>如果你要创建一个手写的词法分析器并计划用在yacc.py中，只需要满足下面的要求：</p>
+
+<ul>
+  <li>需要提供一个token()方法来返回下一个标记，如果没有可用的标记了，则返回None。</li>
+  <li>token()方法必须返回一个tok对象，具有type和value属性。如果行号需要跟踪的话，标记还需要定义lineno属性。</li>
+</ul>
+
+<h2 id="section-17">5 语法分析基础</h2>
+
+<p>yacc.py用来对语言进行语法分析。在给出例子之前，必须提一些重要的背景知识。首先，‘语法’通常用BNF范式来表达。例如，如果想要分析简单的算术表达式，你应该首先写下无二义的文法：</p>
+
+<pre><code>
+expression : expression + term
+           | expression - term
+           | term
+
+term       : term * factor
+           | term / factor
+           | factor
+
+factor     : NUMBER
+           | ( expression )
+</code></pre>
+<p>在这个文法中，像<code class="highlighter-rouge">NUMBER</code>,<code class="highlighter-rouge">+</code>,<code class="highlighter-rouge">-</code>,<code class="highlighter-rouge">*</code>,<code class="highlighter-rouge">/</code>的符号被称为终结符，对应原始的输入。类似<code class="highlighter-rouge">term</code>，<code class="highlighter-rouge">factor</code>等称为非终结符，它们由一系列终结符或其他规则的符号组成，用来指代语法规则。</p>
+
+<p>通常使用一种叫语法制导翻译的技术来指定某种语言的语义。在语法制导翻译中，符号及其属性出现在每个语法规则后面的动作中。每当一个语法被识别，动作就能够描述需要做什么。比如，对于上面给定的文法，想要实现一个简单的计算器，应该写成下面这样：</p>
+
+<pre><code>
+Grammar                             Action
+--------------------------------    -------------------------------------------- 
+expression0 : expression1 + term    expression0.val = expression1.val + term.val
+            | expression1 - term    expression0.val = expression1.val - term.val
+            | term                  expression0.val = term.val
+
+term0       : term1 * factor        term0.val = term1.val * factor.val
+            | term1 / factor        term0.val = term1.val / factor.val
+            | factor                term0.val = factor.val
+
+factor      : NUMBER                factor.val = int(NUMBER.lexval)
+            | ( expression )        factor.val = expression.val
+</code></pre>
+
+<p>一种理解语法指导翻译的好方法是将符号看成对象。与符号相关的值代表了符号的“状态”（比如上面的val属性），语义行为用一组操作符号及符号值的函数或者方法来表达。</p>
+
+<p>Yacc用的分析技术是著名的LR分析法或者叫移进-归约分析法。LR分析法是一种自下而上的技术：首先尝试识别右部的语法规则，每当右部得到满足，相应的行为代码将被触发执行，当前右边的语法符号将被替换为左边的语法符号。（归约）</p>
+
+<p>LR分析法一般这样实现：将下一个符号进栈，然后结合栈顶的符号和后继符号（译者注：下一个将要输入符号），与文法中的某种规则相比较。具体的算法可以在编译器的手册中查到，下面的例子展现了如果通过上面定义的文法，来分析3 + 5 * ( 10 - 20 )这个表达式，$用来表示输入结束</p>
+
+<pre><code>
+Step Symbol Stack           Input Tokens            Action
+---- ---------------------  ---------------------   -------------------------------
+1                           3 + 5 * ( 10 - 20 )$    Shift 3
+2    3                        + 5 * ( 10 - 20 )$    Reduce factor : NUMBER
+3    factor                   + 5 * ( 10 - 20 )$    Reduce term   : factor
+4    term                     + 5 * ( 10 - 20 )$    Reduce expr : term
+5    expr                     + 5 * ( 10 - 20 )$    Shift +
+6    expr +                     5 * ( 10 - 20 )$    Shift 5
+7    expr + 5                     * ( 10 - 20 )$    Reduce factor : NUMBER
+8    expr + factor                * ( 10 - 20 )$    Reduce term   : factor
+9    expr + term                  * ( 10 - 20 )$    Shift *
+10   expr + term *                  ( 10 - 20 )$    Shift (
+11   expr + term * (                  10 - 20 )$    Shift 10
+12   expr + term * ( 10                  - 20 )$    Reduce factor : NUMBER
+13   expr + term * ( factor              - 20 )$    Reduce term : factor
+14   expr + term * ( term                - 20 )$    Reduce expr : term
+15   expr + term * ( expr                - 20 )$    Shift -
+16   expr + term * ( expr -                20 )$    Shift 20
+17   expr + term * ( expr - 20                )$    Reduce factor : NUMBER
+18   expr + term * ( expr - factor            )$    Reduce term : factor
+19   expr + term * ( expr - term              )$    Reduce expr : expr - term
+20   expr + term * ( expr                     )$    Shift )
+21   expr + term * ( expr )                    $    Reduce factor : (expr)
+22   expr + term * factor                      $    Reduce term : term * factor
+23   expr + term                               $    Reduce expr : expr + term
+24   expr                                      $    Reduce expr
+25                                             $    Success!
+</code></pre>
+
+<p>（译者注：action里面的Shift就是进栈动作，简称移进；Reduce是归约）</p>
+
+<p>在分析表达式的过程中，一个相关的自动状态机和后继符号决定了下一步应该做什么。如果下一个标记看起来是一个有效语法（产生式）的一部分（通过栈上的其他项判断这一点），那么这个标记应该进栈。如果栈顶的项可以组成一个完整的右部语法规则，一般就可以进行“归约”，用产生式左边的符号代替这一组符号。当归约发生时，相应的行为动作就会执行。如果输入标记既不能移进也不能归约的话，就会发生语法错误，分析器必须进行相应的错误恢复。分析器直到栈空并且没有另外的输入标记时，才算成功。
+需要注意的是，这是基于一个有限自动机实现的，有限自动器被转化成分析表。分析表的构建比较复杂，超出了本文的讨论范围。不过，这构建过程的微妙细节能够解释为什么在上面的例子中，解析器选择在步骤9将标记转移到堆栈中，而不是按照规则expr : expr + term做归约。</p>
+
+<h2 id="yacc">6 Yacc</h2>
+
+<p>ply.yacc模块实现了PLY的分析功能，‘yacc’是‘Yet Another Compiler Compiler’的缩写并保留了其作为Unix工具的名字。</p>
+
+<h3 id="section-18">6.1 一个例子</h3>
+
+<p>假设你希望实现上面的简单算术表达式的语法分析，代码如下：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Yacc example</span>
+
+<span class="kn">import</span> <span class="nn">ply.yacc</span> <span class="kn">as</span> <span class="nn">yacc</span>
+
+<span class="c"># Get the token map from the lexer.  This is required.</span>
+<span class="kn">from</span> <span class="nn">calclex</span> <span class="kn">import</span> <span class="n">tokens</span>
+
+<span class="k">def</span> <span class="nf">p_expression_plus</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : expression PLUS term'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">p_expression_minus</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : expression MINUS term'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">p_expression_term</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : term'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">p_term_times</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'term : term TIMES factor'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">p_term_div</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'term : term DIVIDE factor'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">p_term_factor</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'term : factor'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">p_factor_num</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'factor : NUMBER'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">p_factor_expr</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'factor : LPAREN expression RPAREN'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c"># Error rule for syntax errors</span>
+<span class="k">def</span> <span class="nf">p_error</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">"Syntax error in input!"</span>
+
+<span class="c"># Build the parser</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+   <span class="k">try</span><span class="p">:</span>
+       <span class="n">s</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'calc &gt; '</span><span class="p">)</span>
+   <span class="k">except</span> <span class="nb">EOFError</span><span class="p">:</span>
+       <span class="k">break</span>
+   <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="p">:</span> <span class="k">continue</span>
+   <span class="n">result</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+   <span class="k">print</span> <span class="n">result</span></code></pre></figure>
+
+<p>在这个例子中，每个语法规则被定义成一个Python的方法，方法的文档字符串描述了相应的上下文无关文法，方法的语句实现了对应规则的语义行为。每个方法接受一个单独的p参数，p是一个包含有当前匹配语法的符号的序列，p[i]与语法符号的对应关系如下：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_expression_plus</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : expression PLUS term'</span>
+    <span class="c">#   ^            ^        ^    ^</span>
+    <span class="c">#  p[0]         p[1]     p[2] p[3]</span>
+
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span></code></pre></figure>
+
+<p>其中，p[i]的值相当于词法分析模块中对p.value属性赋的值，对于非终结符的值，将在归约时由p[0]的赋值决定，这里的值可以是任何类型，当然，大多数情况下只是Python的简单类型、元组或者类的实例。在这个例子中，我们依赖这样一个事实：NUMBER标记的值保存的是整型值，所有规则的行为都是得到这些整型值的算术运算结果，并传递结果。</p>
+
+<blockquote>
+  <p>注意：在这里负数的下标有特殊意义–这里的p[-1]不等同于p[3]。详见下面的嵌入式动作部分</p>
+</blockquote>
+
+<p>在yacc中定义的第一个语法规则被默认为起始规则（这个例子中的第一个出现的expression规则）。一旦起始规则被分析器归约，而且再无其他输入，分析器终止，最后的值将返回（这个值将是起始规则的p[0]）。注意：也可以通过在yacc()中使用start关键字参数来指定起始规则</p>
+
+<p>p_error(p)规则用于捕获语法错误。详见处理语法错误部分</p>
+
+<p>为了构建分析器，需要调用yacc.yacc()方法。这个方法查看整个当前模块，然后试图根据你提供的文法构建LR分析表。第一次执行yacc.yacc()，你会得到如下输出：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>python calcparse.py
+Generating LALR tables
+calc &gt;</code></pre></figure>
+
+<p>由于分析表的得出相对开销较大（尤其包含大量的语法的情况下），分析表被写入当前目录的一个叫parsetab.py的文件中。除此之外，会生成一个调试文件parser.out。在接下来的执行中，yacc直到发现文法发生变化，才会重新生成分析表和parsetab.py文件，否则yacc会从parsetab.py中加载分析表。注：如果有必要的话这里输出的文件名是可以改的。</p>
+
+<p>如果在你的文法中有任何错误的话，yacc.py会产生调试信息，而且可能抛出异常。一些可以被检测到的错误如下：</p>
+
+<ul>
+  <li>方法重复定义（在语法文件中具有相同名字的方法）</li>
+  <li>二义文法产生的移进-归约和归约-归约冲突</li>
+  <li>指定了错误的文法</li>
+  <li>不可终止的递归（规则永远无法终结）</li>
+  <li>未使用的规则或标记</li>
+  <li>未定义的规则或标记</li>
+</ul>
+
+<p>下面几个部分将更详细的讨论语法规则</p>
+
+<p>这个例子的最后部分展示了如何执行由yacc()方法创建的分析器。你只需要简单的调用parse()，并将输入字符串作为参数就能运行分析器。它将运行所有的语法规则，并返回整个分析的结果，这个结果就是在起始规则中赋给p[0]的值。</p>
+
+<h3 id="section-19">6.2 将语法规则合并</h3>
+
+<p>如果语法规则类似的话，可以合并到一个方法中。例如，考虑前面例子中的两个规则：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_expression_plus</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : expression PLUS term'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">p_expression_minus</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="s">'expression : expression MINUS term'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span></code></pre></figure>
+
+<p>比起写两个方法，你可以像下面这样写在一个方法里面：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_expression</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'''expression : expression PLUS term
+                  | expression MINUS term'''</span>
+    <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">'+'</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">'-'</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span></code></pre></figure>
+
+<p>总之，方法的文档字符串可以包含多个语法规则。所以，像这样写也是合法的（尽管可能会引起困惑）：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_binary_operators</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'''expression : expression PLUS term
+                  | expression MINUS term
+       term       : term TIMES factor
+                  | term DIVIDE factor'''</span>
+    <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">'+'</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">'-'</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">'*'</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">'/'</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span></code></pre></figure>
+
+<p>如果所有的规则都有相似的结构，那么将语法规则合并才是个不错的注意（比如，产生式的项数相同）。不然，语义动作可能会变得复杂。不过，简单情况下，可以使用<code class="highlighter-rouge">len()</code>方法区分，比如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_expressions</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'''expression : expression MINUS expression
+                  | MINUS expression'''</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span></code></pre></figure>
+
+<p>如果考虑解析的性能，你应该避免像这些例子一样在一个语法规则里面用很多条件来处理。因为，每次检查当前究竟匹配的是哪个语法规则的时候，实际上重复做了分析器已经做过的事（分析器已经准确的知道哪个规则被匹配了）。为每个规则定义单独的方法，可以消除这点开销。</p>
+
+<h3 id="section-20">6.3 字面字符</h3>
+
+<p>如果愿意，可以在语法规则里面使用单个的字面字符，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_binary_operators</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'''expression : expression '+' term
+                  | expression '-' term
+       term       : term '*' factor
+                  | term '/' factor'''</span>
+    <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">'+'</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">'-'</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">'*'</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">'/'</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span></code></pre></figure>
+
+<p>字符必须像’+’那样使用单引号。除此之外，需要将用到的字符定义单独定义在lex文件的<code class="highlighter-rouge">literals</code>列表里：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Literals.  Should be placed in module given to lex()</span>
+<span class="n">literals</span> <span class="o">=</span> <span class="p">[</span><span class="s">'+'</span><span class="p">,</span><span class="s">'-'</span><span class="p">,</span><span class="s">'*'</span><span class="p">,</span><span class="s">'/'</span> <span class="p">]</span></code></pre></figure>
+
+<p>字面的字符只能是单个字符。因此，像’&lt;=’或者’==’都是不合法的，只能使用一般的词法规则（例如t_EQ = r’==’)。</p>
+
+<h3 id="section-21">6.4 空产生式</h3>
+
+<p>yacc.py可以处理空产生式，像下面这样做：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_empty</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'empty :'</span>
+    <span class="k">pass</span></code></pre></figure>
+
+<p>现在可以使用空匹配，只要将’empty’当成一个符号使用：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_optitem</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'optitem : item'</span>
+    <span class="s">'        | empty'</span>
+    <span class="o">...</span></code></pre></figure>
+
+<p>注意：你可以将产生式保持’空’，来表示空匹配。然而，我发现用一个’empty’规则并用其来替代’空’，更容易表达意图，并有较好的可读性。</p>
+
+<h3 id="section-22">6.5 改变起始符号</h3>
+
+<p>默认情况下，在yacc中的第一条规则是起始语法规则（顶层规则）。可以用start标识来改变这种行为：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">start</span> <span class="o">=</span> <span class="s">'foo'</span>
+
+<span class="k">def</span> <span class="nf">p_bar</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'bar : A B'</span>
+
+<span class="c"># This is the starting rule due to the start specifier above</span>
+<span class="k">def</span> <span class="nf">p_foo</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'foo : bar X'</span>
+<span class="o">...</span></code></pre></figure>
+
+<p>用start标识有助于在调试的时候将大型的语法规则分成小部分来分析。也可把start符号作为yacc的参数：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s">'foo'</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="section-23">6.6 处理二义文法</h3>
+
+<p>上面例子中，对表达式的文法描述用一种特别的形式规避了二义文法。然而，在很多情况下，这样的特殊文法很难写，或者很别扭。一个更为自然和舒服的语法表达应该是这样的：</p>
+
+<pre><code>
+expression : expression PLUS expression
+           | expression MINUS expression
+           | expression TIMES expression
+           | expression DIVIDE expression
+           | LPAREN expression RPAREN
+           | NUMBER
+</code></pre>
+
+<p>不幸的是，这样的文法是存在二义性的。举个例子，如果你要解析字符串”3 * 4 + 5”，操作符如何分组并没有指明，究竟是表示”(3 * 4) + 5”还是”3 * (4 + 5)”呢？</p>
+
+<p>如果在yacc.py中存在二义文法，会输出”移进归约冲突”或者”归约归约冲突”。在分析器无法确定是将下一个符号移进栈还是将当前栈中的符号归约时会产生移进归约冲突。例如，对于”3 * 4 + 5”，分析器内部栈是这样工作的：</p>
+
+<pre><code>
+Step Symbol Stack           Input Tokens            Action
+---- ---------------------  ---------------------   -------------------------------
+1    $                                3 * 4 + 5$    Shift 3
+2    $ 3                                * 4 + 5$    Reduce : expression : NUMBER
+3    $ expr                             * 4 + 5$    Shift *
+4    $ expr *                             4 + 5$    Shift 4
+5    $ expr * 4                             + 5$    Reduce: expression : NUMBER
+6    $ expr * expr                          + 5$    SHIFT/REDUCE CONFLICT ????
+</code></pre>
+
+<p>在这个例子中，当分析器来到第6步的时候，有两种选择：一是按照expr : expr * expr归约，一是将标记’+’继续移进栈。两种选择对于上面的上下文无关文法而言都是合法的。</p>
+
+<p>默认情况下，所有的移进归约冲突会倾向于使用移进来处理。因此，对于上面的例子，分析器总是会将’+’进栈，而不是做归约。虽然在很多情况下，这个策略是合适的（像”if-then”和”if-then-else”），但这对于算术表达式是不够的。事实上，对于上面的例子，将’+’进栈是完全错误的，应当先将expr * expr归约，因为乘法的优先级要高于加法。</p>
+
+<p>为了解决二义文法，尤其是对表达式文法，yacc.py允许为标记单独指定优先级和结合性。需要像下面这样增加一个precedence变量：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">precedence</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s">'left'</span><span class="p">,</span> <span class="s">'PLUS'</span><span class="p">,</span> <span class="s">'MINUS'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'left'</span><span class="p">,</span> <span class="s">'TIMES'</span><span class="p">,</span> <span class="s">'DIVIDE'</span><span class="p">),</span>
+<span class="p">)</span></code></pre></figure>
+
+<p>这样的定义说明PLUS/MINUS标记具有相同的优先级和左结合性，TIMES/DIVIDE具有相同的优先级和左结合性。在precedence声明中，标记的优先级从低到高。因此，这个声明表明TIMES/DIVIDE（他们较晚加入precedence）的优先级高于PLUS/MINUS。</p>
+
+<p>由于为标记添加了数字表示的优先级和结合性的属性，所以，对于上面的例子，将会得到：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">PLUS</span>      <span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>  <span class="n">assoc</span> <span class="o">=</span> <span class="s">'left'</span>
+<span class="n">MINUS</span>     <span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>  <span class="n">assoc</span> <span class="o">=</span> <span class="s">'left'</span>
+<span class="n">TIMES</span>     <span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>  <span class="n">assoc</span> <span class="o">=</span> <span class="s">'left'</span>
+<span class="n">DIVIDE</span>    <span class="p">:</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>  <span class="n">assoc</span> <span class="o">=</span> <span class="s">'left'</span></code></pre></figure>
+
+<p>随后这些值被附加到语法规则的优先级和结合性属性上，这些值由最右边的终结符的优先级和结合性决定：</p>
+
+<pre><code>
+expression : expression PLUS expression                 # level = 1, left
+           | expression MINUS expression                # level = 1, left
+           | expression TIMES expression                # level = 2, left
+           | expression DIVIDE expression               # level = 2, left
+           | LPAREN expression RPAREN                   # level = None (not specified)
+           | NUMBER                                     # level = None (not specified)
+</code></pre>
+
+<p>当出现移进归约冲突时，分析器生成器根据下面的规则解决二义文法：</p>
+
+<ol>
+  <li>如果当前的标记的优先级高于栈顶规则的优先级，移进当前标记</li>
+  <li>如果栈顶规则的优先级更高，进行归约</li>
+  <li>如果当前的标记与栈顶规则的优先级相同，如果标记是左结合的，则归约，否则，如果是右结合的则移进</li>
+  <li>如果没有优先级可以参考，默认对于移进归约冲突执行移进</li>
+</ol>
+
+<p>比如，当解析到”expression PLUS expression”这个语法时，下一个标记是TIMES，此时将执行移进，因为TIMES具有比PLUS更高的优先级；当解析到”expression TIMES expression”，下一个标记是PLUS，此时将执行归约，因为PLUS的优先级低于TIMES。</p>
+
+<p>如果在使用前三种技术解决已经归约冲突后，yacc.py将不会报告语法中的冲突或者错误（不过，会在parser.out这个调试文件中输出一些信息）</p>
+
+<p>使用precedence指定优先级的技术会带来一个问题，有时运算符的优先级需要基于上下文。例如，考虑”3 + 4 * -5”中的一元的’-‘。数学上讲，一元运算符应当拥有较高的优先级。然而，在我们的precedence定义中，MINUS的优先级却低于TIMES。为了解决这个问题，precedene规则中可以包含”虚拟标记”：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">precedence</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s">'left'</span><span class="p">,</span> <span class="s">'PLUS'</span><span class="p">,</span> <span class="s">'MINUS'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'left'</span><span class="p">,</span> <span class="s">'TIMES'</span><span class="p">,</span> <span class="s">'DIVIDE'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'right'</span><span class="p">,</span> <span class="s">'UMINUS'</span><span class="p">),</span>            <span class="c"># Unary minus operator</span>
+<span class="p">)</span></code></pre></figure>
+
+<p>在语法文件中，我们可以这么表示一元算符：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_expr_uminus</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : MINUS expression </span><span class="si">%</span><span class="s">prec UMINUS'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span></code></pre></figure>
+
+<p>在这个例子中，%prec UMINUS覆盖了默认的优先级（MINUS的优先级），将UMINUS指代的优先级应用在该语法规则上。</p>
+
+<p>起初，UMINUS标记的例子会让人感到困惑。UMINUS既不是输入的标记也不是语法规则，你应当将其看成precedence表中的特殊的占位符。当你使用%prec宏时，你是在告诉yacc，你希望表达式使用这个占位符所表示的优先级，而不是正常的优先级。</p>
+
+<p>还可以在precedence表中指定”非关联”。这表明你不希望链式运算符。比如，假如你希望支持比较运算符’&lt;’和’&gt;’，但是你不希望支持 a &lt; b &lt; c，只要简单指定规则如下：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">precedence</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s">'nonassoc'</span><span class="p">,</span> <span class="s">'LESSTHAN'</span><span class="p">,</span> <span class="s">'GREATERTHAN'</span><span class="p">),</span>  <span class="c"># Nonassociative operators</span>
+    <span class="p">(</span><span class="s">'left'</span><span class="p">,</span> <span class="s">'PLUS'</span><span class="p">,</span> <span class="s">'MINUS'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'left'</span><span class="p">,</span> <span class="s">'TIMES'</span><span class="p">,</span> <span class="s">'DIVIDE'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">'right'</span><span class="p">,</span> <span class="s">'UMINUS'</span><span class="p">),</span>            <span class="c"># Unary minus operator</span>
+<span class="p">)</span></code></pre></figure>
+
+<p>此时，当输入形如 a &lt; b &lt; c时，将产生语法错误，却不影响形如 a &lt; b 的表达式。</p>
+
+<p>对于给定的符号集，存在多种语法规则可以匹配时会产生归约/归约冲突。这样的冲突往往很严重，而且总是通过匹配最早出现的语法规则来解决。归约/归约冲突几乎总是相同的符号集合具有不同的规则可以匹配，而在这一点上无法抉择，比如：</p>
+
+<pre><code>
+assignment :  ID EQUALS NUMBER
+           |  ID EQUALS expression
+           
+expression : expression PLUS expression
+           | expression MINUS expression
+           | expression TIMES expression
+           | expression DIVIDE expression
+           | LPAREN expression RPAREN
+           | NUMBER
+</code></pre>
+
+<p>这个例子中，对于下面这两条规则将产生归约/归约冲突：</p>
+
+<pre><code>
+assignment  : ID EQUALS NUMBER
+expression  : NUMBER
+</code></pre>
+
+<p>比如，对于”a = 5”，分析器不知道应当按照assignment  : ID EQUALS NUMBER归约，还是先将5归约成expression，再归约成assignment : ID EQUALS expression。</p>
+
+<p>应当指出的是，只是简单的查看语法规则是很难减少归约/归约冲突。如果出现归约/归约冲突，yacc()会帮助打印出警告信息：</p>
+
+<pre><code>
+WARNING: 1 reduce/reduce conflict
+WARNING: reduce/reduce conflict in state 15 resolved using rule (assignment -> ID EQUALS NUMBER)
+WARNING: rejected rule (expression -> NUMBER)
+</code></pre>
+
+<p>上面的信息标识出了冲突的两条规则，但是，并无法指出究竟在什么情况下会出现这样的状态。想要发现问题，你可能需要结合语法规则和<code class="highlighter-rouge">parser.out</code>调试文件的内容。</p>
+
+<h3 id="parserout">6.7 parser.out调试文件</h3>
+
+<p>使用LR分析算法跟踪移进/归约冲突和归约/归约冲突是件乐在其中的事。为了辅助调试，yacc.py在生成分析表时会创建出一个调试文件叫parser.out：</p>
+
+<pre><code>
+Unused terminals:
+
+
+Grammar
+
+Rule 1     expression -> expression PLUS expression
+Rule 2     expression -> expression MINUS expression
+Rule 3     expression -> expression TIMES expression
+Rule 4     expression -> expression DIVIDE expression
+Rule 5     expression -> NUMBER
+Rule 6     expression -> LPAREN expression RPAREN
+
+Terminals, with rules where they appear
+
+TIMES                : 3
+error                : 
+MINUS                : 2
+RPAREN               : 6
+LPAREN               : 6
+DIVIDE               : 4
+PLUS                 : 1
+NUMBER               : 5
+
+Nonterminals, with rules where they appear
+
+expression           : 1 1 2 2 3 3 4 4 6 0
+
+
+Parsing method: LALR
+
+
+state 0
+
+    S' -> . expression
+    expression -> . expression PLUS expression
+    expression -> . expression MINUS expression
+    expression -> . expression TIMES expression
+    expression -> . expression DIVIDE expression
+    expression -> . NUMBER
+    expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 3
+    LPAREN          shift and go to state 2
+
+
+state 1
+
+    S' -> expression .
+    expression -> expression . PLUS expression
+    expression -> expression . MINUS expression
+    expression -> expression . TIMES expression
+    expression -> expression . DIVIDE expression
+
+    PLUS            shift and go to state 6
+    MINUS           shift and go to state 5
+    TIMES           shift and go to state 4
+    DIVIDE          shift and go to state 7
+
+
+state 2
+
+    expression -> LPAREN . expression RPAREN
+    expression -> . expression PLUS expression
+    expression -> . expression MINUS expression
+    expression -> . expression TIMES expression
+    expression -> . expression DIVIDE expression
+    expression -> . NUMBER
+    expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 3
+    LPAREN          shift and go to state 2
+
+
+state 3
+
+    expression -> NUMBER .
+
+    $               reduce using rule 5
+    PLUS            reduce using rule 5
+    MINUS           reduce using rule 5
+    TIMES           reduce using rule 5
+    DIVIDE          reduce using rule 5
+    RPAREN          reduce using rule 5
+
+
+state 4
+
+    expression -> expression TIMES . expression
+    expression -> . expression PLUS expression
+    expression -> . expression MINUS expression
+    expression -> . expression TIMES expression
+    expression -> . expression DIVIDE expression
+    expression -> . NUMBER
+    expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 3
+    LPAREN          shift and go to state 2
+
+
+state 5
+
+    expression -> expression MINUS . expression
+    expression -> . expression PLUS expression
+    expression -> . expression MINUS expression
+    expression -> . expression TIMES expression
+    expression -> . expression DIVIDE expression
+    expression -> . NUMBER
+    expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 3
+    LPAREN          shift and go to state 2
+
+
+state 6
+
+    expression -> expression PLUS . expression
+    expression -> . expression PLUS expression
+    expression -> . expression MINUS expression
+    expression -> . expression TIMES expression
+    expression -> . expression DIVIDE expression
+    expression -> . NUMBER
+    expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 3
+    LPAREN          shift and go to state 2
+
+
+state 7
+
+    expression -> expression DIVIDE . expression
+    expression -> . expression PLUS expression
+    expression -> . expression MINUS expression
+    expression -> . expression TIMES expression
+    expression -> . expression DIVIDE expression
+    expression -> . NUMBER
+    expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 3
+    LPAREN          shift and go to state 2
+
+
+state 8
+
+    expression -> LPAREN expression . RPAREN
+    expression -> expression . PLUS expression
+    expression -> expression . MINUS expression
+    expression -> expression . TIMES expression
+    expression -> expression . DIVIDE expression
+
+    RPAREN          shift and go to state 13
+    PLUS            shift and go to state 6
+    MINUS           shift and go to state 5
+    TIMES           shift and go to state 4
+    DIVIDE          shift and go to state 7
+
+
+state 9
+
+    expression -> expression TIMES expression .
+    expression -> expression . PLUS expression
+    expression -> expression . MINUS expression
+    expression -> expression . TIMES expression
+    expression -> expression . DIVIDE expression
+
+    $               reduce using rule 3
+    PLUS            reduce using rule 3
+    MINUS           reduce using rule 3
+    TIMES           reduce using rule 3
+    DIVIDE          reduce using rule 3
+    RPAREN          reduce using rule 3
+
+  ! PLUS            [ shift and go to state 6 ]
+  ! MINUS           [ shift and go to state 5 ]
+  ! TIMES           [ shift and go to state 4 ]
+  ! DIVIDE          [ shift and go to state 7 ]
+
+state 10
+
+    expression -> expression MINUS expression .
+    expression -> expression . PLUS expression
+    expression -> expression . MINUS expression
+    expression -> expression . TIMES expression
+    expression -> expression . DIVIDE expression
+
+    $               reduce using rule 2
+    PLUS            reduce using rule 2
+    MINUS           reduce using rule 2
+    RPAREN          reduce using rule 2
+    TIMES           shift and go to state 4
+    DIVIDE          shift and go to state 7
+
+  ! TIMES           [ reduce using rule 2 ]
+  ! DIVIDE          [ reduce using rule 2 ]
+  ! PLUS            [ shift and go to state 6 ]
+  ! MINUS           [ shift and go to state 5 ]
+
+state 11
+
+    expression -> expression PLUS expression .
+    expression -> expression . PLUS expression
+    expression -> expression . MINUS expression
+    expression -> expression . TIMES expression
+    expression -> expression . DIVIDE expression
+
+    $               reduce using rule 1
+    PLUS            reduce using rule 1
+    MINUS           reduce using rule 1
+    RPAREN          reduce using rule 1
+    TIMES           shift and go to state 4
+    DIVIDE          shift and go to state 7
+
+  ! TIMES           [ reduce using rule 1 ]
+  ! DIVIDE          [ reduce using rule 1 ]
+  ! PLUS            [ shift and go to state 6 ]
+  ! MINUS           [ shift and go to state 5 ]
+
+state 12
+
+    expression -> expression DIVIDE expression .
+    expression -> expression . PLUS expression
+    expression -> expression . MINUS expression
+    expression -> expression . TIMES expression
+    expression -> expression . DIVIDE expression
+
+    $               reduce using rule 4
+    PLUS            reduce using rule 4
+    MINUS           reduce using rule 4
+    TIMES           reduce using rule 4
+    DIVIDE          reduce using rule 4
+    RPAREN          reduce using rule 4
+
+  ! PLUS            [ shift and go to state 6 ]
+  ! MINUS           [ shift and go to state 5 ]
+  ! TIMES           [ shift and go to state 4 ]
+  ! DIVIDE          [ shift and go to state 7 ]
+
+state 13
+
+    expression -> LPAREN expression RPAREN .
+
+    $               reduce using rule 6
+    PLUS            reduce using rule 6
+    MINUS           reduce using rule 6
+    TIMES           reduce using rule 6
+    DIVIDE          reduce using rule 6
+    RPAREN          reduce using rule 6
+</code></pre>
+
+<p>文件中出现的不同状态，代表了有效输入标记的所有可能的组合，这是依据文法规则得到的。当得到输入标记时，分析器将构造一个栈，并找到匹配的规则。每个状态跟踪了当前输入进行到语法规则中的哪个位置，在每个规则中，’.’表示当前分析到规则的哪个位置，而且，对于在当前状态下，输入的每个有效标记导致的动作也被罗列出来。当出现移进/归约或归约/归约冲突时，被忽略的规则前面会添加!，就像这样：</p>
+
+<pre><code>
+! TIMES           [ reduce using rule 2 ]
+  ! DIVIDE          [ reduce using rule 2 ]
+  ! PLUS            [ shift and go to state 6 ]
+  ! MINUS           [ shift and go to state 5 ]
+</code></pre>
+
+<p>通过查看这些规则并结合一些实例，通常能够找到大部分冲突的根源。应该强调的是，不是所有的移进归约冲突都是不好的，想要确定解决方法是否正确，唯一的办法就是查看parser.out。</p>
+
+<h3 id="section-24">6.8 处理语法错误</h3>
+
+<p>如果你创建的分析器用于产品，处理语法错误是很重要的。一般而言，你不希望分析器在遇到错误的时候就抛出异常并终止，相反，你需要它报告错误，尽可能的恢复并继续分析，一次性的将输入中所有的错误报告给用户。这是一些已知语言编译器的标准行为，例如C,C++,Java。在PLY中，在语法分析过程中出现错误，错误会被立即检测到（分析器不会继续读取源文件中错误点后面的标记）。然而，这时，分析器会进入恢复模式，这个模式能够用来尝试继续向下分析。LR分析器的错误恢复是个理论与技巧兼备的问题，yacc.py提供的错误机制与Unix下的yacc类似，所以你可以从诸如O’Reilly出版的《Lex and yacc》的书中找到更多的细节。</p>
+
+<p>当错误发生时，yacc.py按照如下步骤进行：</p>
+
+<ol>
+  <li>第一次错误产生时，用户定义的p_error()方法会被调用，出错的标记会作为参数传入；如果错误是因为到达文件结尾造成的，传入的参数将为None。随后，分析器进入到“错误恢复”模式，该模式下不会在产生<code class="highlighter-rouge">p_error()</code>调用，直到它成功的移进3个标记，然后回归到正常模式。</li>
+  <li>如果在p_error()中没有指定恢复动作的话，这个导致错误的标记会被替换成一个特殊的error标记。</li>
+  <li>如果导致错误的标记已经是error的话，原先的栈顶的标记将被移除。</li>
+  <li>如果整个分析栈被放弃，分析器会进入重置状态，并从他的初始状态开始分析。</li>
+  <li>如果此时的语法规则接受error标记，error标记会移进栈。</li>
+  <li>如果当前栈顶是error标记，之后的标记将被忽略，直到有标记能够导致error的归约。</li>
+</ol>
+
+<h4 id="error">6.8.1 根据error规则恢复和再同步</h4>
+
+<p>最佳的处理语法错误的做法是在语法规则中包含error标记。例如，假设你的语言有一个关于print的语句的语法规则：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_statement_print</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+     <span class="s">'statement : PRINT expr SEMI'</span>
+     <span class="o">...</span></code></pre></figure>
+
+<p>为了处理可能的错误表达式，你可以添加一条额外的语法规则：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_statement_print_error</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+     <span class="s">'statement : PRINT error SEMI'</span>
+     <span class="k">print</span> <span class="s">"Syntax error in print statement. Bad expression"</span></code></pre></figure>
+
+<p>这样（expr错误时），error标记会匹配任意多个分号之前的标记（分号是<code class="highlighter-rouge">SEMI</code>指代的字符）。一旦找到分号，规则将被匹配，这样error标记就被归约了。</p>
+
+<p>这种类型的恢复有时称为”分析器再同步”。error标记扮演了表示所有错误标记的通配符的角色，而紧随其后的标记扮演了同步标记的角色。</p>
+
+<p>重要的一个说明是，通常error不会作为语法规则的最后一个标记，像这样：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_statement_print_error</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'statement : PRINT error'</span>
+    <span class="k">print</span> <span class="s">"Syntax error in print statement. Bad expression"</span></code></pre></figure>
+
+<p>这是因为，第一个导致错误的标记会使得该规则立刻归约，进而使得在后面还有错误标记的情况下，恢复变得困难。</p>
+
+<h4 id="section-25">6.8.2 悲观恢复模式</h4>
+
+<p>另一个错误恢复方法是采用“悲观模式”：该模式下，开始放弃剩余的标记，直到能够达到一个合适的恢复机会。</p>
+
+<p>悲观恢复模式都是在p_error()方法中做到的。例如，这个方法在开始丢弃标记后，直到找到闭合的’}’，才重置分析器到初始化状态：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_error</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">"Whoa. You are seriously hosed."</span>
+    <span class="c"># Read ahead looking for a closing '}'</span>
+    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">yacc</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>             <span class="c"># Get the next token</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tok</span> <span class="ow">or</span> <span class="n">tok</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="s">'RBRACE'</span><span class="p">:</span> <span class="k">break</span>
+    <span class="n">yacc</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span></code></pre></figure>
+
+<p>下面这个方法简单的抛弃错误的标记，并告知分析器错误被接受了：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_error</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">"Syntax error at token"</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="nb">type</span>
+    <span class="c"># Just discard the token and tell the parser it's okay.</span>
+    <span class="n">yacc</span><span class="o">.</span><span class="n">errok</span><span class="p">()</span></code></pre></figure>
+
+<p>在<code class="highlighter-rouge">p_error()</code>方法中，有三个可用的方法来控制分析器的行为：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">yacc.errok()</code> 这个方法将分析器从恢复模式切换回正常模式。这会使得不会产生error标记，并重置内部的error计数器，而且下一个语法错误会再次产生p_error()调用</li>
+  <li><code class="highlighter-rouge">yacc.token()</code> 这个方法用于得到下一个标记</li>
+  <li><code class="highlighter-rouge">yacc.restart()</code> 这个方法抛弃当前整个分析栈，并重置分析器为起始状态</li>
+</ul>
+
+<p>注意：这三个方法只能在<code class="highlighter-rouge">p_error()</code>中使用，不能用在其他任何地方。</p>
+
+<p>p_error()方法也可以返回标记，这样能够控制将哪个标记作为下一个标记返回给分析器。这对于需要同步一些特殊标记的时候有用，比如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_error</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="c"># Read ahead looking for a terminating ";"</span>
+    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">tok</span> <span class="o">=</span> <span class="n">yacc</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>             <span class="c"># Get the next token</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tok</span> <span class="ow">or</span> <span class="n">tok</span><span class="o">.</span><span class="nb">type</span> <span class="o">==</span> <span class="s">'SEMI'</span><span class="p">:</span> <span class="k">break</span>
+    <span class="n">yacc</span><span class="o">.</span><span class="n">errok</span><span class="p">()</span>
+
+    <span class="c"># Return SEMI to the parser as the next lookahead token</span>
+    <span class="k">return</span> <span class="n">tok</span></code></pre></figure>
+
+<h4 id="section-26">6.8.3 从产生式中抛出错误</h4>
+
+<p>如果有需要的话，产生式规则可以主动的使分析器进入恢复模式。这是通过抛出<code class="highlighter-rouge">SyntacError</code>异常做到的：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_production</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'production : some production ...'</span>
+    <span class="k">raise</span> <span class="nb">SyntaxError</span></code></pre></figure>
+
+<p>raise SyntaxError错误的效果就如同当前的标记是错误标记一样。因此，当你这么做的话，最后一个标记将被弹出栈，当前的下一个标记将是error标记，分析器进入恢复模式，试图归约满足error标记的规则。此后的步骤与检测到语法错误的情况是完全一样的，p_error()也会被调用。</p>
+
+<p>手动设置错误有个重要的方面，就是p_error()方法在这种情况下不会调用。如果你希望记录错误，确保在抛出SyntaxError错误的产生式中实现。</p>
+
+<p>注：这个功能是为了模仿yacc中的<code class="highlighter-rouge">YYERROR</code>宏的行为</p>
+
+<h4 id="section-27">6.8.4 错误恢复总结</h4>
+
+<p>对于通常的语言，使用error规则和再同步标记可能是最合理的手段。这是因为你可以将语法设计成在一个相对容易恢复和继续分析的点捕获错误。悲观恢复模式只在一些十分特殊的应用中有用，这些应用往往需要丢弃掉大量输入，再寻找合理的同步点。</p>
+
+<h4 id="section-28">6.9 行号和位置的跟踪</h4>
+
+<p>位置跟踪通常是个设计编译器时的技巧性玩意儿。默认情况下，PLY跟踪所有标记的行号和位置，这些信息可以这样得到：</p>
+
+<ul>
+  <li>p.lineno(num)返回第num个符号的行号</li>
+  <li>p.lexpos(num)返回第num个符号的词法位置偏移</li>
+</ul>
+
+<p>例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_expression</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : expression PLUS expression'</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">lineno</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>        <span class="c"># Line number of the left expression</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">lineno</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>        <span class="c"># line number of the PLUS operator</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">lineno</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>        <span class="c"># line number of the right expression</span>
+    <span class="o">...</span>
+    <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">linespan</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>    <span class="c"># Start,end lines of the right expression</span>
+    <span class="n">starti</span><span class="p">,</span><span class="n">endi</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">lexspan</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>   <span class="c"># Start,end positions of right expression</span></code></pre></figure>
+
+<p>注意：lexspan()方法只会返回的结束位置是最后一个符号的起始位置。</p>
+
+<p>虽然，PLY对所有符号的行号和位置的跟踪很管用，但经常是不必要的。例如，你仅仅是在错误信息中使用行号，你通常可以仅仅使用关键标记的信息，比如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_bad_func</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'funccall : fname LPAREN error RPAREN'</span>
+    <span class="c"># Line number reported from LPAREN token</span>
+    <span class="k">print</span> <span class="s">"Bad function call at line"</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">lineno</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></code></pre></figure>
+
+<p>类似的，为了改善性能，你可以有选择性的将行号信息在必要的时候进行传递，这是通过p.set_lineno()实现的，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_fname</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'fname : ID'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">set_lineno</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">p</span><span class="o">.</span><span class="n">lineno</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span></code></pre></figure>
+
+<p>对于已经完成分析的规则，PLY不会保留行号信息，如果你是在构建抽象语法树而且需要行号，你应该确保行号保留在树上。</p>
+
+<h3 id="section-29">6.10 构造抽象语法树</h3>
+
+<p>yacc.py没有构造抽像语法树的特殊方法。不过，你可以自己很简单的构造出来。</p>
+
+<p>一个最为简单的构造方法是为每个语法规则创建元组或者字典，并传递它们。有很多中可行的方案，下面是一个例子：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_expression_binop</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'''expression : expression PLUS expression
+                  | expression MINUS expression
+                  | expression TIMES expression
+                  | expression DIVIDE expression'''</span>
+
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s">'binary-expression'</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">p_expression_group</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : LPAREN expression RPAREN'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s">'group-expression'</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">p_expression_number</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : NUMBER'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s">'number-expression'</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre></figure>
+
+<p>另一种方法可以是为不同的抽象树节点创建一系列的数据结构，并赋值给p[0]：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Expr</span><span class="p">:</span> <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">BinOp</span><span class="p">(</span><span class="n">Expr</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">left</span><span class="p">,</span><span class="n">op</span><span class="p">,</span><span class="n">right</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="nb">type</span> <span class="o">=</span> <span class="s">"binop"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="n">op</span>
+
+<span class="k">class</span> <span class="nc">Number</span><span class="p">(</span><span class="n">Expr</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="nb">type</span> <span class="o">=</span> <span class="s">"number"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+<span class="k">def</span> <span class="nf">p_expression_binop</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'''expression : expression PLUS expression
+                  | expression MINUS expression
+                  | expression TIMES expression
+                  | expression DIVIDE expression'''</span>
+
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">BinOp</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">p_expression_group</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : LPAREN expression RPAREN'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">p_expression_number</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'expression : NUMBER'</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Number</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre></figure>
+
+<p>这种方式的好处是在处理复杂语义时比较简单：类型检查、代码生成、以及其他针对树节点的功能。</p>
+
+<p>为了简化树的遍历，可以创建一个通用的树节点结构，例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="nb">type</span><span class="p">,</span><span class="n">children</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">leaf</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="nb">type</span> <span class="o">=</span> <span class="nb">type</span>
+         <span class="k">if</span> <span class="n">children</span><span class="p">:</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span>
+         <span class="k">else</span><span class="p">:</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">leaf</span> <span class="o">=</span> <span class="n">leaf</span>
+         
+<span class="k">def</span> <span class="nf">p_expression_binop</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">'''expression : expression PLUS expression
+                  | expression MINUS expression
+                  | expression TIMES expression
+                  | expression DIVIDE expression'''</span>
+
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s">"binop"</span><span class="p">,</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]],</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></code></pre></figure>
+
+<h3 id="section-30">6.11 嵌入式动作</h3>
+
+<p>yacc使用的分析技术只允许在规则规约后执行动作。假设有如下规则：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_foo</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"foo : A B C D"</span>
+    <span class="k">print</span> <span class="s">"Parsed a foo"</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span></code></pre></figure>
+
+<p>方法只会在符号A,B,C和D都完成后才能执行。可是有的时候，在中间阶段执行一小段代码是有用的。假如，你想在A完成后立即执行一些动作，像下面这样用空规则：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_foo</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"foo : A seen_A B C D"</span>
+    <span class="k">print</span> <span class="s">"Parsed a foo"</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="k">print</span> <span class="s">"seen_A returned"</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">p_seen_A</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"seen_A :"</span>
+    <span class="k">print</span> <span class="s">"Saw an A = "</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c"># Access grammar symbol to left</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">some_value</span>            <span class="c"># Assign value to seen_A</span></code></pre></figure>
+
+<p>在这个例子中，空规则seen_A将在A移进分析栈后立即执行。p[-1]指代的是在分析栈上紧跟在seen_A左侧的符号。在这个例子中，是A符号。像其他普通的规则一样，在嵌入式行为中也可以通过为p[0]赋值来返回某些值。</p>
+
+<p>使用嵌入式动作可能会导致移进归约冲突，比如，下面的语法是没有冲突的：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_foo</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"""foo : abcd
+           | abcx"""</span>
+
+<span class="k">def</span> <span class="nf">p_abcd</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"abcd : A B C D"</span>
+
+<span class="k">def</span> <span class="nf">p_abcx</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"abcx : A B C X"</span></code></pre></figure>
+
+<p>可是，如果像这样插入一个嵌入式动作：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_foo</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"""foo : abcd
+           | abcx"""</span>
+
+<span class="k">def</span> <span class="nf">p_abcd</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"abcd : A B C D"</span>
+
+<span class="k">def</span> <span class="nf">p_abcx</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"abcx : A B seen_AB C X"</span>
+
+<span class="k">def</span> <span class="nf">p_seen_AB</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"seen_AB :"</span></code></pre></figure>
+
+<p>会产生移进归约冲，只是由于对于两个规则abcd和abcx中的C，分析器既可以根据abcd规则移进，也可以根据abcx规则先将空的seen_AB归约。</p>
+
+<p>嵌入动作的一般用于分析以外的控制，比如为本地变量定义作用于。对于C语言：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_statements_block</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"statements: LBRACE new_scope statements RBRACE"""</span>
+    <span class="c"># Action code</span>
+    <span class="o">...</span>
+    <span class="n">pop_scope</span><span class="p">()</span>        <span class="c"># Return to previous scope</span>
+
+<span class="k">def</span> <span class="nf">p_new_scope</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="s">"new_scope :"</span>
+    <span class="c"># Create a new scope for local variables</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">new_scope</span><span class="p">()</span>
+    <span class="n">push_scope</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="o">...</span></code></pre></figure>
+
+<p>在这个例子中，new_scope作为嵌入式行为，在左大括号{之后立即执行。可以是调正内部符号表或者其他方面。statements_block一完成，代码可能会撤销在嵌入动作时的操作（比如，pop_scope())</p>
+
+<h3 id="yacc-1">6.12 Yacc的其他</h3>
+
+<ul>
+  <li>默认的分析方法是LALR，使用SLR请像这样运行 yacc()：yacc.yacc(method=”SLR”)注意：LRLR生成的分析表大约要比SLR的大两倍。解析的性能没有本质的区别，因为代码是一样的。由于LALR能力稍强，所以更多的用于复杂的语法。</li>
+  <li>默认情况下，yacc.py依赖lex.py产生的标记。不过，可以用一个等价的词法标记生成器代替： yacc.parse(lexer=x) 这个例子中，x必须是一个Lexer对象，至少拥有x.token()方法用来获取标记。如果将输入字串提供给yacc.parse()，lexer还必须具有x.input()方法。</li>
+  <li>默认情况下，yacc在调试模式下生成分析表（会生成parser.out文件和其他东西），使用yacc.yacc(debug=0)禁用调试模式。</li>
+  <li>改变parsetab.py的文件名：yacc.yacc(tabmodule=”foo”)</li>
+  <li>改变parsetab.py的生成目录：yacc.yacc(tabmodule=”foo”,outputdir=”somedirectory”)</li>
+  <li>不生成分析表：yacc.yacc(write_tables=0)。注意：如果禁用分析表生成，yacc()将在每次运行的时候重新构建分析表（这里耗费的时候取决于语法文件的规模）</li>
+  <li>想在分析过程中输出丰富的调试信息，使用：yacc.parse(debug=1)</li>
+  <li>yacc.yacc()方法会返回分析器对象，如果你想在一个程序中支持多个分析器：</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">p</span> <span class="o">=</span> <span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="n">p</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span></code></pre></figure>
+
+<p>注意：yacc.parse()方法只绑定到最新创建的分析器对象上。</p>
+
+<ul>
+  <li>由于生成生成LALR分析表相对开销较大，先前生成的分析表会被缓存和重用。判断是否重新生成的依据是对所有的语法规则和优先级规则进行MD5校验，只有不匹配时才会重新生成。生成分析表是合理有效的办法，即使是面对上百个规则和状态的语法。对于复杂的编程语言，像C语言，在一些慢的机器上生成分析表可能要花费30-60秒，请耐心。</li>
+  <li>由于LR分析过程是基于分析表的，分析器的性能很大程度上取决于语法的规模。最大的瓶颈可能是词法分析器和语法规则的复杂度。</li>
+</ul>
+
+<h2 id="section-31">7 多个语法和词法分析器</h2>
+
+<p>在高级的分析器程序中，你可能同时需要多个语法和词法分析器。</p>
+
+<p>依照规则行事不会有问题。不过，你需要小心确定所有东西都正确的绑定(hooked up)了。首先，保证将lex()和yacc()返回的对象保存起来：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lexer</span>  <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">()</span>       <span class="c"># Return lexer object</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">()</span>     <span class="c"># Return parser object</span></code></pre></figure>
+
+<p>接着，在解析时，确保给parse()方法一个正确的lexer引用：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">lexer</span><span class="o">=</span><span class="n">lexer</span><span class="p">)</span></code></pre></figure>
+
+<p>如果遗漏这一步，分析器会使用最新创建的lexer对象，这可能不是你希望的。</p>
+
+<p>词法器和语法器的方法中也可以访问这些对象。在词法器中，标记的lexer属性指代的是当前触发规则的词法器对象：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+   <span class="s">r'</span><span class="err">\</span><span class="s">d+'</span>
+   <span class="o">...</span>
+   <span class="k">print</span> <span class="n">t</span><span class="o">.</span><span class="n">lexer</span>           <span class="c"># Show lexer object</span></code></pre></figure>
+
+<p>在语法器中，lexer和parser属性指代的是对应的词法器对象和语法器对象</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">p_expr_plus</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+   <span class="s">'expr : expr PLUS expr'</span>
+   <span class="o">...</span>
+   <span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">parser</span>          <span class="c"># Show parser object</span>
+   <span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">lexer</span>           <span class="c"># Show lexer object</span></code></pre></figure>
+
+<p>如果有必要，lexer对象和parser对象都可以附加其他属性。例如，你想要有不同的解析器状态，可以为为parser对象附加更多的属性，并在后面用到它们。</p>
+
+<h2 id="python">8 使用Python的优化模式</h2>
+
+<p>由于PLY从文档字串中获取信息，语法解析和词法分析信息必须通过正常模式下的Python解释器得到（不带有-O或者-OO选项）。不过，如果你像这样指定optimize模式：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">optimize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">(</span><span class="n">optimize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code></pre></figure>
+
+<p>PLY可以在下次执行，在Python的优化模式下执行。但你必须确保第一次执行是在Python的正常模式下进行，一旦词法分析表和语法分析表生成一次后，在Python优化模式下执行，PLY会使用生成好的分析表而不再需要文档字串。</p>
+
+<p>注意：在优化模式下执行PLY会禁用很多错误检查机制。你应该只在程序稳定后，不再需要调试的情况下这样做。使用优化模式的目的应该是大幅减少你的编译器的启动时间（万事俱备只欠东风时）</p>
+
+<h2 id="section-32">9 高级调试</h2>
+
+<p>调试一个编译器不是件容易的事情。PLY提供了一些高级的调试能力，这是通过Python的logging模块实现的，下面两节介绍这一主题：</p>
+
+<h3 id="lexyacc">9.1 调试lex()和yacc()命令</h3>
+
+<p>lex()和yacc()命令都有调试模式，可以通过debug标识实现：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></figure>
+
+<p>正常情况下，调试不仅输出标准错误，对于yacc()，还会给出parser.out文件。这些输出可以通过提供logging对象来精细的控制。下面这个例子增加了对调试信息来源的输出：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Set up a logging object</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s">"parselog.txt"</span><span class="p">,</span>
+    <span class="n">filemode</span> <span class="o">=</span> <span class="s">"w"</span><span class="p">,</span>
+    <span class="n">format</span> <span class="o">=</span> <span class="s">"</span><span class="si">%(filename)10</span><span class="s">s:</span><span class="si">%(lineno)4</span><span class="s">d:</span><span class="si">%(message)</span><span class="s">s"</span>
+<span class="p">)</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+
+<span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">debuglog</span><span class="o">=</span><span class="n">log</span><span class="p">)</span>
+<span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">debuglog</span><span class="o">=</span><span class="n">log</span><span class="p">)</span></code></pre></figure>
+
+<p>如果你提供一个自定义的logger，大量的调试信息可以通过分级来控制。典型的是将调试信息分为DEBUG,INFO,或者WARNING三个级别。</p>
+
+<p>PLY的错误和警告信息通过日志接口提供，可以从errorlog参数中传入日志对象</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">errorlog</span><span class="o">=</span><span class="n">log</span><span class="p">)</span>
+<span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">(</span><span class="n">errorlog</span><span class="o">=</span><span class="n">log</span><span class="p">)</span></code></pre></figure>
+
+<p>如果想完全过滤掉警告信息，你除了可以使用带级别过滤功能的日志对象，也可以使用lex和yacc模块都内建的Nulllogger对象。例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">(</span><span class="n">errorlog</span><span class="o">=</span><span class="n">yacc</span><span class="o">.</span><span class="n">NullLogger</span><span class="p">())</span></code></pre></figure>
+
+<h3 id="section-33">9.2 运行时调试</h3>
+
+<p>为分析器指定debug选项，可以激活语法分析器的运行时调试功能。这个选项可以是整数（表示对调试功能是开还是关），也可以是logger对象。例如：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span><span class="n">debug</span><span class="o">=</span><span class="n">log</span><span class="p">)</span></code></pre></figure>
+
+<p>如果传入日志对象的话，你可以使用其级别过滤功能来控制内容的输出。INFO级别用来产生归约信息；DEBUG级别会显示分析栈的信息、移进的标记和其他详细信息。ERROR级别显示分析过程中的错误相关信息。</p>
+
+<p>对于每个复杂的问题，你应该用日志对象，以便输出重定向到文件中，进而方便在执行结束后检查。</p>
+
+<h2 id="section-34">10 如何继续</h2>
+
+<p>PLY分发包中的example目录包含几个简单的示例。对于理论性的东西以及LR分析发的实现细节，应当从编译器相关的书籍中学习。</p>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#open-source">
+					open-source <span>(12)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#PLY">
+					PLY <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#Python">
+					Python <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#Lex">
+					Lex <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#Yacc">
+					Yacc <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/life/2014/01/14/52d542e7c6ced.html" title="伤不起的全栈程序员">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/open-source/2014/01/21/52de149d84a8f.html" title="bootstrap3栅格系统源码学习">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

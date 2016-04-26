@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>存储技术之磁盘工作原理</title>
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>存储技术之磁盘工作原理 </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   August 
+	   28th,
+	   
+	   2014
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <p>存储技术如今已经越来越重要，而且在云计算时代，涌现出了很多专注于云存储的厂商。存储技术本身也十分复杂，从硬件到协议到软件到接口几乎覆盖计算机科学的方方面面。笔者借助《大话存储II》这本书，开始了这块知识空白的补充。本文的图片均来源于网络。</p>
+
+<h2 id="section">盘片的机械原理</h2>
+
+<p>磁盘由众多盘片构成，将磁粉溅镀到基板上就形成了盘片，基板要求极高，不可有任何瑕疵。磁粉通过N\S磁极来表示0和1，这个数据需要磁头来读取和写入。磁头在读取数据时不与盘片接触，但是又要越近越好，因为太远无法感应到磁粉的极性，这个距离现在已经可以做到人类头发丝的千分之一了，真是足够精密了！盘片有电机带动做高速旋转，通常听见的7200转/分，就是指盘片每分钟转过的圈数，这样磁头就相对盘片做圆周运动，也就能够按磁道来读取数据。除此之外，磁头的机械臂还由步进电机控制，沿盘片半径做直线运动，以读取不同磁道的数据。一块磁盘拥有多个盘片，每个盘片的上下面都可以读写数据，而且每个盘面都有对应的磁头读写。例如，如果一块磁盘有4个盘面，那么磁头就有8个，分别编号0-7。<code class="highlighter-rouge">虽然有多个磁头在工作，但是同一时刻只能有一个磁头在读写数据</code>。 在整个数据的读取过程中，机械臂的移动称为<code class="highlighter-rouge">寻道</code>，寻道的时间和盘片旋转的时间远大于半导体电路的数据传输时间，是阻碍磁盘读写性能的最大因素。</p>
+
+<p><img src="http://blog.aliyun.com/wp-content/uploads/2014/06/hd-624x527.jpg" alt="" /></p>
+
+<h2 id="section-1">盘片的逻辑结构</h2>
+
+<ul>
+  <li>磁道：上面提到了磁道的概念，磁道就是盘面上的一个个同心圆，一个盘面可以有成百上千个磁道。磁道从最外圈向内圈从0开始编号。每个磁道的宽度取决于磁头的大小，磁头如果能够做到原子级别的话，那么磁道的数量将可以大大增加，存储容量将几何倍数提升。</li>
+  <li>扇区：磁道又被划分为一段段的圆弧，称为扇区，每个扇区中的数据总是同时读取或写入，是磁盘的最小读写单位。由于外圈的扇区拥有更高的线速度，所以外圈的数据读写要比内圈快一些。</li>
+  <li>低级格式化：在盘片上划分磁道和扇区称为低级格式化</li>
+  <li>高级格式化：对磁盘上的数据进行文件系统标记称为高级格式化</li>
+  <li>柱面：所有盘面上的同一磁道，构成柱面。由于<code class="highlighter-rouge">寻道</code>的开销极大，所以，索性在写入数据的时候，是按照柱面进行的，只有一个柱面上的若干个磁头都将各自的磁道写满后才换柱面写。</li>
+</ul>
+
+<p><img src="http://static.oschina.net/uploads/space/2011/0528/155633_kDiC_96486.png" alt="" /></p>
+
+<h2 id="section-2">扇区与寻址</h2>
+
+<p>扇区是最小读写单位，所以每个扇区都有自己的编址方式，这个编制被记录在每个扇区的<code class="highlighter-rouge">头标</code>中。编制方式分为两种：</p>
+
+<ul>
+  <li>CHS：早期使用的编址方式，读写时提供的CHS即是：柱面号(Cylinder)8bit、磁头号(Header)10bit、扇区(Sector)6bit的组合。而如果每个扇区是<code class="highlighter-rouge">512B</code>，则这种编制方式最多存储255×1023×63×512/1048576=8G数据</li>
+  <li>LBA：使用线性编址，对外提供扇区号从1开始编号，而编号与CHS的对应关系有磁盘自身维护</li>
+</ul>
+
+<p>扇区的头标还记录了扇区中的数据是否可靠，头标以CRC值结束。</p>
+
+<p>在LBA编制方法中，如果扇区号按照1、2、3、4、5顺序绕着磁道编号的话，可能会在电路处理一个扇区的数据期间，下一个扇区由于磁盘运转速度太快而跳过了，这样就需要再转一圈才能读回来。解决这个问题的方法是<code class="highlighter-rouge">交叉因子(Interleave)</code>，即编号不是连续的，而是1和2中间可能隔开几个扇区，用来分隔的扇区本身可能是编号靠后的扇区。例如按照2:1的交叉因子编号就是1、10、2、11、3、12、4、13、5、14…，而3:1的交叉因子编号就是1、7、13、2、8、14、3、9、15、4、10、16、5、11、17、6、12。本质上，设置交叉因子，是由于硬盘控制器速度无法跟上转速，而由于盘片的外圈和内圈线速度不同，还出现了在不同的磁道上采用不同的交叉因子的做法。</p>
+
+<p><img src="http://img.my.csdn.net/uploads/201301/07/1357571335_7207.JPG" alt="" /></p>
+
+<p>目前扇区的大小已经调整为4KB，这是因为上层操作系统定义的文件系统一般是以4KB作为一块，这两者的匹配可以避免每次都要读取多个扇区，大大提高了效率。</p>
+
+<h2 id="section-3">磁盘内部的队列和缓存</h2>
+
+<p>由于寻道开销极大，对于磁盘来讲如果先后的两次IO分别是最内圈和最外圈扇区数据，那么机械臂需要大范围移动。所以磁盘内部通过队列来合理的安排这些IO，以最大限度减少寻到开销，相应的算法有FCFS、SSTF、SCAN、C-SCAN、LOOK、C-LOOK等。</p>
+
+<p>磁盘需要缓存来保存指令和进行预读，磁盘的数据缓存默认是打开的，即如果写数据指令到来时，磁盘可能会在真正写入盘片前就返回成功。但是如果这时掉电的话，将会造成数据不一致。有些应用会通过操作系统“禁用”写缓存，比如数据库应用，因为数据库应用一般自己实现了写缓存和预读功能。</p>
+
+<h2 id="section-4">硬盘接口技术</h2>
+
+<p>硬盘的物理接口包括如下几种：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">ATA</code>指令系统的<code class="highlighter-rouge">IDE</code>接口</li>
+  <li>ATA指令系统的<code class="highlighter-rouge">SATA</code>接口</li>
+  <li><code class="highlighter-rouge">SCSI</code>指令系统的并行<code class="highlighter-rouge">SCSI</code>接口</li>
+  <li>SCSI指令系统的串行SCSI接口(SAS)</li>
+  <li>SCSI指令系统的IBM专用串行SCSI接口(SSA)</li>
+  <li>SCSI指令系统的承载于FC协议的串行<code class="highlighter-rouge">FC</code>接口(FCP)</li>
+</ul>
+
+<p>一般个人电脑都采用ATA指令，只是如今IDE已经淘汰，基本上都是串行接口(即SATA)了。而服务器一般集成有SCSI控制器芯片，所有可以采用更高效的SCSI协议来操作硬盘。无论是哪种指令，基本上都包括几个要素：</p>
+
+<ol>
+  <li>需要对硬盘做什么操作</li>
+  <li>提供硬盘上的扇区编址</li>
+  <li>待写入的数据在内存中的地址，或者读出来的数据将要放在内存中的地址</li>
+</ol>
+
+<p>早期<code class="highlighter-rouge">PIO</code>(Programming Input/Output Model)模式下，CPU需要参与将内存中的数据传给磁盘控制器，或者参与将磁盘控制器从磁盘上读取的数据写入内存，大大增加了CPU的负担。而<code class="highlighter-rouge">DMA</code>(Direct Memory Access)模式下，CPU只要将这个工作交给DMA控制器即可。</p>
+
+<p>传统的SCSI协议，每个通道最多可以连接16个基于SCSI的设备，采用总线寻址方式，包含仲裁阶段。独立的SCSI卡可以有多个通道。物理上，16个设备是一个限制，但是SCSI指令中有一条叫做Report LUN的指令，即让某个SCSI设备报告自身的<code class="highlighter-rouge">LUN</code>(逻辑单元)信息。如果这个SCSI设备本身具有划分逻辑设备的能力的话，就可以报告多个LUN，每个LUN有LUN ID。这样每个SCSI通道能够接入的逻辑设备就大大增加了。</p>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#hardware">
+					hardware <span>(9)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#Hardware">
+					Hardware <span>(4)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#storage">
+					storage <span>(4)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#disk">
+					disk <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/open-source/2014/07/28/nginx-mod-zip.html" title="利用Nginx第三方模块，实现附件打包下载">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/hardware/2014/09/02/storage-raid.html" title="存储技术之RAID">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

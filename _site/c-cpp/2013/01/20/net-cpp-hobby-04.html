@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>.NET程序员的C\C++情结(4)</title>
+	
+	<meta name="description" content="这个系列是本人在工作或工作之余开发和学习C\C++的一些笔记。本文涉及到C\C++预编译指令#pragma，以及内存对齐相关的知识">
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>.NET程序员的C\C++情结(4) </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   January 
+	   20th,
+	   
+	   2013
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <p>以下内容大部分来自于网络转载，参考来源：</p>
+
+<p><a href="http://www.52rd.com/blog/Detail_RD.Blog_sunhuibo_5025.html">http://www.52rd.com/blog/Detail_RD.Blog_sunhuibo_5025.html</a>
+<a href="http://baike.baidu.com/view/3487831.htm">http://baike.baidu.com/view/3487831.htm</a>
+<a href="http://www.ibm.com/developerworks/library/pa-dalign/">http://www.ibm.com/developerworks/library/pa-dalign/</a>
+<a href="http://www.cnblogs.com/kevinLee-xjtu/archive/2011/12/12/2299090.html">http://www.cnblogs.com/kevinLee-xjtu/archive/2011/12/12/2299090.html</a>
+<a href="http://blog.csdn.net/lgouc/article/details/8235616">http://blog.csdn.net/lgouc/article/details/8235616</a></p>
+
+<h2 id="pragma">预处理指令#pragma</h2>
+
+<p>在所有的预处理指令中，<code class="highlighter-rouge">#pragma</code>指令可能是最复杂的了，它的作用是设定编译器的状态或者是指示编译器完成一些特定的动作。#pragma指令对每个编译器给出了一个方法,在保持与C和C++语言完全兼容的情况下,给出主机或操作系统专有的特征。
+依据定义,编译指示是机器或操作系统专有的,且对于每个编译器都是不同的。其格式一般为: <code class="highlighter-rouge">#pragma  para</code>。其中<code class="highlighter-rouge">para</code>为参数，下面来看一些常用的参数。</p>
+
+<h3 id="message-">message 参数</h3>
+
+<p><code class="highlighter-rouge">message</code>参数能够在编译信息输出窗口中输出相应的信息，这对于源代码信息的控制是非常重要的。其使用方法为：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#pragma message("消息文本")</span></code></pre></figure>
+
+<p>当编译器遇到这条指令时就在编译输出窗口中将消息文本打印出来。当我们在程序中定义了许多宏来控制源代码版本的时候，我们自己有可能都会忘记有没有正确的设置这些宏，此时我们可以用这条指令在编译的时候就进行检查。假设我们希望判断自己有没有在源代码的什么地方定义了_X86这个宏，可以用下面的方法:</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#ifdef _X86
+#pragma message("_X86  macro  activated!")
+#endif</span></code></pre></figure>
+
+<p>我们定义了_X86这个宏以后，应用程序在编译时就会在编译输出窗口里显示”_86  macro  activated!”。我们就不会因为不记得自己定义的一些特定的宏而抓耳挠腮了。</p>
+
+<h3 id="codeseg">code_seg参数</h3>
+
+<p>格式如：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#pragma  code_seg( ["section-name" [, "section-class"] ] )</span></code></pre></figure>
+
+<p>它能够设置程序中函数代码存放的代码段，当我们开发驱动程序的时候就会使用到它。</p>
+
+<h3 id="pragma-once--">#pragma once  (比较常用)</h3>
+
+<p>只要在头文件的最开始加入这条指令就能够保证头文件被编译一次，这条指令实际上在VC6中就已经有了，但是考虑到兼容性并没有太多的使用它。</p>
+
+<h3 id="pragma--hdrstop">#pragma  hdrstop</h3>
+
+<p>表示预编译头文件到此为止，后面的头文件不进行预编译。BCB可以预编译头文件以加快链接的速度，但如果所有头文件都进行预编译又可能占太多磁盘空间，所以使用这个选项排除一些头文件。有时单元之间有依赖关系，比如单元A依赖单元B，所以单元B要先于单元A编译。你可以用#pragma  startup指定编译优先级，如果使用了<code class="highlighter-rouge">#pragma  package(smart_init)</code>，BCB就会根据优先级的大小先后编译。</p>
+
+<h3 id="pragma--resource--dfm">#pragma  resource  “*.dfm”</h3>
+
+<p>表示把<em>.dfm文件中的资源加入工程。</em>.dfm中包括窗体外观的定义。</p>
+
+<h3 id="pragma--warning">#pragma  warning</h3>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#pragma  warning( disable: 4507 34; once: 4385; error: 164 )</span></code></pre></figure>
+
+<p>等价于：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#pragma  warning( disable: 4507 34 )    //  不显示4507和34号警告信息
+#pragma  warning( once: 4385 )          //  4385号警告信息仅报告一次 
+#pragma  warning( error: 164 )          //  把164号警告信息作为一个错误。</span></code></pre></figure>
+
+<p>同时这个pragma  warning  也支持如下格式：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#pragma  warning( push [, n ] ) //这里n代表一个警告等级(1---4)。 
+#pragma  warning( pop ) //#pragma  warning( push )保存所有警告信息的现有的警告状态。 
+#pragma  warning( push, n ) //保存所有警告信息的现有的警告状态，并且把全局警告等级设定为n。   
+#pragma  warning( pop ) //向栈中弹出最后一个警告信息，在入栈和出栈之间所作的一切改动取消。</span></code></pre></figure>
+
+<p>例如：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#pragma  warning( push )
+#pragma  warning( disable: 4705 )
+#pragma  warning( disable: 4706 )
+#pragma  warning( disable: 4707 )
+#pragma  warning(  pop  )</span></code></pre></figure>
+
+<p>在这段代码的最后，重新保存所有的警告信息(包括4705，4706和4707)。</p>
+
+<h3 id="pragma--comment">#pragma  comment</h3>
+
+<p>该指令将一个注释记录放入一个对象文件或可执行文件中。 应该是<code class="highlighter-rouge">compiler</code>，<code class="highlighter-rouge">lib</code>，<code class="highlighter-rouge">linker</code>之一。</p>
+
+<ul>
+  <li>compiler：放置编译器的版本或者名字到一个对象文件，该选项是被linker忽略的。</li>
+  <li>lib：放置一个库搜索记录到对象文件中，这个类型应该是和commentstring（指定你要Linker搜索的lib的名称和路径）</li>
+  <li>linker：指定一个连接选项，这样就不用在命令行输入或者在开发环境中设置了。只有下面的linker选项能被传给Linker ：/DEFAULTLIB ,/EXPORT,/INCLUDE,/MANIFESTDEPENDENCY, /MERGE,/SECTION</li>
+</ul>
+
+<p>常用的lib关键字，可以帮我们连入一个库文件。如：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#pragma  comment(lib, "comctl32.lib")
+#pragma  comment(lib, "vfw32.lib")
+#pragma  comment(lib, "wsock32.lib")</span></code></pre></figure>
+
+<p>Windows在一个Win32程序的地址空间周围筑了一道墙。通常，一个程序的地址空间中的数据是私有的，对别的程序而言是不可见的。进程间通信有很多办法，与#pragma相关的我们要谈到共享内存。下面的写法在一个dll程序的.c文件开头处，将两个变量储存在共享的一个特殊内存区段中：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#pragma data_seg ("shared")
+</span>   <span class="kt">int</span> <span class="n">iTotal</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">WCHAR</span> <span class="n">szStrings</span> <span class="p">[</span><span class="n">MAX_STRINGS</span><span class="p">][</span><span class="n">MAX_LENGTH</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">'\0'</span><span class="p">};</span>
+<span class="cp">#pragma data_seg ()</span></code></pre></figure>
+
+<h1 id="pragma-commentlinkersectionsharedrws-rws">pragma comment(linker,”/SECTION:shared,RWS”) //字母RWS表示段具有读、写和共享属性。</h1>
+<p>第一个#pragma叙述建立数据段，这里命名为<code class="highlighter-rouge">shared</code>。您可以将这段命名为任何一个您喜欢的名字。在这里的#pragma叙述之后的所有初始化了的变量都放在<code class="highlighter-rouge">shared</code>数据段中。第二个#pragma叙述标示段的结束。对变量进行专门的初始化是很重要的，否则编译器将把它们放在普通的未初始化数据段(BBS)中而不是放在shared中。然后，连结器必须知道有一个名叫<code class="highlighter-rouge">shared</code>的共享数据段。可以直接用<code class="highlighter-rouge">#pragma comment</code>指定<code class="highlighter-rouge">linker</code>选项。</p>
+
+<h3 id="section">编译器特殊功能开关</h3>
+
+<p>每个编译程序可以用#pragma指令激活或终止该编译程序支持的一些编译功能。例如，对循环优化功能：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#pragma  loop_opt(on)     //  激活
+#pragma  loop_opt(off)    //  终止</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">每个编译器对#pragma的实现不同，在一个编译器中有效在别的编译器中几乎无效。可从编译器的文档中查看。</code></p>
+
+<h3 id="pragma-packn">#pragma pack(n)内存对齐问题</h3>
+
+<p>内存对齐是个比较深奥的问题，先看一些引子</p>
+
+<ul>
+  <li>因为处理器读写数据，并不是以字节为单位，而是以块(2,4,8,16字节)为单位进行的。如果不进行对齐，那么本来只需要一次进行的访问，可能需要好几次才能完成，并且还要进行额外的merger或者数据分离。导致效率低下。更严重地，会因为cpu不允许访问unaligned address，就会报错，或者打开调试器或者dump core，比如sun sparc solaris绝对不会容忍你访问unaligned address，都会以一个core结束你的程序的执行。所以一般编译器都会在编译时做相应的优化以保证程序运行时所有数据都是存储在’aligned address’上的，这就是内存对齐的由来。在’Data alignment: Straighten up and fly right’这篇文章中作者还得出一个结论那就是：”如果访问的地址是unaligned的，那么采用大粒度访问内存有可能比小粒度访问内存还要慢”。</li>
+  <li>ANSI C保证结构体中各字段在内存中出现的位置是随它们的声明顺序依次递增的，并且第一个字段的首地址等于整个结构体实例的首地址。这时，有朋友可能会问:”标准是否规定相邻字段在内存中也相邻?”。唔，对不起，ANSI C没有做出保证，你的程序在任何时候都不应该依赖这个假设。那这是否意味着我们永远无法勾勒出一幅更清晰更精确的结构体内存布局图？哦，当然不是。不过先让我们从这个问题中暂时抽身，关注一下另一个重要问题————内存对齐。</li>
+  <li>许多实际的计算机系统对基本类型数据在内存中存放的位置有限制，它们会要求这些数据的首地址的值是某个数k(通常它为4或8)的倍数，这就是所谓的内存对齐，而这个k则被称为该数据类型的对齐模数(alignment modulus)。当一种类型S的对齐模数与另一种类型T的对齐模数的比值是大于1的整数，我们就称类型S的对齐要求比T强(严格)，而称T比S弱(宽松)。这种强制的要求一来简化了处理器与内存之间传输系统的设计，二来可以提升读取数据的速度。比如这么一种处理器，它每次读写内存的时候都从某个8倍数的地址开始，一次读出或写入8个字节的数据，假如软件能保证double类型的数据都从8倍数地址开始，那么读或写一个double类型数据就只需要一次内存操作。否则，我们就可能需要两次内存操作才能完成这个动作，因为数据或许恰好横跨在两个符合对齐要求的8字节内存块上。某些处理器在数据不满足对齐要求的情况下可能会出错，但是Intel的IA32架构的处理器则不管数据是否对齐都能正确工作。不过Intel奉劝大家，如果想提升性能，那么所有的程序数据都应该尽可能地对齐。Win32平台下的微软C编译器(cl.exe for 80x86)在默认情况下采用如下的对齐规则: 任何基本数据类型T的对齐模数就是T的大小，即sizeof(T)。比如对于double类型8字节)，就要求该类型数据的地址总是8的倍数，而char类型数据(1字节)则可以从任何一个地址开始。</li>
+  <li>Linux下的GCC奉行的是另外一套规则(在资料中查得，并未验证，如错误请指正):任何2字节大小(包括单字节吗?)的数据类型(比如short)的对齐模数是2，而其它所有超过2字节的数据类型(比如long,double)都以4为对齐模数。
+事实上，如果对于初学者，或者是对程序执行原理了解甚少的人来说，理解内存对齐是比较困难的。就上上面所说的，编译器会为我们做一些优化，但是有些时候，我们可能需要自己针对目标平台做一些优化，就需要懂得内存对齐了。可以参考这篇翻译稿：<a href="http://blog.csdn.net/lgouc/article/details/8235471">http://blog.csdn.net/lgouc/article/details/8235471</a></li>
+</ul>
+
+<p>一句话就是，内存的数据需要被CPU读入寄存器，才能进行运算。而CPU读取数据时是一块块读的，不是一个个字节读的。如果你的某个结构体成员恰好被这种快分割开来了，那么CPU必须进行第二次读入，并进行合并和数据分离等额外操作。内存对齐的目的就是，减少CPU这种二次读数据的行为，即使以增加结构体占用空间为代价（使用padding填充）。另一方面，内存也未必是一定会增加结构体占用空间，有趣的是有时略微调整成员顺序就能有不同的效果。</p>
+
+<p>来看几个例子：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">MyStruct</span>
+<span class="p">{</span>
+<span class="kt">char</span> <span class="n">dda</span><span class="p">;</span><span class="c1">//偏移量为0，满足对齐方式，dda占用1个字节；
+</span><span class="kt">double</span> <span class="n">dda1</span><span class="p">;</span><span class="c1">//下一个可用的地址的偏移量为1，不是sizeof(double)=8
+</span>            <span class="c1">//的倍数，需要补足7个字节才能使偏移量变为8（满足对齐
+</span>            <span class="c1">//方式），因此VC自动填充7个字节，dda1存放在偏移量为8
+</span>            <span class="c1">//的地址上，它占用8个字节。
+</span><span class="kt">int</span> <span class="n">type</span><span class="p">;</span><span class="c1">//下一个可用的地址的偏移量为16，是sizeof(int)=4的倍
+</span>          <span class="c1">//数，满足int的对齐方式，所以不需要VC自动填充，type存
+</span>          <span class="c1">//放在偏移量为16的地址上，它占用4个字节。
+</span><span class="p">};</span><span class="c1">//所有成员变量都分配了空间，空间总的大小为1+7+8+4=20，不是结构
+</span>  <span class="c1">//的节边界数（即结构中占用最大空间的类型所占用的字节数sizeof
+</span>  <span class="c1">//(double)=8）的倍数，所以需要填充4个字节，以满足结构的大小为
+</span>  <span class="o">//</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="o">=</span><span class="mi">8</span><span class="err">的倍数。</span></code></pre></figure>
+
+<p>所以该结构总的大小为：<code class="highlighter-rouge">sizeof(MyStruc)</code>为1+7+8+4+4=24。其中总的有7+4=11个字节是VC自动填充的，没有放任何有意义的东西。</p>
+
+<p>编译器处理结构体内存分布是依据如下规则：</p>
+
+<ul>
+  <li>数据成员对齐规则：结构(struct)(或联合(union))的数据成员，第一个数据成员放在offset为0的地方，以后每个数据成员的对齐按照#pragma pack指定的数值和这个数据成员自身长度中，比较小的那个进行。</li>
+  <li>结构(或联合)的整体对齐规则：在数据成员完成各自对齐之后，结构(或联合)本身也要进行对齐，对齐将按照#pragma pack指定的数值和结构(或联合)最大数据成员长度中，比较小的那个进行。</li>
+  <li>结合1、2推断：当#pragma pack的n值等于或超过所有数据成员长度的时候，这个n值的大小将不产生任何效果。</li>
+</ul>
+
+<p>总结一下，编译器处理的结构体时，必须要知道每个成员的偏移量，这是由该成员本身的占用长度和设置的#pragma pack中的值决定的；还必须要决定结构体本身占用的空间，这是由结构内最大的成员长度和#pragma pack中的值决定的。</p>
+
+<p>再看一个例子：</p>
+
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#pragma pack(8)
+</span><span class="k">struct</span> <span class="n">s1</span>
+<span class="p">{</span>
+   <span class="kt">short</span> <span class="n">a</span><span class="p">;</span>  <span class="c1">//本身2个字节，偏移从0开始，占用[0][1]
+</span>   <span class="kt">long</span> <span class="n">b</span><span class="p">;</span>   <span class="c1">//本身4个字节，小于pack(8)，以4字节对齐
+</span>               <span class="c1">//由于a只占用的2个字节，起始偏移2不是4的倍数，所以需先padding[2][3]，b实际占用[4][5][6][7]
+</span><span class="p">};</span> <span class="c1">//s1结构占用8个字节，其中最长的成员b占用4个字节，小于pack(8)
+</span> <span class="c1">//因此，结构的总长度需要是4的倍数，这里刚好是8
+</span> <span class="c1">//所以s1占用8个字节
+</span><span class="k">struct</span> <span class="n">s2</span>  
+<span class="p">{</span>
+   <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>  <span class="c1">//本身1个字节，偏移从0开始，占用[0]
+</span>   <span class="n">s1</span> <span class="n">d</span><span class="p">;</span>     <span class="c1">//本身对齐方式以s1的b作为基准（4个字节），小于pack(8），以4字节对齐
+</span>              <span class="c1">//由于c只占用了1个字节，起始偏移1不是4的倍数，所以需要先3个字节，d实际占用[4]...[11]
+</span>   <span class="kt">long</span> <span class="kt">long</span> <span class="n">e</span><span class="p">;</span>  <span class="c1">//本身8个字节，与pack(8)一样，所以以8字节对齐，
+</span>                   <span class="c1">//起始偏移为12，不是8的倍数，需padding4个字节，e实际占用[16]...[23]
+</span><span class="p">};</span><span class="c1">//s2现在占用24个字节，其中最长成员e占用8个字节，与pack(8)一样
+</span> <span class="c1">//因此，结构的总长度需要是8的倍数，这里的24刚好满足
+</span> <span class="c1">//所以s2占用24个字节
+</span><span class="cp">#pragma pack()</span></code></pre></figure>
+
+
+<p>扩展阅读，<a href="http://msdn.microsoft.com/zh-cn/library/vstudio/x74w198a.aspx">C#中的#pragma指令</a></p>
+
+<p>C#支持两种编译指令：</p>
+
+<ul>
+  <li>#pragma warning：编译警告开关</li>
+  <li>#pragma checksum：计算文件的校验和，以帮助调试器判断源文件是否跟pdb一致。好像没什么用。</li>
+</ul>
+
+<p>例如：</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="c1">// pragma_warning.cs
+</span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+
+<span class="cp">#pragma warning disable 414, 3021
+</span><span class="na">[CLSCompliant(false)]</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">C</span>
+<span class="p">{</span>
+   <span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+   <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+   <span class="p">{</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">#pragma warning restore 3021
+</span><span class="na">[CLSCompliant(false)]</span>  <span class="c1">// CS3021
+</span><span class="k">public</span> <span class="k">class</span> <span class="nc">D</span>
+<span class="p">{</span>
+   <span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+   <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">F</span><span class="p">()</span>
+   <span class="p">{</span>
+   <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#C-Cpp">
+					C-Cpp <span>(6)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#CPP">
+					CPP <span>(7)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/web-build/2013/01/20/build-github-blog-page-07.html" title="一步步在GitHub上创建博客主页(7)--兼容Windows Writer的服务提供器">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/web/2013/01/21/high-performance-web-site-infrastructure.html" title="《构建高性能web站点》笔记--基础架构篇">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

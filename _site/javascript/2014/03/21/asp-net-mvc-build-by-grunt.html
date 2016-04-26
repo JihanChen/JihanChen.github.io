@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>grunt和使用grunt发布ASP.NET MVC项目</title>
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>grunt和使用grunt发布ASP.NET MVC项目 </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   March 
+	   21st,
+	     
+	   2014
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <h2 id="grunt-">Grunt 简介</h2>
+<p><a href="http://gruntjs.com/">Grunt</a>是一款基于js和node.js的构建工具，由于这段时间node.js越来越火爆，grunt拥有丰富的开源社区支持，产生了很多<a href="http://gruntjs.com/plugins">插件</a>。还有一些插件散落在<a href="https://www.npmjs.org/">node社区</a>。<strong>构建</strong>是一个和宽泛的表述，传统理解就是编译、打包、复制，而今，随着技术越来越丰富，构建还包括对前端组件的预处理，比如sass、less预处理成css，css和js的压缩和合并。grunt的插件可以很好的支持这些新的构建概念，而且更为适合用开源技术堆砌的项目。
+虽然Grunt更多的用于程序构建，但是本质上Grunt是一个用来解决重复劳动的任务运行工具。</p>
+
+<h2 id="grunt">Grunt入门</h2>
+
+<h3 id="section">安装</h3>
+
+<p>下载安装Node.js。<a href="http://nodejs.org">下载地址</a></p>
+
+<p>检查安装和查看版本：<code class="highlighter-rouge">node -v</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>v0.10.25
+</code></pre>
+</div>
+
+<p>安装grunt命令行工具<code class="highlighter-rouge">grunt-cli</code>，使用-g全局安装，这样可以在任何一个目录里使用了。下面这条命令会把 grunt 加入你的系统搜索路径中，所以在任何目录下都可以使用此命令。</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">npm install -g grunt-cli</code></pre></figure>
+
+<p>需要注意的是在linux或mac下有时会报没有权限的错误，这时须在前面加一个sudo</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo npm install grunt-cli -g</code></pre></figure>
+
+<p>查看版本：<code class="highlighter-rouge">grunt –version</code></p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">grunt-cli v0.1.13</code></pre></figure>
+
+<p>卸载。如果你在之前安装过全局的 Grunt，那么先删除它。</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">npm uninstall -g grunt  </code></pre></figure>
+
+<p>grunt-cli只是一个grunt的命令行界面，需要使用grunt及其插件，必须在项目的路径(通常是项目根目录下)下安装grunt模块本身即需要插件模块。每当<code class="highlighter-rouge">grunt</code>命令被执行时，它会通过nodejs的<code class="highlighter-rouge">require</code>命令在本地寻找已经安装的<code class="highlighter-rouge">grunt</code>。正因为如此，你可以在任何子目录下运行<code class="highlighter-rouge">grunt</code>命令。
+如果<code class="highlighter-rouge">cli</code>找到了一个本地安装的grunt，它会加载这个 grunt 库，然后应用你在 GruntFile 中写好的配置， 然后执行相应的任务。</p>
+
+<h3 id="section-1">配置文件</h3>
+
+<h4 id="packagejson">package.json</h4>
+<p><code class="highlighter-rouge">package.json</code>用来保存当前目录下所安装和需要的node模块有哪些，例如：</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+	</span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-project-name"</span><span class="p">,</span><span class="w">
+	</span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1.0"</span><span class="p">,</span><span class="w">
+	</span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Your Name"</span><span class="p">,</span><span class="w">
+
+	</span><span class="nt">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+		</span><span class="nt">"grunt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"~0.4.1"</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>可以手动创建这个文件，或者通过<code class="highlighter-rouge">npm init</code>命令，并按照提示完成<code class="highlighter-rouge">package.json</code>文件的创建。如果手动创建了<code class="highlighter-rouge">package.json</code>，只需通过<code class="highlighter-rouge">npm install</code>来下载和安装所需的模块。模块安装时，会保存在<code class="highlighter-rouge">node_modules</code>目录中。</p>
+
+<p>如果想要在之后添加所需模块，使用下面这个命令，可以使得<code class="highlighter-rouge">package.json</code>文件得到同步更新</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">npm install &lt;module&gt; --save-dev</code></pre></figure>
+
+<h4 id="gruntfilejs">Gruntfile.js</h4>
+
+<p>这个文件的地位就像<code class="highlighter-rouge">Makefile</code>一样，是一个指导grunt进行任务的文件，其中需要配置各个插件模块所需的参数，以及加载插件，并定义任务。更多关于Gruntfile可以参考<a href="http://javascript.ruanyifeng.com/tool/grunt.html#toc1">这里</a>。建议读者对Gruntfile有个整体的理解再继续。</p>
+
+<h2 id="gruntaspnet-mvc">使用Grunt构建ASP.NET MVC</h2>
+
+<h3 id="msbuild">MSbuild</h3>
+
+<p>在使用grunt来构建.NET项目之前，必须先了解<code class="highlighter-rouge">MSbuild</code>。MSBuild是微软的用来构建程序的工具，目前VisualStudio已经全面使用MSbuild编译项目了。MSbuild由一个msbuild工具、一组编译或构建器程序和xml文件组成。实际上VisualStudio中的<code class="highlighter-rouge">.sln</code>和<code class="highlighter-rouge">.csproj</code>等项目文件就是一个msbuild能够认识的xml（下面称为msbuild配置文件）,VisualStudio通过调用msbuild，由msbuild识别其中的参数和构建行为标识来完成构建工作。我们也可以自己通过命令行自己来调用msbuild。</p>
+
+<p>在msbuild中有两个关键的概念：Task和Property。Task是msbuild能够直接作为目标来执行的入口，在执行msbuild的时候要么指向默认的Task，否则必须指定目标Task是什么。Property就是变量，就像程序中的变量可以影响程序执行一样，Property可以影响构建的行为。</p>
+
+<p>VisualStudio产生msbuild配置文件其实非常复杂，表面上看只有没有多上行，但是它通过<code class="highlighter-rouge">import</code>，将一些预定义的配置文件导入到当前文件，使得无法全面的查看完整的配置文件，以至于无法找到关键的<code class="highlighter-rouge">Task</code>项。好在有一个<a href="http://www.msbuildexplorer.com/">工具</a>可以用来帮助分析msbuild配置文件的结构。</p>
+
+<p>另外，在调用msbuild的时候，可以通过命令行参数来覆盖默认的属性和任务，比如下面的调用表示，以”Rebuild”这个Task作为目标，并将Configuration属性设置为Debug：</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">msbuild ConsoleApplication1.csproj /target:Rebuild /property:Configuration<span class="o">=</span>Debug</code></pre></figure>
+
+<p>更多关于msbuild，请参考<a href="http://msdn.microsoft.com/zh-cn/library/0k6kkbsd.aspx">微软的文档</a></p>
+
+<h3 id="msbuildvisualstudio">手动使用msbuild代替VisualStudio</h3>
+
+<p>以发布到本机为例，经过笔者在VS2012下的环境中测试，使用VS在调用msbuild时使用了如下关键的参数覆盖：</p>
+
+<ol>
+  <li><code class="highlighter-rouge">Configuration</code>：Debug或者Release，相信使用VS的同学对此不会陌生</li>
+  <li><code class="highlighter-rouge">VisualStudioVersion</code>：VS在安装的时候会将一些公用的，VisualStudio相关的，msbuild配置文件预先存在某个版本相关的地方，在VisualStudio生成项目文件时，会包含一个<code class="highlighter-rouge">$VisualStudioVersion</code>变量，这个变量会与路径结合指向这些预先准备好的配置文件。在2012下，需要将这个值设置为<code class="highlighter-rouge">11.0</code></li>
+  <li><code class="highlighter-rouge">WarningLevel</code>：编译时的告警级别</li>
+  <li><code class="highlighter-rouge">DeleteExistingFiles</code>：发布功能使用到的是否删除已存在文件的选项</li>
+  <li><code class="highlighter-rouge">WebPublishMethod</code>：发布方式，笔者常用的是<code class="highlighter-rouge">FileSystem</code>，即发布到本机或远程共享的某个目录</li>
+  <li><code class="highlighter-rouge">publishUrl</code>：如果<code class="highlighter-rouge">WebPublishMethod</code>是<code class="highlighter-rouge">FileSystem</code>，这个值表示发布的磁盘路径</li>
+</ol>
+
+<p>关键的任务：</p>
+
+<ol>
+  <li>Build：即VS中针对某个项目的<code class="highlighter-rouge">编译</code>功能</li>
+  <li>Rebuild：即VS中针对某个项目的<code class="highlighter-rouge">重新编译</code>功能</li>
+  <li>WebPublish：即VS针对某个项目的<code class="highlighter-rouge">发布</code>功能</li>
+</ol>
+
+<p>至此，我们已经可以使用msbuild命令行来代替VS的一些构建动作了。由于本篇的重点是grunt，读者可以参见微软的说明，自己试验一下：</p>
+
+<blockquote>
+  <p>PS: MSbuild通常位于类似这样的目录下：C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe</p>
+</blockquote>
+
+<h3 id="grunt-msbuildmsbuild">使用grunt-msbuild调用msbuild</h3>
+
+<p>终于到了介绍本文的主角了：<a href="https://www.npmjs.org/package/grunt-msbuild">grunt-msbuild</a>。这是一个个人开发的msbuild调用中间件。作为grunt的插件，经过笔者亲测，完全可以使用。结合其他的grunt插件，简化了笔者发布项目的过程。</p>
+
+<p>你可以像下面这样将这个插件添加进项目的Gruntfile，实现自动发布：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">msbuild</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nl">fontend</span><span class="p">:</span> <span class="p">{</span>			    
+        <span class="nl">src</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Web.FontEnd/Web.FontEnd.csproj'</span><span class="p">],</span>
+        <span class="nx">options</span><span class="err">:</span> <span class="p">{</span>
+            <span class="nl">projectConfiguration</span><span class="p">:</span> <span class="s1">'Release'</span><span class="p">,</span>
+            <span class="nx">targets</span><span class="err">:</span> <span class="p">[</span><span class="s1">'WebPublish'</span><span class="p">],</span>
+            <span class="nx">stdout</span><span class="err">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">maxCpuCount</span><span class="err">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nx">buildParameters</span><span class="err">:</span> <span class="p">{</span>
+                <span class="nl">WarningLevel</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+				<span class="nx">VisualStudioVersion</span><span class="err">:</span> <span class="s2">"11.0"</span><span class="p">,</span>
+				<span class="nx">DeleteExistingFiles</span><span class="err">:</span> <span class="s1">'True'</span><span class="p">,</span>
+				<span class="nx">WebPublishMethod</span><span class="err">:</span> <span class="s1">'FileSystem'</span><span class="p">,</span>
+				<span class="nx">publishUrl</span><span class="err">:</span> <span class="p">[</span><span class="nx">font_pwd</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nx">verbosity</span><span class="err">:</span> <span class="s1">'quiet'</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>上面的代码实现了，将<code class="highlighter-rouge">Web.FontEnd.csproj</code>项目在<code class="highlighter-rouge">Release</code>模式下通过<code class="highlighter-rouge">FileSystem</code>发布方式发布到<code class="highlighter-rouge">font_pwd</code>变量指代的目录下。
+这里需要注意的是，可能需要根据自己的VS版本修改VisualStudioVersion参数，可以通过查看类似如下目录：C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v11.0来检查。<code class="highlighter-rouge">font_pwd</code>是一个js变量，根据需要进行调整。</p>
+
+<p>Grunt的完整配置就不给出了，主要是要知道这几个关键的参数设置。</p>
+
+<p>在实际使用过程中<code class="highlighter-rouge">DeleteExistingFiles</code>这个参数似乎不起作用，所以可能需要另外再包含清空目标文件夹的任务。下面是实际任务运行时的部分截图：</p>
+
+<p><img src="http://pchou.qiniudn.com/grunt-msbuild.jpg" alt="grunt-msbuild" /></p>
+
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#javascript">
+					javascript <span>(5)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#grunt">
+					grunt <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#node.js">
+					node.js <span>(2)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#asp.net mvc">
+					asp.net mvc <span>(2)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/web/2014/03/16/nginx-config-tips.html" title="nginx配置技巧汇总">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/web-build/2014/03/23/blog-upgrade-2.html" title="博客再次更新">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Docker简介与入门</title>
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>Docker简介与入门 </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   March 
+	   29th,
+	   
+	   2014
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <h2 id="section">缘起</h2>
+<p>Docker是个新生的事物，概念类似虚拟化。网上关于Docker入门的东西已经很多了。不过本文探讨了Docker的特点、特性、原理，还介绍了具有中国特色的安装测试过程，另外还谈到了Docker的社区生态和Dockerfile，并使用Dockerfile构建一个nginx环境。在几个月前听说Docker，但是一直没有时间去研究，前一段时间趁着azure免费试用，赶紧实验一下，但是卡在了ubuntu基础镜像的下载上(由于国内网络的特殊原因)，所以也就搁浅了。在逛<a href="http://segmentfault.com/">Segmentfault</a>的时候，看到上面有个<a href="http://segmentfault.com/docker">Docker子站问答</a>，逛了逛果然有干货，于是重新试了一下，这里把经验和体会分享一下。</p>
+
+<h2 id="docker">Docker简介</h2>
+<p>我觉得简单来说，<a href="https://www.docker.io/">Docker</a>就是一个应用程序执行容器，类似虚拟机的概念。但是与虚拟化技术的不同点在于下面几点：</p>
+
+<ol>
+  <li>虚拟化技术依赖物理CPU和内存，是硬件级别的；而docker构建在操作系统上，利用操作系统的containerization技术，所以docker甚至可以在虚拟机上运行。</li>
+  <li>虚拟化系统一般都是指操作系统镜像，比较复杂，称为“系统”；而docker开源而且轻量，称为“容器”，单个容器适合部署少量应用，比如部署一个redis、一个memcached。</li>
+  <li>传统的虚拟化技术使用快照来保存状态；而docker在保存状态上不仅更为轻便和低成本，而且引入了类似源代码管理机制，将容器的快照历史版本一一记录，切换成本很低。</li>
+  <li>传统的虚拟化技术在构建系统的时候较为复杂，需要大量的人力；而docker可以通过Dockfile来构建整个容器，重启和构建速度很快。更重要的是Dockfile可以手动编写，这样应用程序开发人员可以通过发布Dockfile来指导系统环境和依赖，这样对于持续交付十分有利。</li>
+  <li>Dockerfile可以基于已经构建好的容器镜像，创建新容器。Dockerfile可以通过社区分享和下载，有利于该技术的推广。</li>
+</ol>
+
+<p>Docker的主要特性如下（摘自<a href="http://www.infoq.com/cn/news/2013/04/Docker">Docker：具备一致性的自动化软件部署</a>)：</p>
+
+<ol>
+  <li>文件系统隔离：每个进程容器运行在完全独立的根文件系统里。</li>
+  <li>资源隔离：可以使用cgroup为每个进程容器分配不同的系统资源，例如CPU和内存。</li>
+  <li>网络隔离：每个进程容器运行在自己的网络命名空间里，拥有自己的虚拟接口和IP地址。</li>
+  <li>写时复制：采用写时复制方式创建根文件系统，这让部署变得极其快捷，并且节省内存和硬盘空间。</li>
+  <li>日志记录：Docker将会收集和记录每个进程容器的标准流（stdout/stderr/stdin），用于实时检索或批量检索。</li>
+  <li>变更管理：容器文件系统的变更可以提交到新的映像中，并可重复使用以创建更多的容器。无需使用模板或手动配置。</li>
+  <li>交互式Shell：Docker可以分配一个虚拟终端并关联到任何容器的标准输入上，例如运行一个一次性交互shell。</li>
+</ol>
+
+<p>目前Docker正处在开发阶段，官方不建议用于生产环境。<strong>另外，Docker是基于Ubuntu开发的，所以官方推荐将其安装在Ubuntu的操作系统上，目前只能安装在linux系统上</strong>。</p>
+
+<h2 id="docker-1">Docker的使用入门</h2>
+<p><a href="http://docs.docker.io/en/latest/installation/ubuntulinux/">Docker官方的安装指导</a>挺详细的。但是由于国内的特殊情况，我这里基于这个安装指导，给出适用于国内开发者的入门过程。基于<code class="highlighter-rouge">Ubuntu Precise 12.04 (LTS) (64-bit)</code>，推荐这个版本，其他版本参考官方安装手册。</p>
+
+<h3 id="docker-2">Docker的安装</h3>
+<p>首先，Docker官方声称最好是运行在Linux内核3.8以上，所以要先进行内核升级</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># install the backported kernel</span>
+sudo apt-get update
+sudo apt-get install linux-image-generic-lts-raring linux-headers-generic-lts-raring
+
+<span class="c"># reboot</span>
+sudo reboot</code></pre></figure>
+
+<p>添加Docker仓库的key：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9</code></pre></figure>
+
+<p>添加镜像，这里直接用俄罗斯的<a href="http://yandex.ru/">Yandex</a></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo sh -c <span class="s2">"echo deb http://mirror.yandex.ru/mirrors/docker/ docker main &gt; /etc/apt/sources.list.d/docker.list"</span>
+sudo apt-get update</code></pre></figure>
+
+<p>安装Docker</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install lxc-docker</code></pre></figure>
+
+<p>一般上面的步骤不会有任何问题。</p>
+
+<h3 id="docker-3">Docker镜像下载</h3>
+<p>Docker运行至少需要一个ubuntu的基础镜像，这个镜像会在你初次尝试执行时自动下载，不过从国内直接用基本上就别想了，需要使用代理。这里用<a href="http://www.dockboard.org/">Docker中文社区</a>提供的代理。<a href="http://segmentfault.com/q/1010000000405777">出处1</a>,<a href="http://www.dockboard.org/docker-http-proxy-with-golang/">出处2</a>。</p>
+
+<p>修改<code class="highlighter-rouge">/etc/default/docker</code>文件，取消注释<code class="highlighter-rouge">http_proxy</code>的部分：</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># If you need Docker to use an HTTP proxy, it can also be specified here.</span>
+<span class="nb">export </span><span class="nv">http_proxy</span><span class="o">=</span>http://192.241.209.203:8384/</code></pre></figure>
+
+<p>经过笔者测试，上面这个代理也不是很稳定，可能用的人比较多吧。</p>
+
+<p>可用的代理地址（持续关注中）</p>
+
+<blockquote>
+  <p>http://192.241.209.203:8384</p>
+</blockquote>
+
+<p>然后，你就可以执行下面的命令，测试执行了，由于代理不是很稳定，可能需要多尝试几次(淡定)：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo docker run -i -t ubuntu /bin/bash</code></pre></figure>
+
+<p>下面这个截图是我成功pull完成，并测试hello world成功(大概尝试了3-4次)：
+<img src="http://pchou.qiniudn.com/docker-introduction-1.jpg" alt="docker-introduction-1" /></p>
+
+<h2 id="docker-4">Docker的社区和生态</h2>
+<p>### 仓库和镜像 ###
+评估一项开源技术很大程度上需要关注它的社区和生态。Docker的生态是通过推送和拉取特定的“镜像(image)包”来展开的。你可以从<a href="https://index.docker.io/">docker index</a>上搜索需要的镜像。也可以通过下面的命令搜索：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo docker search</code></pre></figure>
+
+<p>镜像可以看作是包含有某些软件的容器系统，比如<a href="https://index.docker.io/_/ubuntu/">ubuntu</a>就是一个官方的基础镜像，很多镜像都是基于这个镜像“衍生”，该镜像包含基本的ubuntu系统。再比如，<a href="https://index.docker.io/_/hipache/">hipache</a>是一个官方的镜像容器，运行后可以支持http和websocket的代理服务，而这个镜像本身又基于<a href="https://index.docker.io/_/ubuntu/">ubuntu</a>。</p>
+
+<p>通过<code class="highlighter-rouge">pull</code>来拉取镜像，将镜像下载到本地，比如</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo docker pull hipache</code></pre></figure>
+
+<p>通过<code class="highlighter-rouge">images</code>查看现在有哪些镜像：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo docker images
+
+REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+ubuntu              13.10               9f676bd305a4        6 weeks ago         178 MB
+ubuntu              saucy               9f676bd305a4        6 weeks ago         178 MB
+ubuntu              13.04               eb601b8965b8        6 weeks ago         166.5 MB
+ubuntu              raring              eb601b8965b8        6 weeks ago         166.5 MB
+ubuntu              12.10               5ac751e8d623        6 weeks ago         161 MB
+ubuntu              quantal             5ac751e8d623        6 weeks ago         161 MB
+ubuntu              10.04               9cc9ea5ea540        6 weeks ago         180.8 MB
+ubuntu              lucid               9cc9ea5ea540        6 weeks ago         180.8 MB
+ubuntu              12.04               9cd978db300e        6 weeks ago         204.4 MB
+ubuntu              latest              9cd978db300e        6 weeks ago         204.4 MB
+ubuntu              precise             9cd978db300e        6 weeks ago         204.4 MB</code></pre></figure>
+
+<p>上面的都是镜像，都从属于ubuntu仓库（一般仓库名应该是<code class="highlighter-rouge">username/repository</code>格式，如果是直接以<code class="highlighter-rouge">repository</code>作为仓库名的，是指官方发布的仓库）。我们拉取ubuntu的时候，实际上是把仓库里的镜像都拉下来了。每个镜像都有一个唯一的<code class="highlighter-rouge">IMAGE ID</code>，和一个易于记忆的<code class="highlighter-rouge">TAG</code>，可以通过<code class="highlighter-rouge">IMAGE ID</code>的前几位或者<code class="highlighter-rouge">repository:TAG</code>来标识一个镜像。</p>
+
+<h3 id="dockerfiledockerfilenginx">Dockerfile和通过Dockerfile来构建Nginx容器</h3>
+<p>除了pull，镜像也可以通过”编译”得到，这里的”编译”是指一种构建行为，通过手动编写或者从github获取Dockerfile来构建一个镜像。可以把Dockerfile看成是一个脚本，这个脚本会在容器每次启动时执行。一般在Dockerfile里面需要编写基础软件的安装脚本和配置脚本。下面这个Dockerfile是个例子：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#</span>
+<span class="c"># Ubuntu Dockerfile</span>
+<span class="c">#</span>
+<span class="c"># https://github.com/dockerfile/ubuntu</span>
+<span class="c">#</span>
+
+<span class="c"># Pull base image.</span>
+FROM ubuntu:12.10
+
+<span class="c"># Update OS.</span>
+RUN <span class="nb">echo</span> <span class="s2">"deb http://archive.ubuntu.com/ubuntu quantal main universe multiverse"</span> &gt; /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get upgrade -y
+
+<span class="c"># Install basic packages.</span>
+RUN apt-get install -y software-properties-common
+RUN apt-get install -y curl git htop unzip vim wget
+
+<span class="c"># Add files.</span>
+ADD root/.bashrc /root/.bashrc
+ADD root/.gitconfig /root/.gitconfig
+ADD root/scripts /root/scripts
+
+<span class="c"># Set working directory.</span>
+ENV HOME /root
+WORKDIR /root</code></pre></figure>
+
+<p><code class="highlighter-rouge">FROM</code>指令表示这次构建需要基于ubuntu仓库的12.10这个TAG的镜像，如果本地不存在这个镜像的话，会自动下载镜像。镜像实际上就是编译好的结果。向上面这个Dockerfile，在原始ubuntu的基础上安装了很多常用的软件。</p>
+
+<p>docker官方有<a href="https://www.docker.io/learn/dockerfile/">Dockerfile的教程</a></p>
+
+<h3 id="section-1">实践</h3>
+<p>首先确保你已经完成上面的安装步骤，并拉取到基础镜像ubuntu:12.10。</p>
+
+<p>现在我们用上面的Dockerfile来构建这个仓库(上面的Dockerfile实际上是<a href="http://dockerfile.github.io/">github dockerfile项目</a>的基本仓库<a href="http://dockerfile.github.io/#/ubuntu">dockerfile/ubuntu</a>，所下面的命令直接从github下载Dockerfile来构建)</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo docker build -t<span class="o">=</span><span class="s2">"dockerfile/ubuntu"</span> github.com/dockerfile/ubuntu</code></pre></figure>
+
+<p>下面是最后构建成功时的输出：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>...
+Processing triggers for ureadahead ...
+ ---&gt; 0a4392cf8e2d
+Step 6 : ADD root/.bashrc /root/.bashrc
+ ---&gt; b0e86f348c09
+Step 7 : ADD root/.gitconfig /root/.gitconfig
+ ---&gt; e2a9c001d457
+Step 8 : ADD root/scripts /root/scripts
+ ---&gt; 678febabdbdc
+Step 9 : ENV HOME /root
+ ---&gt; Running in c4afef311cf1
+ ---&gt; eaa3ae3277a8
+Step 10 : WORKDIR /root
+ ---&gt; Running in d50c273c75b8
+ ---&gt; c9ecf5bc3227
+Successfully built c9ecf5bc3227
+Removing intermediate container 1a3d1f794c49
+Removing intermediate container 9f72df8abb63
+Removing intermediate container 5694d1e3e77e
+Removing intermediate container 6a184821f89c
+Removing intermediate container 8195bd05fc36
+Removing intermediate container d50c273c75b8
+Removing intermediate container 70de07353ecf
+Removing intermediate container 73e3f6204613
+Removing intermediate container 5dd948415981
+Removing intermediate container c4afef311cf1
+</code></pre>
+</div>
+
+<p>此时会多出一个仓库：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+dockerfile/ubuntu   latest              c9ecf5bc3227        About a minute ago   294.2 MB
+...
+</code></pre>
+</div>
+
+<p>现在我们可以来构建<a href="https://index.docker.io/u/dockerfile/nginx/">dockerfile/nginx</a>了(当然，从一开始你就可以直接<code class="highlighter-rouge">pull</code>这个镜像)</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo docker build -t<span class="o">=</span><span class="s2">"dockerfile/nginx"</span> github.com/dockerfile/nginx</code></pre></figure>
+
+<p>完成后，会看到编译好的镜像：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+dockerfile/nginx    latest              68508350c656        About a minute ago   308.3 MB
+dockerfile/ubuntu   latest              c9ecf5bc3227        16 minutes ago       294.2 MB
+...
+</code></pre>
+</div>
+
+<p>现在是时候看到真正的效果了！用下面这个命令运行容器：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	
+sudo docker run -d -p 80:80 dockerfile/nginx</code></pre></figure>
+
+<p>这个命令会以daemon的方式运行容器，通过下面命令查看正在运行的容器：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo docker ps
+CONTAINER ID        IMAGE                     COMMAND             CREATED             STATUS              PORTS                NAMES
+98c474a7dd6a        dockerfile/nginx:latest   nginx               6 seconds ago       Up 6 seconds        0.0.0.0:80-&gt;80/tcp   trusting_hawking
+</code></pre>
+</div>
+
+<p>访问你主机的80端口，可以看到nginx的欢迎页面了！这时，我们来看看本机的进程<code class="highlighter-rouge">sudo ps -ef</code>：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root      1428   952  0 15:19 ?        00:00:00 nginx: master process nginx
+root      1429   417  0 15:19 ?        00:00:00 /sbin/udevd --daemon
+www-data  1441  1428  0 15:19 ?        00:00:00 nginx: worker process
+www-data  1442  1428  0 15:19 ?        00:00:00 nginx: worker process
+www-data  1443  1428  0 15:19 ?        00:00:00 nginx: worker process
+www-data  1444  1428  0 15:19 ?        00:00:00 nginx: worker process
+</code></pre>
+</div>
+
+<p>似乎有些接近事物的本质了！nginx的进程实际上是在本机上的，这意味着，容器中程序的执行仍然是使用本机操作系统的，容器并不自己构建操作系统，而是以某种隔离的方式依赖本机操作系统工作。这就是Docker和虚拟机的本质区别。</p>
+
+<p>你可以像下面这样，将本机的目录映射给这个”nginx容器”。<code class="highlighter-rouge">&lt;sites-enabled-dir&gt;</code>目录下应该有nginx的配置文件片段</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -d -p 80:80 -v &lt;sites-enabled-dir&gt;:/etc/nginx/sites-enabled -v &lt;log-dir&gt;:/var/log/nginx dockerfile/nginx</code></pre></figure>
+
+<blockquote>
+  <p>PS：这步笔者没有成功，日志路径是可以map的，但是sites-enable-dir中的配置始终不行。继续诊断中。</p>
+</blockquote>
+
+<h3 id="dockfile">镜像的共享与Dockfile的分发</h3>
+<p>可以共享你的镜像和用来构建的Dockfile分享给社区：</p>
+
+<ul>
+  <li><a href="https://index.docker.io">Docker index</a>是官方的镜像目录，可以从里面得到大量的预编译好的镜像</li>
+  <li><a href="http://dockerfile.github.io/">Dockerfile Project</a>一个托管Dockerfile的仓库集合</li>
+</ul>
+
+<h2 id="section-2">原理</h2>
+<p>总的来说Docker的核心技术如下：</p>
+
+<ul>
+  <li>命名空间</li>
+  <li>AUFS(advanced multi layered unification filesystem)</li>
+  <li>cgroup</li>
+</ul>
+
+<p>由于本人才疏学浅，下面给出一些参考资料，有兴趣的朋友可以扩展阅读一下，一定会对Docker有更深刻的认识的：</p>
+
+<p><a href="http://blog.dotcloud.com/under-the-hood-linux-kernels-on-dotcloud-part">PaaS under the hood, episode 1: kernel namespaces</a></p>
+
+<p><a href="http://blog.dotcloud.com/kernel-secrets-from-the-paas-garage-part-24-c">PaaS Under the Hood, Episode 2: cgroups</a></p>
+
+<p><a href="http://blog.dotcloud.com/kernel-secrets-from-the-paas-garage-part-34-a">PAAS Under the Hood, Episode 3: AUFS</a></p>
+
+<p><a href="http://blog.dotcloud.com/kernel-secrets-from-the-paas-garage-part-44-g">PaaS Under the Hood, Episode 4: GRSEC</a></p>
+
+<p><a href="http://blog.dotcloud.com/under-the-hood-dotcloud-http-routing-layer">PaaS under the hood, episode 5: Distributed routing with Hipache</a></p>
+
+<p><a href="http://blog.dotcloud.com/category/under-the-hood">Under the Hood系列</a></p>
+
+<p><a href="http://segmentfault.com/a/1190000000443812">LXC （Linux 虚拟环境）简单介绍</a></p>
+
+<p><a href="http://blog.blackwhite.tw/2013/12/docker.html">docker原理简介</a></p>
+
+<h2 id="section-3">参考资料</h2>
+
+<p><a href="http://docker.io">Docker官方</a></p>
+
+<p><a href="http://www.infoq.com/cn/news/2013/04/Docker">Docker：具备一致性的自动化软件部署</a></p>
+
+<p><a href="https://www.docker.io/learn/dockerfile/">Dockerfile的教程</a></p>
+
+<p>一些Docker的社区资源：</p>
+
+<p><a href="http://segmentfault.com/">Segmentfault</a>的<a href="http://segmentfault.com/docker">Docker子站问答</a></p>
+
+<p><a href="http://www.dockboard.org/">Docker中文社区</a></p>
+
+<p><a href="http://www.widuu.com/docker/index.html">Docker中文文档</a></p>
+
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#open-source">
+					open-source <span>(12)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#docker">
+					docker <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#dockerfile">
+					dockerfile <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/web-build/2014/03/23/blog-upgrade-2.html" title="博客再次更新">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/open-source/2014/04/03/git-gitolite-hook.html" title="Gitolite实现hook，Jekyll自动构建发布">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

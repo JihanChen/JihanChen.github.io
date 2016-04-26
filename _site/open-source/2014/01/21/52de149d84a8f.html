@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>bootstrap3栅格系统源码学习</title>
+	
+	<meta name="description" content="通过对bootstrap源码的学习，加深了对less的了解，也学习到了一些css的设计模式。本文分析bootstrap的grid系统的源码">
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>bootstrap3栅格系统源码学习 </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   January 
+	   21st,
+	     
+	   2014
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <p>作为下决心学习css的程序员，暗自觉得bootstrap3的源码应该是很好的学习地方。之前一直对bootstrap如何实现栅格系统比较好奇，今天就进入到源码来看一下所谓的grid系统是怎么回事。</p>
+
+<p>bootstrap是用less编写的，在开始之前自然需要对less有一定的了解：<a href="http://www.lesscss.net/">LESSCSS中文网站</a></p>
+
+<p>本文参考的是bootstrap3.0.3版本的源码，转载请注明出处</p>
+
+<h2 id="css">一些相关的css修正</h2>
+
+<p>栅格系统的基本前提是修正的盒子模型，这使得在有padding和border的情况下，计算宽度不至于出错</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">//</span> <span class="nt">Reset</span> <span class="nt">the</span> <span class="nt">box-sizing</span>
+
+<span class="o">*,</span>
+<span class="o">*</span><span class="nd">:before</span><span class="o">,</span>
+<span class="o">*</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="err">.box-sizing(border-box);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>由于栅格系统基于float布局，需要清除浮动，bootstrap中统一的清除浮动的方法如下：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">//</span> <span class="nt">Clearfix</span>
+<span class="o">//</span> <span class="nt">Source</span><span class="o">:</span> <span class="nt">http</span><span class="o">://</span><span class="nt">nicolasgallagher</span><span class="nc">.com</span><span class="o">/</span><span class="nt">micro-clearfix-hack</span><span class="o">/</span>
+<span class="o">//</span>
+<span class="o">//</span> <span class="nt">For</span> <span class="nt">modern</span> <span class="nt">browsers</span>
+<span class="o">//</span> <span class="nt">1</span><span class="o">.</span> <span class="nt">The</span> <span class="nt">space</span> <span class="nt">content</span> <span class="nt">is</span> <span class="nt">one</span> <span class="nt">way</span> <span class="nt">to</span> <span class="nt">avoid</span> <span class="nt">an</span> <span class="nt">Opera</span> <span class="nt">bug</span> <span class="nt">when</span> <span class="nt">the</span>
+<span class="o">//</span>    <span class="nt">contenteditable</span> <span class="nt">attribute</span> <span class="nt">is</span> <span class="nt">included</span> <span class="nt">anywhere</span> <span class="nt">else</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">document</span><span class="o">.</span>
+<span class="o">//</span>    <span class="nt">Otherwise</span> <span class="nt">it</span> <span class="nt">causes</span> <span class="nt">space</span> <span class="nt">to</span> <span class="nt">appear</span> <span class="nt">at</span> <span class="nt">the</span> <span class="nt">top</span> <span class="nt">and</span> <span class="nt">bottom</span> <span class="nt">of</span> <span class="nt">elements</span>
+<span class="o">//</span>    <span class="nt">that</span> <span class="nt">are</span> <span class="nt">clearfixed</span><span class="o">.</span>
+<span class="o">//</span> <span class="nt">2</span><span class="o">.</span> <span class="nt">The</span> <span class="nt">use</span> <span class="nt">of</span> <span class="err">`</span><span class="nt">table</span><span class="err">`</span> <span class="nt">rather</span> <span class="nt">than</span> <span class="err">`</span><span class="nt">block</span><span class="err">`</span> <span class="nt">is</span> <span class="nt">only</span> <span class="nt">necessary</span> <span class="nt">if</span> <span class="nt">using</span>
+<span class="o">//</span>    <span class="err">`</span><span class="nd">:before</span><span class="err">`</span> <span class="nt">to</span> <span class="nt">contain</span> <span class="nt">the</span> <span class="nt">top-margins</span> <span class="nt">of</span> <span class="nt">child</span> <span class="nt">elements</span><span class="o">.</span>
+<span class="nc">.clearfix</span><span class="o">()</span> <span class="p">{</span>
+  <span class="err">&amp;:before,</span>
+  <span class="err">&amp;:after</span> <span class="err">{</span>
+    <span class="nl">content</span><span class="p">:</span> <span class="s1">" "</span><span class="p">;</span> <span class="err">//</span> <span class="err">1</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">table</span><span class="p">;</span> <span class="err">//</span> <span class="err">2</span>
+  <span class="p">}</span>
+  <span class="o">&amp;</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="nl">clear</span><span class="p">:</span> <span class="nb">both</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="err">}</span></code></pre></figure>
+
+<p>笔者不是资深前端，对于这种hack不甚理解，读者可根据注释自己理解</p>
+
+<h2 id="section">变量定义</h2>
+
+<p>首先，将分辨率划分为几个档，这些值作为不同设备的基本划分依据：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">//</span> <span class="nt">Extra</span> <span class="nt">small</span> <span class="nt">screen</span> <span class="o">/</span> <span class="nt">phone</span>
+<span class="o">//</span> <span class="nt">Note</span><span class="o">:</span> <span class="nt">Deprecated</span> <span class="k">@screen-xs</span> <span class="n">and</span> <span class="err">@</span><span class="n">screen-phone</span> <span class="n">as</span> <span class="n">of</span> <span class="n">v3</span><span class="m">.0.1</span>
+<span class="err">@</span><span class="n">screen-xs</span><span class="p">:</span>                  <span class="m">480px</span><span class="p">;</span>
+<span class="k">@screen-xs-min</span><span class="p">:</span>              <span class="err">@</span><span class="n">screen-xs</span><span class="p">;</span>
+<span class="k">@screen-phone</span><span class="p">:</span>               <span class="err">@</span><span class="n">screen-xs-min</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="nt">Small</span> <span class="nt">screen</span> <span class="o">/</span> <span class="nt">tablet</span>
+<span class="o">//</span> <span class="nt">Note</span><span class="o">:</span> <span class="nt">Deprecated</span> <span class="k">@screen-sm</span> <span class="n">and</span> <span class="err">@</span><span class="n">screen-tablet</span> <span class="n">as</span> <span class="n">of</span> <span class="n">v3</span><span class="m">.0.1</span>
+<span class="err">@</span><span class="n">screen-sm</span><span class="p">:</span>                  <span class="m">768px</span><span class="p">;</span>
+<span class="k">@screen-sm-min</span><span class="p">:</span>              <span class="err">@</span><span class="n">screen-sm</span><span class="p">;</span>
+<span class="k">@screen-tablet</span><span class="p">:</span>              <span class="err">@</span><span class="n">screen-sm-min</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="nt">Medium</span> <span class="nt">screen</span> <span class="o">/</span> <span class="nt">desktop</span>
+<span class="o">//</span> <span class="nt">Note</span><span class="o">:</span> <span class="nt">Deprecated</span> <span class="k">@screen-md</span> <span class="n">and</span> <span class="err">@</span><span class="n">screen-desktop</span> <span class="n">as</span> <span class="n">of</span> <span class="n">v3</span><span class="m">.0.1</span>
+<span class="err">@</span><span class="n">screen-md</span><span class="p">:</span>                  <span class="m">992px</span><span class="p">;</span>
+<span class="k">@screen-md-min</span><span class="p">:</span>              <span class="err">@</span><span class="n">screen-md</span><span class="p">;</span>
+<span class="k">@screen-desktop</span><span class="p">:</span>             <span class="err">@</span><span class="n">screen-md-min</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="nt">Large</span> <span class="nt">screen</span> <span class="o">/</span> <span class="nt">wide</span> <span class="nt">desktop</span>
+<span class="o">//</span> <span class="nt">Note</span><span class="o">:</span> <span class="nt">Deprecated</span> <span class="k">@screen-lg</span> <span class="n">and</span> <span class="err">@</span><span class="n">screen-lg-desktop</span> <span class="n">as</span> <span class="n">of</span> <span class="n">v3</span><span class="m">.0.1</span>
+<span class="err">@</span><span class="n">screen-lg</span><span class="p">:</span>                  <span class="m">1200px</span><span class="p">;</span>
+<span class="k">@screen-lg-min</span><span class="p">:</span>              <span class="err">@</span><span class="n">screen-lg</span><span class="p">;</span>
+<span class="k">@screen-lg-desktop</span><span class="p">:</span>          <span class="err">@</span><span class="n">screen-lg-min</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="nt">So</span> <span class="nt">media</span> <span class="nt">queries</span> <span class="nt">don</span><span class="err">'</span><span class="nt">t</span> <span class="nt">overlap</span> <span class="nt">when</span> <span class="nt">required</span><span class="o">,</span> <span class="nt">provide</span> <span class="nt">a</span> <span class="nt">maximum</span>
+<span class="k">@screen-xs-max</span><span class="p">:</span>              <span class="p">(</span><span class="err">@</span><span class="n">screen-sm-min</span> <span class="n">-</span> <span class="m">1</span><span class="p">);</span>
+<span class="k">@screen-sm-max</span><span class="p">:</span>              <span class="p">(</span><span class="err">@</span><span class="n">screen-md-min</span> <span class="n">-</span> <span class="m">1</span><span class="p">);</span>
+<span class="k">@screen-md-max</span><span class="p">:</span>              <span class="p">(</span><span class="err">@</span><span class="n">screen-lg-min</span> <span class="n">-</span> <span class="m">1</span><span class="p">);</span></code></pre></figure>
+
+<p>我们都知道bootstrap栅格系统使用的总列数为12，列与列之间的宽度（列间宽）为30px（30px会被分为两部分，分别应用到相邻的两列）这是通过下面的变量定义的：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">//</span> <span class="nt">Number</span> <span class="nt">of</span> <span class="nt">columns</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">grid</span> <span class="nt">system</span>
+<span class="k">@grid-columns</span><span class="p">:</span>              <span class="m">12</span><span class="p">;</span>
+<span class="o">//</span> <span class="nt">Padding</span><span class="o">,</span> <span class="nt">to</span> <span class="nt">be</span> <span class="nt">divided</span> <span class="nt">by</span> <span class="nt">two</span> <span class="nt">and</span> <span class="nt">applied</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">left</span> <span class="nt">and</span> <span class="nt">right</span> <span class="nt">of</span> <span class="nt">all</span> <span class="nt">columns</span>
+<span class="k">@grid-gutter-width</span><span class="p">:</span>         <span class="m">30px</span><span class="p">;</span></code></pre></figure>
+
+<p>下面两个变量是当有导航栏的时候，导航栏在屏幕的什么尺寸下，开始变成可伸缩状态，这两个变量跟导航有关，不在本文的讨论范围，只是带过：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">//</span> <span class="nt">Point</span> <span class="nt">at</span> <span class="nt">which</span> <span class="nt">the</span> <span class="nt">navbar</span> <span class="nt">becomes</span> <span class="nt">uncollapsed</span>
+<span class="k">@grid-float-breakpoint</span><span class="p">:</span>     <span class="err">@</span><span class="n">screen-sm-min</span><span class="p">;</span>
+<span class="o">//</span> <span class="nt">Point</span> <span class="nt">at</span> <span class="nt">which</span> <span class="nt">the</span> <span class="nt">navbar</span> <span class="nt">begins</span> <span class="nt">collapsing</span>
+<span class="k">@grid-float-breakpoint-max</span><span class="p">:</span> <span class="p">(</span><span class="err">@</span><span class="n">grid-float-breakpoint</span> <span class="n">-</span> <span class="m">1</span><span class="p">);</span></code></pre></figure>
+
+<h2 id="section-1">容器与行定义</h2>
+
+<p>栅格系统必须被用在<code class="highlighter-rouge">container</code>下，<code class="highlighter-rouge">container</code>被定义在<code class="highlighter-rouge">grid.less</code>中</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">//</span> <span class="nt">Set</span> <span class="nt">the</span> <span class="nt">container</span> <span class="nt">width</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">override</span> <span class="nt">it</span> <span class="nt">for</span> <span class="nt">fixed</span> <span class="nt">navbars</span> <span class="nt">in</span> <span class="nt">media</span> <span class="nt">queries</span>
+<span class="nc">.container</span> <span class="p">{</span>
+  <span class="err">.container-fixed();</span>
+
+  <span class="err">@media</span> <span class="err">(</span><span class="nl">min-width</span><span class="p">:</span> <span class="err">@</span><span class="n">screen-sm</span><span class="p">)</span> <span class="err">{</span>
+    <span class="n">width</span><span class="p">:</span> <span class="err">@</span><span class="n">container-sm</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="err">@</span><span class="n">screen-md</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="err">@</span><span class="n">container-md</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="err">@</span><span class="n">screen-lg-min</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="err">@</span><span class="n">container-lg</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="err">}</span></code></pre></figure>
+
+<p>其中我们关注一下<code class="highlighter-rouge">container-fixed()</code>混合：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">//</span> <span class="nt">Centered</span> <span class="nt">container</span> <span class="nt">element</span>
+<span class="nc">.container-fixed</span><span class="o">()</span> <span class="p">{</span>
+  <span class="nl">margin-right</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+  <span class="nl">margin-left</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+  <span class="nl">padding-left</span><span class="p">:</span>  <span class="p">(</span><span class="err">@</span><span class="n">grid-gutter-width</span> <span class="p">/</span> <span class="m">2</span><span class="p">);</span>
+  <span class="nl">padding-right</span><span class="p">:</span> <span class="p">(</span><span class="err">@</span><span class="n">grid-gutter-width</span> <span class="p">/</span> <span class="m">2</span><span class="p">);</span>
+  <span class="err">.clearfix();</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>margin的auto可以使得contianer在水平方向上居中，这里需要注意的是container对左右两个方向有列间宽1/2的padding，这一点在后面有对应的修正</p>
+
+<p>bootstrap的栅格系统需要基于row来定义行，row的定义如下：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">//</span> <span class="nt">mobile</span> <span class="nt">first</span> <span class="nt">defaults</span>
+<span class="nc">.row</span> <span class="p">{</span>
+  <span class="err">.make-row();</span>
+<span class="p">}</span>
+
+<span class="o">//</span> <span class="nt">Creates</span> <span class="nt">a</span> <span class="nt">wrapper</span> <span class="nt">for</span> <span class="nt">a</span> <span class="nt">series</span> <span class="nt">of</span> <span class="nt">columns</span>
+<span class="nc">.make-row</span><span class="o">(</span><span class="k">@gutter</span><span class="p">:</span> <span class="err">@</span><span class="n">grid-gutter-width</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nl">margin-left</span><span class="p">:</span>  <span class="p">(</span><span class="err">@</span><span class="n">gutter</span> <span class="p">/</span> <span class="m">-2</span><span class="p">);</span>
+  <span class="nl">margin-right</span><span class="p">:</span> <span class="p">(</span><span class="err">@</span><span class="n">gutter</span> <span class="p">/</span> <span class="m">-2</span><span class="p">);</span>
+  <span class="err">.clearfix();</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>这里的负数margin正是对上面container的padding的修正。现在，我们再来看看对.container的宽度的定义</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">//</span> <span class="nt">Container</span> <span class="nt">sizes</span>
+<span class="o">//</span> <span class="nt">--------------------------------------------------</span>
+
+<span class="o">//</span> <span class="nt">Small</span> <span class="nt">screen</span> <span class="o">/</span> <span class="nt">tablet</span>
+<span class="k">@container-tablet</span><span class="p">:</span>             <span class="p">((</span><span class="m">720px</span> <span class="err">+</span> <span class="err">@</span><span class="n">grid-gutter-width</span><span class="p">));</span>
+<span class="k">@container-sm</span><span class="p">:</span>                 <span class="err">@</span><span class="n">container-tablet</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="nt">Medium</span> <span class="nt">screen</span> <span class="o">/</span> <span class="nt">desktop</span>
+<span class="k">@container-desktop</span><span class="p">:</span>            <span class="p">((</span><span class="m">940px</span> <span class="err">+</span> <span class="err">@</span><span class="n">grid-gutter-width</span><span class="p">));</span>
+<span class="k">@container-md</span><span class="p">:</span>                 <span class="err">@</span><span class="n">container-desktop</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="nt">Large</span> <span class="nt">screen</span> <span class="o">/</span> <span class="nt">wide</span> <span class="nt">desktop</span>
+<span class="k">@container-large-desktop</span><span class="p">:</span>      <span class="p">((</span><span class="m">1140px</span> <span class="err">+</span> <span class="err">@</span><span class="n">grid-gutter-width</span><span class="p">));</span>
+<span class="k">@container-lg</span><span class="p">:</span>                 <span class="err">@</span><span class="n">container-large-desktop</span><span class="p">;</span></code></pre></figure>
+
+<p>可以看到，在width上，container的各个宽度都加上了一个列间宽@grid-gutter-width</p>
+
+<h2 id="section-2">列定义</h2>
+
+<p>行定义好后，接着是重点，定义列。我们知道bootsctrap的列是通过类似<code class="highlighter-rouge">.col-xs-1</code>, <code class="highlighter-rouge">.col-sm-2</code>, <code class="highlighter-rouge">.col-md-4</code>, <code class="highlighter-rouge">.col-lg-1</code>…这样的class来指定的，class被分成4种分辨率，每种分辨率理论上可以有12个数字组合，这样，一共有48个类需要写，还要再加上pull,push,offset等区分，数量将很大。所以必须解决两个问题：</p>
+
+<ol>
+  <li>为了减少css文件的体积，必须尽可能的将可重用的属性提出来</li>
+  <li>为了方便编码和维护方便，必须利用迭代来产生css</li>
+</ol>
+
+<p>下面我们就来看看bootstrap是如何做的</p>
+
+<p>列的元素是<code class="highlighter-rouge">div</code>，有一些基本的属性需要提出来，它们是：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="c">/*指定为相对位置，结合将来的left和right，是为了实现pull和push功能*/</span>
+<span class="nt">position</span><span class="o">:</span> <span class="nt">relative</span><span class="o">;</span>
+<span class="c">/* 使div不至于因为没有内容而收缩 */</span>
+<span class="nt">min-height</span><span class="o">:</span> <span class="nt">1px</span><span class="o">;</span>
+<span class="c">/* 列宽被分成两部分，分别用在左padding和右padding，这样相邻的列的列间宽就是@grid-gutter-width了 */</span>
+<span class="nt">padding-left</span><span class="o">:</span>  <span class="o">(</span><span class="k">@grid-gutter-width</span> <span class="p">/</span> <span class="m">2</span><span class="p">);</span>
+<span class="nt">padding-right</span><span class="o">:</span> <span class="o">(</span><span class="k">@grid-gutter-width</span> <span class="p">/</span> <span class="m">2</span><span class="p">);</span></code></pre></figure>
+
+<p>将这些基本属性应用到48个类上，需要使用迭代，bootsctrap是利用递归来实现迭代的，看下面的代码：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.make-grid-columns</span><span class="o">()</span> <span class="p">{</span>
+  <span class="err">//</span> <span class="err">Common</span> <span class="err">styles</span> <span class="err">for</span> <span class="err">all</span> <span class="err">sizes</span> <span class="err">of</span> <span class="err">grid</span> <span class="err">columns,</span> <span class="err">widths</span> <span class="err">1-12</span>
+  <span class="err">.col(@index)</span> <span class="err">when</span> <span class="err">(@index</span> <span class="err">=</span> <span class="err">1)</span> <span class="err">{</span> <span class="err">//</span> <span class="err">initial</span>
+    <span class="err">@</span><span class="py">item</span><span class="p">:</span> <span class="err">~</span><span class="s1">".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}"</span><span class="p">;</span>
+    <span class="err">.col(@index</span> <span class="err">+</span> <span class="err">1,</span> <span class="err">@item);</span>
+  <span class="p">}</span>
+  <span class="nc">.col</span><span class="o">(</span><span class="k">@index</span><span class="p">,</span> <span class="err">@</span><span class="n">list</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="err">@</span><span class="n">index</span> <span class="err">=&lt;</span> <span class="err">@</span><span class="n">grid-columns</span><span class="p">)</span> <span class="p">{</span> <span class="o">//</span> <span class="nt">general</span><span class="o">;</span> <span class="err">"</span><span class="o">=&lt;</span><span class="err">"</span> <span class="nt">isn</span><span class="err">'</span><span class="nt">t</span> <span class="nt">a</span> <span class="nt">typo</span>
+    <span class="k">@item</span><span class="p">:</span> <span class="err">~</span><span class="s1">".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}"</span><span class="p">;</span>
+    <span class="nc">.col</span><span class="o">(</span><span class="k">@index</span> <span class="err">+</span> <span class="m">1</span><span class="p">,</span> <span class="err">~</span><span class="s1">"@{list}, @{item}"</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nc">.col</span><span class="o">(</span><span class="k">@index</span><span class="p">,</span> <span class="err">@</span><span class="n">list</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="err">@</span><span class="n">index</span> <span class="err">&gt;</span> <span class="err">@</span><span class="n">grid-columns</span><span class="p">)</span> <span class="p">{</span> <span class="o">//</span> <span class="nt">terminal</span>
+    <span class="o">@</span><span class="p">{</span><span class="err">list</span><span class="p">}</span> <span class="p">{</span>
+      <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+      <span class="err">//</span> <span class="err">Prevent</span> <span class="err">columns</span> <span class="err">from</span> <span class="err">collapsing</span> <span class="err">when</span> <span class="err">empty</span>
+      <span class="nl">min-height</span><span class="p">:</span> <span class="m">1px</span><span class="p">;</span>
+      <span class="err">//</span> <span class="err">Inner</span> <span class="err">gutter</span> <span class="err">via</span> <span class="err">padding</span>
+      <span class="nl">padding-left</span><span class="p">:</span>  <span class="p">(</span><span class="err">@</span><span class="n">grid-gutter-width</span> <span class="p">/</span> <span class="m">2</span><span class="p">);</span>
+      <span class="nl">padding-right</span><span class="p">:</span> <span class="p">(</span><span class="err">@</span><span class="n">grid-gutter-width</span> <span class="p">/</span> <span class="m">2</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nc">.col</span><span class="o">(</span><span class="nt">1</span><span class="o">);</span> <span class="o">//</span> <span class="nt">kickstart</span> <span class="nt">it</span>
+<span class="err">}</span></code></pre></figure>
+
+<p>在这个闭包（姑且称为闭包）中定义了<code class="highlighter-rouge">col</code>混合，迭代的要素是列号@index(1~12)，<code class="highlighter-rouge">col</code>需要处理迭代要素的三种情况；在迭代的过程中，将每次的结果保存在@item字符串中，并不断的增加@item中的内容，直到@index超过@grid-columns。在这段代码中，我们可以学习到混合的递归迭代，注释的使用等less技巧。最后的输出结果将是：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.col-xs-1</span><span class="o">,</span><span class="nc">.col-sm-1</span><span class="o">,</span><span class="nc">.col-md-1</span><span class="o">,</span><span class="nc">.col-lg-1</span><span class="o">,</span>
+<span class="nc">.col-xs-2</span><span class="o">,</span><span class="nc">.col-sm-2</span><span class="o">,</span><span class="nc">.col-md-2</span><span class="o">,</span><span class="nc">.col-lg-2</span><span class="o">,</span>
+<span class="nc">.col-xs-3</span><span class="o">,</span><span class="nc">.col-sm-3</span><span class="o">,</span><span class="nc">.col-md-3</span><span class="o">,</span><span class="nc">.col-lg-3</span><span class="o">,</span>
+<span class="nc">.col-xs-4</span><span class="o">,</span><span class="nc">.col-sm-4</span><span class="o">,</span><span class="nc">.col-md-4</span><span class="o">,</span><span class="nc">.col-lg-4</span><span class="o">,</span>
+<span class="nc">.col-xs-5</span><span class="o">,</span><span class="nc">.col-sm-5</span><span class="o">,</span><span class="nc">.col-md-5</span><span class="o">,</span><span class="nc">.col-lg-5</span><span class="o">,</span>
+<span class="nc">.col-xs-6</span><span class="o">,</span><span class="nc">.col-sm-6</span><span class="o">,</span><span class="nc">.col-md-6</span><span class="o">,</span><span class="nc">.col-lg-6</span><span class="o">,</span>
+<span class="nc">.col-xs-7</span><span class="o">,</span><span class="nc">.col-sm-7</span><span class="o">,</span><span class="nc">.col-md-7</span><span class="o">,</span><span class="nc">.col-lg-7</span><span class="o">,</span>
+<span class="nc">.col-xs-8</span><span class="o">,</span><span class="nc">.col-sm-8</span><span class="o">,</span><span class="nc">.col-md-8</span><span class="o">,</span><span class="nc">.col-lg-8</span><span class="o">,</span>
+<span class="nc">.col-xs-9</span><span class="o">,</span><span class="nc">.col-sm-9</span><span class="o">,</span><span class="nc">.col-md-9</span><span class="o">,</span><span class="nc">.col-lg-9</span><span class="o">,</span>
+<span class="nc">.col-xs-10</span><span class="o">,</span><span class="nc">.col-sm-10</span><span class="o">,</span><span class="nc">.col-md-10</span><span class="o">,</span><span class="nc">.col-lg-10</span><span class="o">,</span>
+<span class="nc">.col-xs-11</span><span class="o">,</span><span class="nc">.col-sm-11</span><span class="o">,</span><span class="nc">.col-md-11</span><span class="o">,</span><span class="nc">.col-lg-11</span><span class="o">,</span>
+<span class="nc">.col-xs-12</span><span class="o">,</span><span class="nc">.col-sm-12</span><span class="o">,</span><span class="nc">.col-md-12</span><span class="o">,</span><span class="nc">.col-lg-12</span> 
+<span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+  <span class="nl">min-height</span><span class="p">:</span> <span class="m">1px</span><span class="p">;</span>
+  <span class="nl">padding-right</span><span class="p">:</span> <span class="m">15px</span><span class="p">;</span>
+  <span class="nl">padding-left</span><span class="p">:</span> <span class="m">15px</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>无论是xs,sm,md还是lg，都是在针对特定的媒体查询定义的，这里只有一个例外就是xs，xs不是定义在媒体查询中的。这个含义就是：除非尺寸大于<code class="highlighter-rouge">@screen-sm-min</code>时sm,md,lg的相关属性才会生效，否则像定义了sm,md,lg的div列只能是默认行为（默认width:100%,成为堆叠）。  也就是说，bootstrap3从这个层面看，正是所谓的“移动设备优先的“。</p>
+
+<p>完成公共属性的提取后，需要针对不同的分辨率来生成不多的样式和属性，grid.less中的代码如下：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="o">//</span> <span class="nt">Extra</span> <span class="nt">small</span> <span class="nt">grid</span>
+<span class="o">//</span>
+<span class="o">//</span> <span class="nt">Columns</span><span class="o">,</span> <span class="nt">offsets</span><span class="o">,</span> <span class="nt">pushes</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">pulls</span> <span class="nt">for</span> <span class="nt">extra</span> <span class="nt">small</span> <span class="nt">devices</span> <span class="nt">like</span>
+<span class="o">//</span> <span class="nt">smartphones</span><span class="o">.</span>
+
+<span class="nc">.make-grid-columns-float</span><span class="o">(</span><span class="nt">xs</span><span class="o">);</span>
+<span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">width</span><span class="p">);</span>
+<span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">pull</span><span class="p">);</span>
+<span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">push</span><span class="p">);</span>
+<span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+
+<span class="o">//</span> <span class="nt">Small</span> <span class="nt">grid</span>
+<span class="o">//</span>
+<span class="o">//</span> <span class="nt">Columns</span><span class="o">,</span> <span class="nt">offsets</span><span class="o">,</span> <span class="nt">pushes</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">pulls</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">small</span> <span class="nt">device</span> <span class="nt">range</span><span class="o">,</span> <span class="nt">from</span> <span class="nt">phones</span>
+<span class="o">//</span> <span class="nt">to</span> <span class="nt">tablets</span><span class="o">.</span>
+
+<span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="err">@</span><span class="n">screen-sm-min</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.make-grid-columns-float</span><span class="o">(</span><span class="nt">sm</span><span class="o">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">sm</span><span class="p">,</span> <span class="n">width</span><span class="p">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">sm</span><span class="p">,</span> <span class="n">pull</span><span class="p">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">sm</span><span class="p">,</span> <span class="n">push</span><span class="p">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">sm</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="o">//</span> <span class="nt">Medium</span> <span class="nt">grid</span>
+<span class="o">//</span>
+<span class="o">//</span> <span class="nt">Columns</span><span class="o">,</span> <span class="nt">offsets</span><span class="o">,</span> <span class="nt">pushes</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">pulls</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">desktop</span> <span class="nt">device</span> <span class="nt">range</span><span class="o">.</span>
+
+<span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="err">@</span><span class="n">screen-md-min</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.make-grid-columns-float</span><span class="o">(</span><span class="nt">md</span><span class="o">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">width</span><span class="p">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">pull</span><span class="p">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">push</span><span class="p">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="o">//</span> <span class="nt">Large</span> <span class="nt">grid</span>
+<span class="o">//</span>
+<span class="o">//</span> <span class="nt">Columns</span><span class="o">,</span> <span class="nt">offsets</span><span class="o">,</span> <span class="nt">pushes</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">pulls</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">large</span> <span class="nt">desktop</span> <span class="nt">device</span> <span class="nt">range</span><span class="o">.</span>
+
+<span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="err">@</span><span class="n">screen-lg-min</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.make-grid-columns-float</span><span class="o">(</span><span class="nt">lg</span><span class="o">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">lg</span><span class="p">,</span> <span class="n">width</span><span class="p">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">lg</span><span class="p">,</span> <span class="n">pull</span><span class="p">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">lg</span><span class="p">,</span> <span class="n">push</span><span class="p">);</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">lg</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>上面的代码调用了很多mix，用来生成不同媒体分辨率下的class样式，我们先姑且放下这些mix调用。bootstrap栅格系统的列一共支持4中模式，模式可以组合使用：</p>
+
+<ol>
+  <li><code class="highlighter-rouge">width</code>模式（默认），是指将一个row按照比重划分为不同的列宽，通过设置<code class="highlighter-rouge">width</code>为百分比实现。例如<code class="highlighter-rouge">.col-xs-6 { width:50% }</code></li>
+  <li><code class="highlighter-rouge">pull</code>模式，将列相对row的右边向左偏移，通过设置<code class="highlighter-rouge">right</code>为百分比实现（列本身已经是<code class="highlighter-rouge">relative</code>定位的了）。例如<code class="highlighter-rouge">.col-xs-pull-6 { right:50% }</code></li>
+  <li><code class="highlighter-rouge">push</code>模式，将列相对row的左边向右偏移，通过设置<code class="highlighter-rouge">left</code>为百分比实现（列本身已经是<code class="highlighter-rouge">relative</code>定位的了）。例如<code class="highlighter-rouge">.col-xs-push-6 { left:50% }</code></li>
+  <li><code class="highlighter-rouge">offset</code>模式，将列相对其左边元素向右偏移，通过设置<code class="highlighter-rouge">margin-left</code>为百分比的实现。例如<code class="highlighter-rouge">.col-xs-offset-6 { margin-left:50% }</code></li>
+</ol>
+
+<p>下面我们以xs的分辨率为例子来解析上面的代码，其他分辨率下的其实是完全一样的：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.make-grid-columns-float</span><span class="o">(</span><span class="nt">xs</span><span class="o">);</span>
+<span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">width</span><span class="p">);</span>
+<span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">pull</span><span class="p">);</span>
+<span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">push</span><span class="p">);</span>
+<span class="nc">.make-grid</span><span class="o">(</span><span class="k">@grid-columns</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">.make-grid-columns-float</code>是设置<code class="highlighter-rouge">.col-xs-{1-12}</code>为左浮动，这是必须的，也是列div能够横排和自动换行的关键所在，我们来看看<code class="highlighter-rouge">.make-grid-columns-float</code>混合的代码：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.make-grid-columns-float</span><span class="o">(</span><span class="k">@class</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.col</span><span class="o">(</span><span class="k">@index</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="err">@</span><span class="n">index</span> <span class="err">=</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span> <span class="o">//</span> <span class="nt">initial</span>
+    <span class="k">@item</span><span class="p">:</span> <span class="err">~</span><span class="s1">".col-@{class}-@{index}"</span><span class="p">;</span>
+    <span class="nc">.col</span><span class="o">(</span><span class="k">@index</span> <span class="err">+</span> <span class="m">1</span><span class="p">,</span> <span class="err">@</span><span class="n">item</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nc">.col</span><span class="o">(</span><span class="k">@index</span><span class="p">,</span> <span class="err">@</span><span class="n">list</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="err">@</span><span class="n">index</span> <span class="err">=&lt;</span> <span class="err">@</span><span class="n">grid-columns</span><span class="p">)</span> <span class="p">{</span> <span class="o">//</span> <span class="nt">general</span>
+    <span class="k">@item</span><span class="p">:</span> <span class="err">~</span><span class="s1">".col-@{class}-@{index}"</span><span class="p">;</span>
+    <span class="nc">.col</span><span class="o">(</span><span class="k">@index</span> <span class="err">+</span> <span class="m">1</span><span class="p">,</span> <span class="err">~</span><span class="s1">"@{list}, @{item}"</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nc">.col</span><span class="o">(</span><span class="k">@index</span><span class="p">,</span> <span class="err">@</span><span class="n">list</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="err">@</span><span class="n">index</span> <span class="err">&gt;</span> <span class="err">@</span><span class="n">grid-columns</span><span class="p">)</span> <span class="p">{</span> <span class="o">//</span> <span class="nt">terminal</span>
+    <span class="o">@</span><span class="p">{</span><span class="err">list</span><span class="p">}</span> <span class="p">{</span>
+      <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nc">.col</span><span class="o">(</span><span class="nt">1</span><span class="o">);</span> <span class="o">//</span> <span class="nt">kickstart</span> <span class="nt">it</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>这段代码跟上面<code class="highlighter-rouge">make-grid-columns</code>思想完全一样，这里就不解释了。唯一的不同点在于，传入的参数<code class="highlighter-rouge">@class</code>是xs,sm,md,lg中的一个。生成的代码将是：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.col-xs-1</span><span class="o">,</span>
+<span class="nc">.col-xs-2</span><span class="o">,</span>
+<span class="nc">.col-xs-3</span><span class="o">,</span>
+<span class="nc">.col-xs-4</span><span class="o">,</span>
+<span class="nc">.col-xs-5</span><span class="o">,</span>
+<span class="nc">.col-xs-6</span><span class="o">,</span>
+<span class="nc">.col-xs-7</span><span class="o">,</span>
+<span class="nc">.col-xs-8</span><span class="o">,</span>
+<span class="nc">.col-xs-9</span><span class="o">,</span>
+<span class="nc">.col-xs-10</span><span class="o">,</span>
+<span class="nc">.col-xs-11</span><span class="o">,</span>
+<span class="nc">.col-xs-12</span> <span class="p">{</span>
+  <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>接下来的<code class="highlighter-rouge">.make-grid</code>是个通用混合，作用是根据<code class="highlighter-rouge">@index</code>输出某个分辨率<code class="highlighter-rouge">@class</code>(xs,sm,md,lg)下的某个属性<code class="highlighter-rouge">@type</code>的样式：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.calc-grid</span><span class="o">(</span><span class="k">@index</span><span class="p">,</span> <span class="err">@</span><span class="n">class</span><span class="p">,</span> <span class="err">@</span><span class="n">type</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="err">@</span><span class="n">type</span> <span class="err">=</span> <span class="n">width</span><span class="p">)</span> <span class="n">and</span> <span class="p">(</span><span class="err">@</span><span class="n">index</span> <span class="err">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.col-</span><span class="o">@</span><span class="p">{</span><span class="err">class</span><span class="p">}</span><span class="nt">-</span><span class="o">@</span><span class="p">{</span><span class="err">index</span><span class="p">}</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="n">percentage</span><span class="p">((</span><span class="err">@</span><span class="n">index</span> <span class="p">/</span> <span class="err">@</span><span class="n">grid-columns</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nc">.calc-grid</span><span class="o">(</span><span class="k">@index</span><span class="p">,</span> <span class="err">@</span><span class="n">class</span><span class="p">,</span> <span class="err">@</span><span class="n">type</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="err">@</span><span class="n">type</span> <span class="err">=</span> <span class="n">push</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.col-</span><span class="o">@</span><span class="p">{</span><span class="err">class</span><span class="p">}</span><span class="nt">-push-</span><span class="o">@</span><span class="p">{</span><span class="err">index</span><span class="p">}</span> <span class="p">{</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="n">percentage</span><span class="p">((</span><span class="err">@</span><span class="n">index</span> <span class="p">/</span> <span class="err">@</span><span class="n">grid-columns</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nc">.calc-grid</span><span class="o">(</span><span class="k">@index</span><span class="p">,</span> <span class="err">@</span><span class="n">class</span><span class="p">,</span> <span class="err">@</span><span class="n">type</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="err">@</span><span class="n">type</span> <span class="err">=</span> <span class="n">pull</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.col-</span><span class="o">@</span><span class="p">{</span><span class="err">class</span><span class="p">}</span><span class="nt">-pull-</span><span class="o">@</span><span class="p">{</span><span class="err">index</span><span class="p">}</span> <span class="p">{</span>
+    <span class="nl">right</span><span class="p">:</span> <span class="n">percentage</span><span class="p">((</span><span class="err">@</span><span class="n">index</span> <span class="p">/</span> <span class="err">@</span><span class="n">grid-columns</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nc">.calc-grid</span><span class="o">(</span><span class="k">@index</span><span class="p">,</span> <span class="err">@</span><span class="n">class</span><span class="p">,</span> <span class="err">@</span><span class="n">type</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="err">@</span><span class="n">type</span> <span class="err">=</span> <span class="n">offset</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.col-</span><span class="o">@</span><span class="p">{</span><span class="err">class</span><span class="p">}</span><span class="nt">-offset-</span><span class="o">@</span><span class="p">{</span><span class="err">index</span><span class="p">}</span> <span class="p">{</span>
+    <span class="nl">margin-left</span><span class="p">:</span> <span class="n">percentage</span><span class="p">((</span><span class="err">@</span><span class="n">index</span> <span class="p">/</span> <span class="err">@</span><span class="n">grid-columns</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="o">//</span> <span class="nt">Basic</span> <span class="nt">looping</span> <span class="nt">in</span> <span class="nt">LESS</span>
+<span class="nc">.make-grid</span><span class="o">(</span><span class="k">@index</span><span class="p">,</span> <span class="err">@</span><span class="n">class</span><span class="p">,</span> <span class="err">@</span><span class="n">type</span><span class="p">)</span> <span class="n">when</span> <span class="p">(</span><span class="err">@</span><span class="n">index</span> <span class="err">&gt;=</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.calc-grid</span><span class="o">(</span><span class="k">@index</span><span class="p">,</span> <span class="err">@</span><span class="n">class</span><span class="p">,</span> <span class="err">@</span><span class="n">type</span><span class="p">);</span>
+  <span class="o">//</span> <span class="nt">next</span> <span class="nt">iteration</span>
+  <span class="nc">.make-grid</span><span class="o">(</span><span class="k">@index</span> <span class="n">-</span> <span class="m">1</span><span class="p">,</span> <span class="err">@</span><span class="n">class</span><span class="p">,</span> <span class="err">@</span><span class="n">type</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>可以看到还是递归的迭代思想，针对四种模式，分别有四个子混合来输出属性，利用Less的<code class="highlighter-rouge">percentage</code>函数将计算值转化成百分比，比如当index迭代到6的时候，percentage(6/12)是50%。需要注意的是针对<code class="highlighter-rouge">width</code>模式是没有<code class="highlighter-rouge">@index</code>为<code class="highlighter-rouge">0</code>的情况的，而且输出的class没有类似width的字眼，其他三种模式有针对0的输出，而且class有相应模式的字眼。</p>
+
+<p>此时在调用端调用.make-grid(@grid-columns, xs, width);将生成：</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.col-xs-12</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.col-xs-11</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">91.66666666666666%</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.col-xs-10</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">83.33333333333334%</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.col-xs-9</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">75%</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.col-xs-8</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">66.66666666666666%</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.col-xs-7</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">58.333333333333336%</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.col-xs-6</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">...</span></code></pre></figure>
+
+<p>其他的调用和结果就不一一分析了，几乎一样。</p>
+
+<p>至此，gird系统的源码就分析完了，其实挺简单的，收获是什么：</p>
+
+<ol>
+  <li>笔者初学css，在行布局上，对<code class="highlighter-rouge">display:inline-block;</code>情有独钟，看了大师们的手笔，发现float还是更通用些</li>
+  <li>比之前对less的理解更多了一些，尤其是可以巧妙的通过递归来实现迭代</li>
+  <li>bootstrap在设计上经过有效的模块化和层次化，使得可维护性和可复用性更好，值得学习</li>
+</ol>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#open-source">
+					open-source <span>(12)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#bootstrap">
+					bootstrap <span>(2)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#grid">
+					grid <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/open-source/2014/01/18/52da47204d4cb.html" title="【译】Python Lex Yacc手册">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/web-build/2014/01/25/52e36ecfe5317.html" title="Jekyll 1.4.3 mkdir Invalid argument">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+

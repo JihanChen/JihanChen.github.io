@@ -1,0 +1,31 @@
+#auto: true
+paginate: 10 # pagination based on number of posts
+paginate_path: "page:num" #pagination generated sub path format
+#pygments: true #for support {% highlight %}
+highlighter: rouge
+markdown: kramdown #use kramdown to parse markdown
+encoding: utf-8
+gems: [jekyll-paginate]
+defaults:
+  -
+    scope:
+      path: "" # empty string for all files
+    values:
+      title: "JihanChen Tech Space"
+
+description: "JihanChen Tech Space, share technology post"
+author:
+  name: JihanChen
+  email: jihanchen666@gmail.com
+  github: JihanChen
+  twitter: JihanChen
+  pinterest: JihanChen
+  linkedin: JihanChen
+  bio: just do it
+  email_md5: 
+
+rss_path: feed.xml
+categories_path: category.html
+tags_path: tag.html
+
+BASE_PATH:

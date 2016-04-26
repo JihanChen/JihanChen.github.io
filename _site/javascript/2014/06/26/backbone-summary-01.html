@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Backbone使用总结</title>
+	
+	<meta name="description" content="开始在项目中大规模使用backbone，一路磕磕碰碰，边做边学习边体会，有一些心得和体会，记录在本文中">
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	Do not build on quicksand high
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#life">life<span>5</span></a></li>
+		
+			<li><a href="/category.html#web-build">web-build<span>13</span></a></li>
+		
+			<li><a href="/category.html#resource">resource<span>3</span></a></li>
+		
+			<li><a href="/category.html#network">network<span>7</span></a></li>
+		
+			<li><a href="/category.html#C-Cpp">C-Cpp<span>6</span></a></li>
+		
+			<li><a href="/category.html#Linux">Linux<span>1</span></a></li>
+		
+			<li><a href="/category.html#Hardware">Hardware<span>1</span></a></li>
+		
+			<li><a href="/category.html#BMC">BMC<span>8</span></a></li>
+		
+			<li><a href="/category.html#Web">Web<span>5</span></a></li>
+		
+			<li><a href="/category.html#algorithm">algorithm<span>2</span></a></li>
+		
+			<li><a href="/category.html#hardware">hardware<span>9</span></a></li>
+		
+			<li><a href="/category.html#javascript">javascript<span>5</span></a></li>
+		
+			<li><a href="/category.html#asp.net">asp.net<span>1</span></a></li>
+		
+			<li><a href="/category.html#open-source">open-source<span>12</span></a></li>
+		
+			<li><a href="/category.html#web">web<span>3</span></a></li>
+		
+			<li><a href="/category.html#c-cpp">c-cpp<span>3</span></a></li>
+		
+			<li><a href="/category.html#IOS">IOS<span>3</span></a></li>
+		
+			<li><a href="/category.html#linux">linux<span>3</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#github-page" style='font-size:43px;'>github-page</a>
+	
+		<a href="/tag.html#jekyll" style='font-size:33px;'>jekyll</a>
+	
+		<a href="/tag.html#liquid" style='font-size:21px;'>liquid</a>
+	
+		<a href="/tag.html#Git" style='font-size:23px;'>Git</a>
+	
+		<a href="/tag.html#Ruby" style='font-size:19px;'>Ruby</a>
+	
+		<a href="/tag.html#Linux" style='font-size:21px;'>Linux</a>
+	
+		<a href="/tag.html#SEO" style='font-size:17px;'>SEO</a>
+	
+		<a href="/tag.html#FTP" style='font-size:17px;'>FTP</a>
+	
+		<a href="/tag.html#NAT" style='font-size:17px;'>NAT</a>
+	
+		<a href="/tag.html#CPP" style='font-size:29px;'>CPP</a>
+	
+		<a href="/tag.html#dot NET" style='font-size:21px;'>dot NET</a>
+	
+		<a href="/tag.html#Compiler" style='font-size:21px;'>Compiler</a>
+	
+		<a href="/tag.html#Hardware" style='font-size:23px;'>Hardware</a>
+	
+		<a href="/tag.html#Performance" style='font-size:21px;'>Performance</a>
+	
+		<a href="/tag.html#BMC" style='font-size:27px;'>BMC</a>
+	
+		<a href="/tag.html#Web dev" style='font-size:19px;'>Web dev</a>
+	
+		<a href="/tag.html#Remedy" style='font-size:29px;'>Remedy</a>
+	
+		<a href="/tag.html#ITSM" style='font-size:17px;'>ITSM</a>
+	
+		<a href="/tag.html#Mid-Tier" style='font-size:17px;'>Mid-Tier</a>
+	
+		<a href="/tag.html#SSO" style='font-size:17px;'>SSO</a>
+	
+		<a href="/tag.html#algorithm" style='font-size:17px;'>algorithm</a>
+	
+		<a href="/tag.html#web-build" style='font-size:19px;'>web-build</a>
+	
+		<a href="/tag.html#bootstrap" style='font-size:19px;'>bootstrap</a>
+	
+		<a href="/tag.html#PHP" style='font-size:19px;'>PHP</a>
+	
+		<a href="/tag.html#Esxi" style='font-size:17px;'>Esxi</a>
+	
+		<a href="/tag.html#iso" style='font-size:17px;'>iso</a>
+	
+		<a href="/tag.html#Driver" style='font-size:17px;'>Driver</a>
+	
+		<a href="/tag.html#database" style='font-size:19px;'>database</a>
+	
+		<a href="/tag.html#consistency" style='font-size:17px;'>consistency</a>
+	
+		<a href="/tag.html#require.js" style='font-size:17px;'>require.js</a>
+	
+		<a href="/tag.html#asp.net mvc" style='font-size:19px;'>asp.net mvc</a>
+	
+		<a href="/tag.html#node.js" style='font-size:19px;'>node.js</a>
+	
+		<a href="/tag.html#network" style='font-size:25px;'>network</a>
+	
+		<a href="/tag.html#switch" style='font-size:25px;'>switch</a>
+	
+		<a href="/tag.html#VLAN" style='font-size:19px;'>VLAN</a>
+	
+		<a href="/tag.html#Trunk" style='font-size:17px;'>Trunk</a>
+	
+		<a href="/tag.html#VTP" style='font-size:17px;'>VTP</a>
+	
+		<a href="/tag.html#STP" style='font-size:17px;'>STP</a>
+	
+		<a href="/tag.html#compiler" style='font-size:19px;'>compiler</a>
+	
+		<a href="/tag.html#yacc" style='font-size:17px;'>yacc</a>
+	
+		<a href="/tag.html#lex" style='font-size:17px;'>lex</a>
+	
+		<a href="/tag.html#life" style='font-size:19px;'>life</a>
+	
+		<a href="/tag.html#PVST" style='font-size:17px;'>PVST</a>
+	
+		<a href="/tag.html#FSD" style='font-size:17px;'>FSD</a>
+	
+		<a href="/tag.html#Programmer" style='font-size:17px;'>Programmer</a>
+	
+		<a href="/tag.html#PLY" style='font-size:17px;'>PLY</a>
+	
+		<a href="/tag.html#Python" style='font-size:17px;'>Python</a>
+	
+		<a href="/tag.html#Lex" style='font-size:17px;'>Lex</a>
+	
+		<a href="/tag.html#Yacc" style='font-size:17px;'>Yacc</a>
+	
+		<a href="/tag.html#grid" style='font-size:17px;'>grid</a>
+	
+		<a href="/tag.html#html5" style='font-size:17px;'>html5</a>
+	
+		<a href="/tag.html#video" style='font-size:17px;'>video</a>
+	
+		<a href="/tag.html#mp4" style='font-size:17px;'>mp4</a>
+	
+		<a href="/tag.html#webm" style='font-size:17px;'>webm</a>
+	
+		<a href="/tag.html#ogv" style='font-size:17px;'>ogv</a>
+	
+		<a href="/tag.html#javascript" style='font-size:21px;'>javascript</a>
+	
+		<a href="/tag.html#template" style='font-size:17px;'>template</a>
+	
+		<a href="/tag.html#Function" style='font-size:17px;'>Function</a>
+	
+		<a href="/tag.html#web-server" style='font-size:21px;'>web-server</a>
+	
+		<a href="/tag.html#nginx" style='font-size:23px;'>nginx</a>
+	
+		<a href="/tag.html#grunt" style='font-size:17px;'>grunt</a>
+	
+		<a href="/tag.html#docker" style='font-size:17px;'>docker</a>
+	
+		<a href="/tag.html#dockerfile" style='font-size:17px;'>dockerfile</a>
+	
+		<a href="/tag.html#Gitolite" style='font-size:19px;'>Gitolite</a>
+	
+		<a href="/tag.html#Hook" style='font-size:19px;'>Hook</a>
+	
+		<a href="/tag.html#backbone" style='font-size:21px;'>backbone</a>
+	
+		<a href="/tag.html#cloud" style='font-size:19px;'>cloud</a>
+	
+		<a href="/tag.html#markdown" style='font-size:17px;'>markdown</a>
+	
+		<a href="/tag.html#storage" style='font-size:23px;'>storage</a>
+	
+		<a href="/tag.html#disk" style='font-size:17px;'>disk</a>
+	
+		<a href="/tag.html#raid" style='font-size:17px;'>raid</a>
+	
+		<a href="/tag.html#VM" style='font-size:17px;'>VM</a>
+	
+		<a href="/tag.html#FileSystem" style='font-size:19px;'>FileSystem</a>
+	
+		<a href="/tag.html#CSS" style='font-size:17px;'>CSS</a>
+	
+		<a href="/tag.html#Web" style='font-size:17px;'>Web</a>
+	
+		<a href="/tag.html#sae" style='font-size:17px;'>sae</a>
+	
+		<a href="/tag.html#objective-c" style='font-size:19px;'>objective-c</a>
+	
+		<a href="/tag.html#ios" style='font-size:21px;'>ios</a>
+	
+		<a href="/tag.html#php" style='font-size:19px;'>php</a>
+	
+		<a href="/tag.html#memcache" style='font-size:17px;'>memcache</a>
+	
+		<a href="/tag.html#yii" style='font-size:19px;'>yii</a>
+	
+		<a href="/tag.html#phpunit" style='font-size:17px;'>phpunit</a>
+	
+		<a href="/tag.html#ssh" style='font-size:17px;'>ssh</a>
+	
+		<a href="/tag.html#rsync" style='font-size:17px;'>rsync</a>
+	
+		<a href="/tag.html#FastCGI" style='font-size:17px;'>FastCGI</a>
+	
+		<a href="/tag.html#lighttpd" style='font-size:17px;'>lighttpd</a>
+	
+		<a href="/tag.html#vim" style='font-size:17px;'>vim</a>
+	
+		<a href="/tag.html#hello world" style='font-size:17px;'>hello world</a>
+	
+</div>
+<div class='foot text-center'>
+	<p>Powered by</p><p><a href='https://github.com/'>Github</a> <a href='http://jekyllrb.com/'>jekyll</a> <a href="http://www.bootcss.com/">bootstrap</a> <a href="http://typo.sofi.sh/">typo.css</a> <a href="http://jekyllthemes.org/themes/dbyll/">Dbyll</a> <a href="http://disqus.com" class="dsq-brlink">Disqus</a>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258548781'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258548781' type='text/javascript'%3E%3C/script%3E"));</script>
+    </p>
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-8" style=" padding: 40px 0; "><div class="page-header">
+  <h1>Backbone使用总结 </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   June 
+	   26th,
+	   
+	   2014
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <h2 id="section">事件模型及其原理</h2>
+
+<p><code class="highlighter-rouge">Backbone.Events</code>就是事件实现的核心，它可以让对象拥有事件能力</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Events</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Events</span> <span class="o">=</span> <span class="p">{</span> <span class="p">..</span> <span class="p">}</span></code></pre></figure>
+
+<p>对象通过<code class="highlighter-rouge">listenTo</code>侦听其他对象，通过<code class="highlighter-rouge">trigger</code>触发事件。可以脱离Backbone的MVC，在自定义的对象上使用事件</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Events</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Events</span><span class="p">);</span>
+<span class="nx">view</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span><span class="s1">'custom_event'</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">'catch the event'</span><span class="p">)</span> <span class="p">});</span>
+<span class="nx">model</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">'custom_event'</span><span class="p">);</span></code></pre></figure>
+
+<p>执行结果：</p>
+
+<p><img src="http://pchou.qiniudn.com/backbone-event-01.jpg" alt="" /></p>
+
+<p>Backbone的Model和View等核心类，都是继承自<code class="highlighter-rouge">Backbone.Events</code>的。例如Backbone.Model：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Events</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Events</span> <span class="o">=</span> <span class="p">{</span> <span class="p">..</span> <span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">Model</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">attributes</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+	<span class="p">...</span>
+	<span class="p">};</span>
+
+<span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">Model</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">Events</span><span class="p">,</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span></code></pre></figure>
+
+<p>从原理上讲，事件是这么工作的：</p>
+
+<p>被侦听的对象维护一个事件数组<code class="highlighter-rouge">_event</code>，其他对象在调用<code class="highlighter-rouge">listenTo</code>时，会将事件名与回调维护到队列中：</p>
+
+<p><img src="http://pchou.qiniudn.com/backbone-event-01.png" alt="" /></p>
+
+<p>一个事件名可以对应多个回调，对于被侦听者而言，只知道回调的存在，并不知道具体是哪个对象在侦听它。当被侦听者调用<code class="highlighter-rouge">trigger(name)</code>时，会遍历_event，选择同名的事件，并将其下面所有的回调都执行一遍。</p>
+
+<p>需要额外注意的是，Backbone的<code class="highlighter-rouge">listenTo</code>实现，除了使被侦听者维护对侦听者的引用外，还使侦听者也维护了被侦听者。这是为了在恰当的时候，侦听者可以单方面中断侦听。因此，虽然是循环引用，但是使用Backbone的合适的方法可以很好的维护，不会有问题，在后面的内存泄露部分将看到。</p>
+
+<p>另外，有时只希望事件在绑定后，当回调发生后，就接触绑定。这在一些对公共模块的引用时很有用。<code class="highlighter-rouge">listenToOnce</code>可以做到这一点</p>
+
+<h2 id="section-1">与服务器同步数据</h2>
+
+<p><code class="highlighter-rouge">backbone</code>默认实现了一套与RESTful风格的服务端同步模型的机制，这套机制不仅可以减轻开发人员的工作量，而且可以使模型变得更为健壮（在各种异常下仍能保持数据一致性）。不过，要真正发挥这个功效，一个与之匹配的服务端实现是很重要的。为了说明问题，假设服务端有如下REST风格的接口：</p>
+
+<ul>
+  <li>GET <code class="highlighter-rouge">/resources</code> 获取资源列表</li>
+  <li>POST <code class="highlighter-rouge">/resources</code> 创建一个资源，返回资源的全部或部分字段</li>
+  <li>GET <code class="highlighter-rouge">/resources/{id}</code> 获取某个id的资源详情，返回资源的全部或部分字段</li>
+  <li>DELETE <code class="highlighter-rouge">/resources/{id}</code> 删除某个资源</li>
+  <li>PUT <code class="highlighter-rouge">/resources/{id}</code> 更新某个资源的<code class="highlighter-rouge">全部</code>字段，返回资源的全部或部分字段</li>
+  <li>PATCH <code class="highlighter-rouge">/resources/{id}</code> 更新某个资源的<code class="highlighter-rouge">部分</code>字段，返回资源的全部或部分字段</li>
+</ul>
+
+<p><code class="highlighter-rouge">backbone</code>会使用到上面这些HTTP方法的地方主要有以下几个：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Model.save()</code> 逻辑上，根据当前这个model的是否具有<code class="highlighter-rouge">id</code>来判断应该使用POST还是PUT，如果model没有id，表示是新的模型，将使用<code class="highlighter-rouge">POST</code>，将模型的字段全部提交到<code class="highlighter-rouge">/resources</code>；如果model具有id，表示是已经存在的模型，将使用<code class="highlighter-rouge">PUT</code>，将模型的全部字段提交到<code class="highlighter-rouge">/resources/{id}</code>。当传入<code class="highlighter-rouge">options</code>包含<code class="highlighter-rouge">patch:true</code>的时候，save会产生<code class="highlighter-rouge">PATCH</code>。</li>
+  <li><code class="highlighter-rouge">Model.destroy()</code> 会产生<code class="highlighter-rouge">DELETE</code>，目标url为<code class="highlighter-rouge">/resources/{id}</code>，如果当前model不包含id时，不会与服务端同步，因为此时backbone认为model在服务端尚不存在，不需要删除</li>
+  <li><code class="highlighter-rouge">Model.fetch()</code> 会产生<code class="highlighter-rouge">GET</code>，目标url为<code class="highlighter-rouge">/resources/{id}</code>，并将获得的属性更新model。</li>
+  <li><code class="highlighter-rouge">Collection.fetch()</code> 会产生<code class="highlighter-rouge">GET</code>，目标url为<code class="highlighter-rouge">/resources</code>，并对返回的数组中的每个对象，自动实例化model</li>
+  <li><code class="highlighter-rouge">Collection.create()</code> 实际将调用<code class="highlighter-rouge">Model.save</code></li>
+</ul>
+
+<p><code class="highlighter-rouge">options</code>参数存在于上面任何一个方法的参数列表中，通过<code class="highlighter-rouge">options</code>可以修改backbone和ajax请求的一些行为，可以使用的options包括：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">wait</code>: 可以指定是否等待服务端的返回结果再更新model。默认情况下不等待</li>
+  <li><code class="highlighter-rouge">url</code>: 可以覆盖掉backbone默认使用的url格式</li>
+  <li><code class="highlighter-rouge">attrs</code>: 可以指定保存到服务端的字段有哪些，配合<code class="highlighter-rouge">options.patch</code>可以产生<code class="highlighter-rouge">PATCH</code>对模型进行部分更新</li>
+  <li><code class="highlighter-rouge">patch</code>: 指定使用部分更新的REST接口</li>
+  <li><code class="highlighter-rouge">data</code>: 会被直接传递给jquery的ajax中的data，能够覆盖backbone所有的对上传的数据控制的行为</li>
+  <li><code class="highlighter-rouge">其他</code>: options中的任何参数都将直接传递给jquery的ajax，作为其options</li>
+</ul>
+
+<p>backbone通过Model的<code class="highlighter-rouge">urlRoot</code>属性或者是<code class="highlighter-rouge">Collection</code>的<code class="highlighter-rouge">url</code>属性得知具体的服务端接口地址，以便发起ajax。在Model的<code class="highlighter-rouge">url</code>默认实现中，Model除了会考察<code class="highlighter-rouge">urlRoot</code>，第二选择会是Model所在Collection的<code class="highlighter-rouge">url</code>，所有有时只需要在Collection里面书写<code class="highlighter-rouge">url</code>就可以了。</p>
+
+<p>Backbone会根据与服务端要进行什么类型的操作，决定是否要添加<code class="highlighter-rouge">id</code>在<code class="highlighter-rouge">url</code>后面，以下代码是Model的默认<code class="highlighter-rouge">url</code>实现：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">url</span><span class="err">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span>
+      <span class="nx">_</span><span class="p">.</span><span class="nx">result</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">'urlRoot'</span><span class="p">)</span> <span class="o">||</span>
+      <span class="nx">_</span><span class="p">.</span><span class="nx">result</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s1">'url'</span><span class="p">)</span> <span class="o">||</span>
+      <span class="nx">urlError</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isNew</span><span class="p">())</span> <span class="k">return</span> <span class="nx">base</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">base</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">([^\/])</span><span class="sr">$/</span><span class="p">,</span> <span class="s1">'$1/'</span><span class="p">)</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>其中的正则式<code class="highlighter-rouge">/([^\/])$/</code>是个很巧妙的处理，它解决了<code class="highlighter-rouge">url</code>最后是否包含<code class="highlighter-rouge">'/'</code>的不确定性。</p>
+
+<blockquote>
+  <p>这个正则匹配的是行末的非<code class="highlighter-rouge">/</code>字符，这样，像<code class="highlighter-rouge">/resources</code>这样的目标会匹配<code class="highlighter-rouge">s</code>，然后<code class="highlighter-rouge">replace</code>中使用分组编号<code class="highlighter-rouge">$1</code>捕获了<code class="highlighter-rouge">s</code>，将<code class="highlighter-rouge">s</code>替换为<code class="highlighter-rouge">s/</code>，这样就自动加上了缺失的<code class="highlighter-rouge">/</code>；而当<code class="highlighter-rouge">/resources/</code>这样目标却无法匹配到结果，也就不需要替换了。</p>
+</blockquote>
+
+<h2 id="modelcollection">Model和Collection的关系</h2>
+
+<p>在backbone中，即便一类的模型实例的确是在一个集合里面，也并没有强制要求使用集合类。但是使用集合有一些额外的好处，这些好处包括：</p>
+
+<h3 id="url">url继承</h3>
+
+<p><code class="highlighter-rouge">Model</code>属于<code class="highlighter-rouge">Collection</code>后，可以继承Collection的<code class="highlighter-rouge">url</code>属性。上面一节已经提到了</p>
+
+<h3 id="underscore">underscore集合能力</h3>
+
+<p><code class="highlighter-rouge">Collection</code>沿用了<code class="highlighter-rouge">underscore</code>90%的集合和数组操作，使得集合操作极其方便：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Underscore methods that we want to implement on the Collection.</span>
+<span class="c1">// 90% of the core usefulness of Backbone Collections is actually implemented</span>
+<span class="c1">// right here:</span>
+<span class="kd">var</span> <span class="nx">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'forEach'</span><span class="p">,</span> <span class="s1">'each'</span><span class="p">,</span> <span class="s1">'map'</span><span class="p">,</span> <span class="s1">'collect'</span><span class="p">,</span> <span class="s1">'reduce'</span><span class="p">,</span> <span class="s1">'foldl'</span><span class="p">,</span>
+<span class="s1">'inject'</span><span class="p">,</span> <span class="s1">'reduceRight'</span><span class="p">,</span> <span class="s1">'foldr'</span><span class="p">,</span> <span class="s1">'find'</span><span class="p">,</span> <span class="s1">'detect'</span><span class="p">,</span> <span class="s1">'filter'</span><span class="p">,</span> <span class="s1">'select'</span><span class="p">,</span>
+<span class="s1">'reject'</span><span class="p">,</span> <span class="s1">'every'</span><span class="p">,</span> <span class="s1">'all'</span><span class="p">,</span> <span class="s1">'some'</span><span class="p">,</span> <span class="s1">'any'</span><span class="p">,</span> <span class="s1">'include'</span><span class="p">,</span> <span class="s1">'contains'</span><span class="p">,</span> <span class="s1">'invoke'</span><span class="p">,</span>
+<span class="s1">'max'</span><span class="p">,</span> <span class="s1">'min'</span><span class="p">,</span> <span class="s1">'toArray'</span><span class="p">,</span> <span class="s1">'size'</span><span class="p">,</span> <span class="s1">'first'</span><span class="p">,</span> <span class="s1">'head'</span><span class="p">,</span> <span class="s1">'take'</span><span class="p">,</span> <span class="s1">'initial'</span><span class="p">,</span> <span class="s1">'rest'</span><span class="p">,</span>
+<span class="s1">'tail'</span><span class="p">,</span> <span class="s1">'drop'</span><span class="p">,</span> <span class="s1">'last'</span><span class="p">,</span> <span class="s1">'without'</span><span class="p">,</span> <span class="s1">'difference'</span><span class="p">,</span> <span class="s1">'indexOf'</span><span class="p">,</span> <span class="s1">'shuffle'</span><span class="p">,</span>
+<span class="s1">'lastIndexOf'</span><span class="p">,</span> <span class="s1">'isEmpty'</span><span class="p">,</span> <span class="s1">'chain'</span><span class="p">,</span> <span class="s1">'sample'</span><span class="p">];</span></code></pre></figure>
+
+<p>Backbone巧妙的使用下面的代码将这些方法附加到<code class="highlighter-rouge">Collection</code>中：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Mix in each Underscore method as a proxy to `Collection#models`.</span>
+<span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">methods</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">method</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">Collection</span><span class="p">.</span><span class="nx">prototype</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span> 	<span class="c1">//将参数数组转化成真正的数组</span>
+		<span class="nx">args</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">models</span><span class="p">);</span>			<span class="c1">//将Collection真正用来维护集合的数组，作为第一个个参数</span>
+		<span class="k">return</span> <span class="nx">_</span><span class="p">[</span><span class="nx">method</span><span class="p">].</span><span class="nx">apply</span><span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>	<span class="c1">//使用apply调用underscore的方法</span>
+	<span class="p">};</span>
+<span class="p">});</span></code></pre></figure>
+
+<h3 id="model">自动侦听和转发集合中的Model事件</h3>
+
+<p>集合能够自动侦听并转发集合中的元素的事件，还有一些事件集合会做相应的特殊处理，这些事件包括：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">destroy</code> 侦听到元素的<code class="highlighter-rouge">destroy</code>事件后，会自动将元素从集合中移除，并引发<code class="highlighter-rouge">remove</code>事件</li>
+  <li><code class="highlighter-rouge">change:id</code> 侦听到元素的id属性被change后，自动更新内部对model的引用关系</li>
+</ul>
+
+<h3 id="section-2">自动模型构造</h3>
+
+<p>利用<code class="highlighter-rouge">Collection</code>的<code class="highlighter-rouge">fetch</code>，可以加载服务端数据集合，与此同时，可以自动创建相关的Model实例，并调用构造方法</p>
+
+<h3 id="section-3">元素重复判断</h3>
+
+<p><code class="highlighter-rouge">Collection</code>会根据<code class="highlighter-rouge">Model</code>的<code class="highlighter-rouge">idAttribute</code>指定的唯一键，来判断元素是否重复，默认情况下唯一键是<code class="highlighter-rouge">id</code>，可以重写<code class="highlighter-rouge">idAttribute</code>来覆盖。当元素重复的时候，可以选择是丢弃重复元素，还是合并两种元素，默认是丢弃的</p>
+
+<h2 id="section-4">模型转化</h2>
+
+<p>有时从REST接口得到的数据并不能完全满足界面的处理需求，可以通过<code class="highlighter-rouge">Model.parse</code>或者<code class="highlighter-rouge">Collection.parse</code>方法，在实例化Backbone对象前，对数据进行预处理。大体上，<code class="highlighter-rouge">Model.parse</code>用来对返回的单个对象进行属性的处理，而<code class="highlighter-rouge">Collection.parse</code>用来对返回的集合进行处理，通常是过滤掉不必要的数据。例如：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//只挑选type=1的book</span>
+<span class="kd">var</span> <span class="nx">Books</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+	<span class="na">parse</span><span class="p">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">models</span><span class="p">,</span><span class="nx">options</span><span class="p">){</span>
+		<span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">models</span> <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">){</span>
+			<span class="k">return</span> <span class="nx">model</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="p">})</span>
+	<span class="p">}</span>
+<span class="p">})</span>
+
+
+<span class="c1">//为Book对象添加url属性，以便渲染</span>
+<span class="kd">var</span> <span class="nx">Book</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+	<span class="na">parse</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span><span class="nx">options</span><span class="p">){</span>
+		<span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">model</span><span class="p">,{</span> <span class="na">url</span> <span class="p">:</span> <span class="s1">'/books/'</span> <span class="o">+</span> <span class="nx">model</span><span class="p">.</span><span class="nx">id</span> <span class="p">});</span>
+	<span class="p">}</span>
+<span class="p">})</span></code></pre></figure>
+
+<p>通过Collection的<code class="highlighter-rouge">fetch</code>，自动实例化的Model，其parse也会被调用。</p>
+
+<h2 id="section-5">模型的默认值</h2>
+
+<p>Model可以通过设置<code class="highlighter-rouge">defaults</code>属性来设置默认值，这很有用。因为，无论是模型还是集合，fetch数据都是异步的，而往往视图的渲染确实很可能在数据到来前就进行了，如果没有默认值的话，一些使用了模板引擎的视图，在渲染的时候可能会出错。例如underscore自带的视图引擎，由于使用<code class="highlighter-rouge">with(){}</code>语法，会因为对象缺乏属性而报错。</p>
+
+<h2 id="el">视图的el</h2>
+
+<p>Backbone的视图对象十分简答，对于开发者而言，仅仅关心一个el属性即可。el属性可以通过五种途径给出，优先级从高到低：</p>
+
+<ol>
+  <li>实例化View的时候，传递el</li>
+  <li>在类中声明el</li>
+  <li>实例化View的时候传入<code class="highlighter-rouge">tagName</code></li>
+  <li>在类中声明<code class="highlighter-rouge">tagName</code></li>
+  <li>以上都没有的情况下使用默认的<code class="highlighter-rouge">'div'</code></li>
+</ol>
+
+<p>究竟如何选择，取决于以下几点：</p>
+
+<ul>
+  <li>一般而言，如果模块是公用模块，在类中不提供el，而是让外部在实例化的时候传入，这样可以保持公共的View的独立性，不至于依赖已经存在的DOM元素</li>
+  <li><code class="highlighter-rouge">tagName</code>一般对于自成体系的View有用，比如table中的某行tr，ul中的某个li</li>
+  <li>有些DOM事件必须在html存在的情况下才能绑定成功，比如<code class="highlighter-rouge">blur</code>，对于这种View，只能选择已经存在的html</li>
+</ul>
+
+<p>视图类还有几个属性可以导出，由外部初始化，它们是：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// List of view options to be merged as properties.</span>
+<span class="kd">var</span> <span class="nx">viewOptions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'model'</span><span class="p">,</span> <span class="s1">'collection'</span><span class="p">,</span> <span class="s1">'el'</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'attributes'</span><span class="p">,</span> <span class="s1">'className'</span><span class="p">,</span> <span class="s1">'tagName'</span><span class="p">,</span> <span class="s1">'events'</span><span class="p">];</span></code></pre></figure>
+
+<h2 id="section-6">内存泄漏</h2>
+
+<p>事件机制可以很好的带来代码维护的便利，但是由于事件绑定会使对象之间的引用变得复杂和错乱，容易造成内存泄漏。下面的写法就会造成内存泄漏：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Task</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({})</span>
+
+<span class="kd">var</span> <span class="nx">TaskView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+	<span class="na">tagName</span><span class="p">:</span> <span class="s1">'tr'</span><span class="p">,</span>
+	<span class="na">template</span><span class="p">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="s1">'&lt;td&gt;&lt;%= id %&gt;&lt;/td&gt;&lt;td&gt;&lt;%= summary %&gt;&lt;/td&gt;&lt;td&gt;&lt;%= description %&gt;&lt;/td&gt;'</span><span class="p">),</span>
+	<span class="na">initialize</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span><span class="s1">'change'</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">);</span>
+	<span class="p">},</span>
+	<span class="na">render</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span> <span class="p">)</span> <span class="p">);</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">})</span>
+
+<span class="kd">var</span> <span class="nx">TaskCollection</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+	<span class="na">url</span><span class="p">:</span> <span class="s1">'http://api.test.clippererm.com/api/testtasks'</span><span class="p">,</span>
+	<span class="na">model</span><span class="p">:</span> <span class="nx">Task</span><span class="p">,</span>
+	<span class="na">comparator</span><span class="p">:</span> <span class="s1">'summary'</span>
+<span class="p">})</span>
+
+<span class="kd">var</span> <span class="nx">TaskCollectionView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+	<span class="na">initialize</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s1">'add'</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">addOne</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s1">'reset'</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">);</span>
+	<span class="p">},</span>
+	<span class="na">addOne</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">task</span><span class="p">){</span>
+		<span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TaskView</span><span class="p">({</span> <span class="na">model</span> <span class="p">:</span> <span class="nx">task</span> <span class="p">});</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">view</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">$el</span><span class="p">);</span>
+	<span class="p">},</span>
+	<span class="na">render</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+		<span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+		<span class="c1">//简单粗暴的将DOM清空</span>
+		<span class="c1">//在sort事件触发的render调用时，之前实例化的TaskView对象会泄漏</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
+
+		<span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">){</span>
+			<span class="nx">_this</span><span class="p">.</span><span class="nx">addOne</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+		<span class="p">})</span>
+
+		<span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+	<span class="p">}</span>
+
+<span class="p">})</span></code></pre></figure>
+
+<p>使用下面的测试代码，并结合Chrome的堆内存快照来证明：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">tasks</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">tasklist</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// body...</span>
+	<span class="nx">$</span><span class="p">(</span><span class="s1">'#start'</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+		<span class="nx">tasks</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TaskCollection</span><span class="p">();</span>
+		<span class="nx">tasklist</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TaskCollectionView</span><span class="p">({</span>
+			<span class="na">collection</span> <span class="p">:</span> <span class="nx">tasks</span><span class="p">,</span>
+			<span class="na">el</span><span class="p">:</span> <span class="s1">'#tasklist'</span>
+		<span class="p">})</span>
+
+		<span class="nx">tasklist</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+		<span class="nx">tasks</span><span class="p">.</span><span class="nx">fetch</span><span class="p">();</span>
+	<span class="p">})</span>
+
+	<span class="nx">$</span><span class="p">(</span><span class="s1">'#refresh'</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+		<span class="nx">tasks</span><span class="p">.</span><span class="nx">fetch</span><span class="p">({</span> <span class="na">reset</span> <span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+	<span class="p">})</span>
+
+	<span class="nx">$</span><span class="p">(</span><span class="s1">'#sort'</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+		<span class="c1">//将侦听sort放在这里，避免第一次加载数据后的自动排序，触发的sort事件，以至于混淆</span>
+		<span class="nx">tasklist</span><span class="p">.</span><span class="nx">listenToOnce</span><span class="p">(</span><span class="nx">tasks</span><span class="p">,</span><span class="s1">'sort'</span><span class="p">,</span><span class="nx">tasklist</span><span class="p">.</span><span class="nx">render</span><span class="p">);</span>
+		<span class="nx">tasks</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span>
+	<span class="p">})</span>
+<span class="p">})</span></code></pre></figure>
+
+<p>点击开始，使用Chrome的’Profile’下的’Take Heap Snapshot’功能，查看当前堆内存情况，使用<code class="highlighter-rouge">child</code>类型过滤，可以看到Backbone对象实例一共有10个(1+1+4+4)：</p>
+
+<p><img src="http://pchou.qiniudn.com/2014-06-26-backbone-summary-00.JPG" alt="" /></p>
+
+<blockquote>
+  <p>之所以用child过滤，因为我们的类继承自Backbone的类型，而继承使用了重写原型的方法，Backbone在继承时，使用的变量名为<code class="highlighter-rouge">child</code>，最后，<code class="highlighter-rouge">child</code>被返回出来了</p>
+</blockquote>
+
+<p>点击排序后，再次抓取快照，可以看到实例个数变成了14个，这是因为，在<code class="highlighter-rouge">render</code>过程中，又创建了4个新的<code class="highlighter-rouge">TaskView</code>，而之前的4个<code class="highlighter-rouge">TaskView</code>并没有释放(之所以是4个是因为记录的条数是4)</p>
+
+<p><img src="http://pchou.qiniudn.com/2014-06-26-backbone-summary-01.JPG" alt="" /></p>
+
+<p>再次点击排序，再次抓取快照，实例数又增加了4个，变成了18个!</p>
+
+<p><img src="http://pchou.qiniudn.com/2014-06-26-backbone-summary-02.JPG" alt="" /></p>
+
+<p>那么，为什么每次排序后，之前的<code class="highlighter-rouge">TaskView</code>无法释放呢。因为TaskView的实例都会侦听model，导致model对新创建的TaskView的实例存在引用，所以旧的TaskView无法删除，又创建了新的，导致内存不断上涨。而且由于引用存在于<code class="highlighter-rouge">change</code>事件的回调队列里，model每次触发<code class="highlighter-rouge">change</code>都会通知旧的TaskView实例，导致执行很多无用的代码。那么如何改进呢？</p>
+
+<p>修改TaskCollectionView：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">TaskCollectionView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+	<span class="na">initialize</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s1">'add'</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">addOne</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">,</span> <span class="s1">'reset'</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">);</span>
+		<span class="c1">//初始化一个view数组以跟踪创建的view</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">views</span> <span class="o">=</span><span class="p">[]</span>
+	<span class="p">},</span>
+	<span class="nx">addOne</span><span class="err">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">task</span><span class="p">){</span>
+		<span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TaskView</span><span class="p">({</span> <span class="na">model</span> <span class="p">:</span> <span class="nx">task</span> <span class="p">});</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">view</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">$el</span><span class="p">);</span>
+		<span class="c1">//将新创建的view保存起来</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">views</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">view</span><span class="p">);</span>
+	<span class="p">},</span>
+	<span class="nx">render</span><span class="err">:</span> <span class="kd">function</span><span class="p">(){</span>
+		<span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+		<span class="c1">//遍历views数组，并对每个view调用Backbone的remove</span>
+		<span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">views</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">view</span><span class="p">){</span>
+			<span class="nx">view</span><span class="p">.</span><span class="nx">remove</span><span class="p">().</span><span class="nx">off</span><span class="p">();</span>
+		<span class="p">})</span>
+
+		<span class="c1">//清空views数组，此时旧的view就变成没有任何被引用的不可达对象了</span>
+		<span class="c1">//垃圾回收器会回收它们</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">views</span> <span class="o">=</span><span class="p">[];</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
+
+		<span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">){</span>
+			<span class="nx">_this</span><span class="p">.</span><span class="nx">addOne</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+		<span class="p">})</span>
+
+		<span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+	<span class="p">}</span>
+
+<span class="p">})</span></code></pre></figure>
+
+<p>Backbone的View有一个<code class="highlighter-rouge">remove</code>方法，这个方法除了删除View所关联的DOM对象，还会阻断事件侦听，它通过在listenTo方法时记录下来的那些被侦听对象(上文事件原理中提到)，来使这些被侦听的对象删除对自己的引用。在<code class="highlighter-rouge">remove</code>内部使用事件基类的<code class="highlighter-rouge">stopListening</code>完成这个动作。
+上面的代码使用一个views数组来跟踪新创建的<code class="highlighter-rouge">TaskView</code>对象，并在render的时候，依次调用这些视图对象的<code class="highlighter-rouge">remove</code>，然后清空数组，这样这些<code class="highlighter-rouge">TaskView</code>对象就能得到释放。并且，除了调用<code class="highlighter-rouge">remove</code>，还调用了<code class="highlighter-rouge">off</code>，把视图对象可能的被外部的侦听也断开。</p>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#javascript">
+					javascript <span>(5)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#javascript">
+					javascript <span>(3)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#backbone">
+					backbone <span>(3)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/javascript/2014/04/23/backbone-event.html" title="Backbone精髓，观察者模式和事件">&larr; Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="/open-source/2014/06/26/qiniu-summary.html" title="使用七牛云存储的一些经验总结">Next &rarr;</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'pchou'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+			<div class="col-sm-4 hidden-xs typo" style=" padding-top: 90px; ">
+		<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div>
+
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+
