@@ -7,13 +7,84 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
-				<title>博客之旅</title>
-				<description>&lt;p&gt;我们写程序都是从hello world 开始的，每当学习一门新的语言我们总是尝试写出hello world，从今天开始建一个属于自己的博客，我对世界说hello world！&lt;/p&gt;
+				<title>idea 的一些开发设置</title>
+				<description>&lt;p&gt;工欲善其事，必先利其器。自打学习程序开始，从最先的文本编程，到myeclipse，后面是eclipse，到现在的idea，一个个工具的转变使用，加速了编程的速度，编码的速度，好像从原始社会到现代社会的一个转变。&lt;/p&gt;
+
+&lt;h2 id=&quot;idea&quot;&gt;idea的常用设置&lt;/h2&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;全局设置&lt;/h3&gt;
+&lt;p&gt;首先对idea进行全局模式设置，方便配置，如下点击进行配置。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-0.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这个主界面一般是首次才出现，后面开发工程时候关闭打开的时候直接打开上一次编辑过的工程项目，不过没关系，我们有方法可以是每次打开都是这个界面选择具体的工程。
+打开配置(下面是mac版本的idea操作，不过windows配置也是一样的)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-1-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;将勾去掉，下次打开就是前面的那个主界面了&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;主题设置&lt;/h3&gt;
+&lt;p&gt;设置酷炫的黑色主题，idea安装之后默认是白色主题的，下面进行设置修改主题&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;打开之后选择框里的那种效果，点击生效后马上可以看到主题换了。（后面还会讲绿色主题的设置）&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;字体设置&lt;/h3&gt;
+&lt;p&gt;首先需要保存一个另外的字体样式，不然后面将不能修改字体大小和样式颜色&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;选择自己喜欢的字体还有大小&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;编码设置&lt;/h3&gt;
+&lt;p&gt;（一般项目开发都是设置utf-8）&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;行号设置&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;绿色养颜背景设置&lt;/h2&gt;
+&lt;p&gt;从百度知道我们眼睛比较耐看的RGB数值分别是（199,237,204）
+从原来的白色主题重新 save as 一个新的自定义颜色设置&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-13.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-14.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后进入开始设置主面板的颜色背景&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-15.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-16.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;你也可以进行自己喜欢的颜色进行RGB选择。&lt;/p&gt;
+
+&lt;p&gt;最后设置字体风格和大小&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://7xti81.com2.z0.glb.clouddn.com/idea-17.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 27 Apr 2016 00:00:00 +0800</pubDate>
+				<link>/%E5%B7%A5%E5%85%B7/2016/04/27/tool-idea.html</link>
+				<guid isPermaLink="true">/%E5%B7%A5%E5%85%B7/2016/04/27/tool-idea.html</guid>
+			</item>
+		
+			<item>
+				<title>记忆的开始</title>
+				<description>&lt;p&gt;年纪慢慢变大了，学习的知识体系也越来越庞大，很多东西做了，过了一段时间就忘记了，发现好像之前做过啊，但是却怎么也想不起来了，都是一段段的零碎记忆，没办法的办法又去网上找啊找，时间就这样悄悄的流失了，每次想到这，总会有一些失落。挣扎了许久才决定写博客，记录自己的技术学习过程，生活经验。希望有一天回头来看的时候，也是有一些美好的足迹，以至于自己不会迷失在回途的路上。&lt;/p&gt;
 
 </description>
 				<pubDate>Tue, 26 Apr 2016 00:00:00 +0800</pubDate>
-				<link>/life/2016/04/26/hello.html</link>
-				<guid isPermaLink="true">/life/2016/04/26/hello.html</guid>
+				<link>/%E7%94%9F%E6%B4%BB/2016/04/26/hello.html</link>
+				<guid isPermaLink="true">/%E7%94%9F%E6%B4%BB/2016/04/26/hello.html</guid>
 			</item>
 		
 	</channel>
