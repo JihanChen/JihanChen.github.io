@@ -137,8 +137,9 @@
 
 <h3 id="section-2">代码操作</h3>
 
-<p>controller层代码
-<code class="highlighter-rouge">
+<p>controller层代码</p>
+
+<p><code class="highlighter-rouge">
 @RequestMapping("/validation/msg")
 @ResponseBody
 public String validationMsg(@Valid @RequestBody User user){
@@ -146,8 +147,9 @@ public String validationMsg(@Valid @RequestBody User user){
 }
 </code></p>
 
-<p>User实体对象
-```
+<p>User实体对象</p>
+
+<p>```
 public class User{
     @NotEmpty(message = “用户名不能为空”)
     private String uname;</p>
@@ -156,18 +158,19 @@ public class User{
 private String pwd; 
 
 private int age; 
-// 此处省略掉set get方法 }```
+// 此处省略掉set get方法 } ```
 </code></pre>
 </div>
 
-<p>下面客户端开始请求
+<p>下面客户端开始请求</p>
+
+<p><code class="highlighter-rouge">
 POST /validation/msg
-<code class="highlighter-rouge"><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="nt">"pwd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"age"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></p>
+{
+    "pwd": "123456",
+    "age": "28"
+}
+</code></p>
 
 <p>请求之后返回的结果：</p>
 
@@ -213,9 +216,8 @@ POST /validation/msg
 
 <p>显然返回的参数太多了很乱，看的不直观，一般框架对于请求也都会有一个固定的返回格式，比如</p>
 
-<p><code class="highlighter-rouge"><span class="p">{</span><span class="nt">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">}</span></code>   请求正常</p>
-
-<p><code class="highlighter-rouge"><span class="p">{</span><span class="nt">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1001"</span><span class="p">,</span><span class="nt">"errorMsg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"用户名不能为空"</span><span class="p">}</span></code> 请求异常</p>
+<p>请求正常 <code class="highlighter-rouge"><span class="p">{</span><span class="nt">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">}</span></code> <br />
+请求异常 <code class="highlighter-rouge"><span class="p">{</span><span class="nt">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1001"</span><span class="p">,</span><span class="nt">"errorMsg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"用户名不能为空"</span><span class="p">}</span></code></p>
 
 <p>当你看了上面链接的异常处理其实就很简单的可以显示自定义的返回结果。在controller层添加如下代码</p>
 
@@ -233,23 +235,19 @@ public ValidationResponse resolveMValidException(MethodArgumentNotValidException
 </code></pre>
 </div>
 
-<p>定义了异常处理 然后输出了自定义的返回结果，最终输出了</p>
+<p>定义了异常处理 然后输出了自定义的返回结果，最终输出了<code class="highlighter-rouge"><span class="p">{</span><span class="nt">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1001"</span><span class="p">,</span><span class="nt">"errorMsg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"用户名不能为空"</span><span class="p">}</span></code>是不是很赞啊，非常简单友好的输出了错误异常信息。</p>
 
-<p><code class="highlighter-rouge"><span class="p">{</span><span class="nt">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1001"</span><span class="p">,</span><span class="nt">"errorMsg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"用户名不能为空"</span><span class="p">}</span></code></p>
+<p>下面我们使用正确的请求发给服务端</p>
 
-<p>是不是很赞啊，非常简单友好的输出了错误异常信息。</p>
-
-<p>下面我们使用正确的请求发给服务端
-```
+<p>```
 POST /validation/msg</p>
 
 <p>{
     “uname”:”皮卡丘”,
     “pwd”: “123456”,
     “age”: “1”
-}</p>
-
-<p>```</p>
+}
+```</p>
 
 <p>结果没有出错了哦，返回结果
 <code class="highlighter-rouge"><span class="w">

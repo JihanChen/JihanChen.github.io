@@ -15,6 +15,7 @@ tags: [springboot,validation]
 ### 代码操作
 
 controller层代码
+
 ```
 @RequestMapping("/validation/msg")
 @ResponseBody
@@ -24,7 +25,10 @@ public String validationMsg(@Valid @RequestBody User user){
 ```
 
 
+
+
 User实体对象
+
 ```
 public class User{
     @NotEmpty(message = "用户名不能为空")
@@ -35,18 +39,22 @@ public class User{
 
     private int age; 
     // 此处省略掉set get方法
-}```
+}
+```
+
 
 
 
 下面客户端开始请求
-POST /validation/msg
+
 ``` 
+POST /validation/msg
 {
     "pwd": "123456",
     "age": "28"
 }
 ```
+
 
 
 
@@ -90,21 +98,14 @@ POST /validation/msg
 }
 ```
 
-
-
-
 springboot 对异常进行了封装，针对json请求和普通的页面请求做了处理，具体可以查看<http://www.cnblogs.com/xinzhao/p/4934247.html>
 
 显然返回的参数太多了很乱，看的不直观，一般框架对于请求也都会有一个固定的返回格式，比如 
 
-```{"errorCode": "0","msg": "ok"}```   请求正常 
-
-```{"errorCode": "1001","errorMsg": "用户名不能为空"}``` 请求异常
+请求正常 ```{"errorCode": "0","msg": "ok"}```   
+请求异常 ```{"errorCode": "1001","errorMsg": "用户名不能为空"}``` 
 
 当你看了上面链接的异常处理其实就很简单的可以显示自定义的返回结果。在controller层添加如下代码
-
-
-
 
 ```     
 @ExceptionHandler(value=MethodArgumentNotValidException.class) 
@@ -120,16 +121,10 @@ public ValidationResponse resolveMValidException(MethodArgumentNotValidException
  }
 ```
 
-
-
-
-定义了异常处理 然后输出了自定义的返回结果，最终输出了
-
-```{"errorCode": "1001","errorMsg": "用户名不能为空"} ```
-
-是不是很赞啊，非常简单友好的输出了错误异常信息。
+定义了异常处理 然后输出了自定义的返回结果，最终输出了```{"errorCode": "1001","errorMsg": "用户名不能为空"}```是不是很赞啊，非常简单友好的输出了错误异常信息。
 
 下面我们使用正确的请求发给服务端
+
 ```
 POST /validation/msg
 
@@ -138,11 +133,7 @@ POST /validation/msg
     "pwd": "123456",
     "age": "1"
 }
-
 ```
-
-
-
 
 结果没有出错了哦，返回结果
 ```
