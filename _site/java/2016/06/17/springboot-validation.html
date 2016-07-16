@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>springboot使用@Valid进行请求参数校验</title>
+	
+	<meta name="author" content="JihanChen">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/typo/typo.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css?v=1.1" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- Update these with your own images
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
+
+	<!-- <script src="http://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script> -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+ 	<nav class="navbar-default visible-xs">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">首页</a></li>
+				<li><a href="/category.html">分类</a></li>
+				<li><a href="/tag.html">标签</a></li>
+				<li><a href="/series.html">系列文章</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="left-side" class="col-sm-3 sidebar hidden-xs">
+		<!-- 
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="http://www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header> -->
+
+
+<div id="bio" class="text-center">
+	just do it
+</div>
+
+
+<div class='navigator text-center'>
+	<a href='/index.html' title='首页'>&#xf012b;</a>
+	<a href='/rss.xml' title='RSS订阅'>&#xf01bc;</a>
+	<!-- <a href='/me.html' title='关于我'>&#xf00cc;</a> -->
+	<a href='/series.html' title='系列文章'>&#xf0161;</a>
+</div>
+
+<div class='category'>
+	<ul>
+		
+			<li><a href="/category.html#生活">生活<span>1</span></a></li>
+		
+			<li><a href="/category.html#工具">工具<span>1</span></a></li>
+		
+			<li><a href="/category.html#java">java<span>1</span></a></li>
+		
+	</ul>
+</div>
+
+<div class='tags'>
+	
+		<a href="/tag.html#记忆" style='font-size:17px;'>记忆</a>
+	
+		<a href="/tag.html#idea" style='font-size:17px;'>idea</a>
+	
+		<a href="/tag.html#springboot" style='font-size:17px;'>springboot</a>
+	
+		<a href="/tag.html#validation" style='font-size:17px;'>validation</a>
+	
+</div>
+<div class='foot text-center'>
+
+   <a href='https://github.com/'>Github</a> 
+
+</div>
+
+	</div>
+
+	<div class="col-sm-9 typo" style="background-color:#fff;">
+		<div class="col-sm-10" style=" padding: 40px 0; "><div class="page-header">
+  <h1>springboot使用@Valid进行请求参数校验 </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-12">
+  	<small>
+	   
+	   June 
+	   17th,
+	   
+	   2016
+	 </small>
+	  <div class="article_body" id="article_body">
+	  <p>最近在研究springboot,发现实在是太方便了，各种注解，各种爽。这篇文章主要是在controller层使用@Valid注解进行参数校验，校验不通过返回自定义的结果。</p>
+
+<h2 id="section">起源</h2>
+<p>使用框架最大的好处就是加快了开发速度，很多场景我们需要对客户端请求的参数进行一些常规校验，比如非空校验，位数校验，格式是否正确等等。以前我们可能在控制层获取到请求参数，然后一个个对参数进行校验，不通过校验就无法进行下面的业务。使用springboot的时候用@Valid对参数进行校验,大大加快的开发速度，精简了代码。</p>
+
+<h2 id="section-1">开始使用</h2>
+
+<h3 id="section-2">代码操作</h3>
+
+<p>controller层代码
+<code class="highlighter-rouge">
+@RequestMapping("/validation/msg")
+@ResponseBody
+public String validationMsg(@Valid @RequestBody User user){
+        return "ok";
+}
+</code></p>
+
+<p>User实体对象
+```
+public class User{
+    @NotEmpty(message = “用户名不能为空”)
+    private String uname;</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@NotEmpty(message = "密码不能为空")
+private String pwd; 
+
+private int age; 
+// 此处省略掉set get方法 }```
+</code></pre>
+</div>
+
+<p>下面客户端开始请求
+POST /validation/msg
+<code class="highlighter-rouge"><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nt">"pwd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"age"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></p>
+
+<p>请求之后返回的结果：</p>
+
+<p><code class="highlighter-rouge"><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="mi">1468634431233</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="mi">400</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"error"</span><span class="p">:</span><span class="s2">"Bad Request"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"exception"</span><span class="p">:</span><span class="s2">"org.springframework.web.bind.MethodArgumentNotValidException"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"errors"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"codes"</span><span class="p">:[</span><span class="w">
+                </span><span class="s2">"NotEmpty.user.uname"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"NotEmpty.uname"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"NotEmpty.java.lang.String"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"NotEmpty"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"arguments"</span><span class="p">:[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"codes"</span><span class="p">:[</span><span class="w">
+                        </span><span class="s2">"user.uname"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"uname"</span><span class="w">
+                    </span><span class="p">],</span><span class="w">
+                    </span><span class="nt">"arguments"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"defaultMessage"</span><span class="p">:</span><span class="s2">"uname"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"uname"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"defaultMessage"</span><span class="p">:</span><span class="s2">"用户名不能为空"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"objectName"</span><span class="p">:</span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"field"</span><span class="p">:</span><span class="s2">"uname"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"rejectedValue"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"bindingFailure"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"NotEmpty"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Validation failed for object='user'. Error count: 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/validation/msg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></p>
+
+<p>springboot 对异常进行了封装，针对json请求和普通的页面请求做了处理，具体可以查看<a href="http://www.cnblogs.com/xinzhao/p/4934247.html">http://www.cnblogs.com/xinzhao/p/4934247.html</a></p>
+
+<p>显然返回的参数太多了很乱，看的不直观，一般框架对于请求也都会有一个固定的返回格式，比如</p>
+
+<p><code class="highlighter-rouge"><span class="p">{</span><span class="nt">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">}</span></code>   请求正常</p>
+
+<p><code class="highlighter-rouge"><span class="p">{</span><span class="nt">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1001"</span><span class="p">,</span><span class="nt">"errorMsg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"用户名不能为空"</span><span class="p">}</span></code> 请求异常</p>
+
+<p>当你看了上面链接的异常处理其实就很简单的可以显示自定义的返回结果。在controller层添加如下代码</p>
+
+<p>```   <br />
+@ExceptionHandler(value=MethodArgumentNotValidException.class) 
+@ResponseBody
+public ValidationResponse resolveMValidException(MethodArgumentNotValidException e){</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>     // 只获取第一个异常的错误返回
+    ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
+    // 获取错误描述－上面注解的信息
+    String validationMsg = objectError.getDefaultMessage();
+
+    return new ValidationResponse("1001",validationMsg);  } ```
+</code></pre>
+</div>
+
+<p>定义了异常处理 然后输出了自定义的返回结果，最终输出了</p>
+
+<p><code class="highlighter-rouge"><span class="p">{</span><span class="nt">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1001"</span><span class="p">,</span><span class="nt">"errorMsg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"用户名不能为空"</span><span class="p">}</span></code></p>
+
+<p>是不是很赞啊，非常简单友好的输出了错误异常信息。</p>
+
+<p>下面我们使用正确的请求发给服务端
+```
+POST /validation/msg</p>
+
+<p>{
+    “uname”:”皮卡丘”,
+    “pwd”: “123456”,
+    “age”: “1”
+}</p>
+
+<p>```</p>
+
+<p>结果没有出错了哦，返回结果
+<code class="highlighter-rouge"><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nt">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></p>
+
+<h3 id="jsr303">JSR303定义的校验类型</h3>
+
+<p>由于 @Valid 校验是基于JSR303,使用方式可以查看文章 <a href="http://www.ibm.com/developerworks/cn/java/j-lo-jsr303/">http://www.ibm.com/developerworks/cn/java/j-lo-jsr303/</a></p>
+
+<blockquote>
+  <p>校验类型</p>
+</blockquote>
+
+<p>空检查
+@Null       验证对象是否为null
+@NotNull    验证对象是否不为null, 无法查检长度为0的字符串
+@NotBlank 检查约束字符串是不是Null还有被Trim的长度是否大于0,只对字符串,且会去掉前后空格.
+@NotEmpty 检查约束元素是否为NULL或者是EMPTY.</p>
+
+<p>Booelan检查
+@AssertTrue     验证 Boolean 对象是否为 true<br />
+@AssertFalse    验证 Boolean 对象是否为 false</p>
+
+<p>长度检查
+@Size(min=, max=) 验证对象（Array,Collection,Map,String）长度是否在给定的范围之内<br />
+@Length(min=, max=) Validates that the annotated string is between min and max included.</p>
+
+<p>日期检查
+@Past        验证 Date 和 Calendar 对象是否在当前时间之前<br />
+@Future     验证 Date 和 Calendar 对象是否在当前时间之后<br />
+@Pattern    验证 String 对象是否符合正则表达式的规则</p>
+
+<p>数值检查</p>
+
+<p>@Min            验证 Number 和 String 对象是否大等于指定的值<br />
+@Max            验证 Number 和 String 对象是否小等于指定的值<br />
+@DecimalMax 被标注的值必须不大于约束中指定的最大值. 这个约束的参数是一个通过BigDecimal定义的最大值的字符串表示.小数存在精度
+@DecimalMin 被标注的值必须不小于约束中指定的最小值. 这个约束的参数是一个通过BigDecimal定义的最小值的字符串表示.小数存在精度
+@Digits     验证 Number 和 String 的构成是否合法<br />
+@Digits(integer=,fraction=) 验证字符串是否是符合指定格式的数字，interger指定整数精度，fraction指定小数精度。
+@Range(min=, max=) Checks whether the annotated value lies between (inclusive) the specified minimum and maximum.
+@Range(min=10000,max=50000,message=”range.bean.wage”)
+private BigDecimal wage;</p>
+
+<p>@Valid 递归的对关联对象进行校验, 如果关联对象是个集合或者数组,那么对其中的元素进行递归校验,如果是一个map,则对其中的值部分进行校验.(是否进行递归验证)
+@CreditCardNumber信用卡验证
+@Email  验证是否是邮件地址，如果为null,不进行验证，算通过验证。
+@URL(protocol=,host=, port=,regexp=, flags=)</p>
+
+<h2 id="section-3">结尾</h2>
+<p>在springmvc使用@Valid会一点，需要引入validation-api和hibernate-validator依赖，这个下次再讲。springboot简单几行代码就完成了整个校验过程，全程都不需要配置文件，全是基于注解，“约定优于配置” 的理念确实强大，快速开发的不二选择。</p>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/category.html#java">
+					java <span>(1)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tag.html#springboot">
+					springboot <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tag.html#validation">
+					validation <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style">
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_tqq"></a>
+			<a class="jiathis_button_weixin"></a>
+			<a class="jiathis_button_renren"></a>
+			<a class="jiathis_button_douban"></a>
+			<a class="jiathis_button_fb"></a>
+			<a class="jiathis_button_twitter"></a>
+			<a class="jiathis_button_evernote"></a>
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_ydnote"></a>
+			<a class="jiathis_button_linkedin"></a>
+			<a href="http://www.jiathis.com/share?uid=1900073" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript">
+		var jiathis_config = {data_track_clickback:'true'};
+		</script>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1900073" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+      </section>
+
+      <section class="col-sm-6 author">
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/%E5%B7%A5%E5%85%B7/2016/04/27/tool-idea.html" title="idea 的一些开发设置">&larr; Previous</a></li>
+		  
+		  
+			<li class="next disabled"><a>Next &rarr;</a>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+<!-- 	<div class="col-sm-2 sidebar-2">
+	
+	</div> -->
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'jihanchen'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+ <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'jihanchen'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+    </script>
+</article>
+
+<div class="clearfix"></div>
+
+</div>
+		<div class="col-sm-2 hidden-xs typo" style=" padding-top: 90px; ">
+	<!-- 	<h4>扫一扫，手机阅读</h4>
+		<div class='qrcode'></div> -->
+		<div id="sideBar">
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/stick.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+
