@@ -141,7 +141,7 @@ POST /validation/msg
 @AssertTrue     验证 Boolean 对象是否为 true  
 @AssertFalse    验证 Boolean 对象是否为 false  
 
-***长度检查***
+***长度检查***  
 @Size(min=, max=) 验证对象（Array,Collection,Map,String）长度是否在给定的范围之内  
 @Length(min=, max=) Validates that the annotated string is between min and max included.
 
