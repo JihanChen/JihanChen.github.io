@@ -13,9 +13,9 @@ Apache JMeter是Apache组织开发的基于Java的压力测试工具。用于对
 ## 安装
 
 ### 第一步 下载
-学习一个新的东东我们一般都是先下载工具然后安装，工欲善其事必先利其器。mac安装使用也比较简单，首先去JMeter的官网下载最新版本（官网地址：http://jmeter.apache.org/download_jmeter.cgi）
+学习一个新的东东我们一般都是先下载工具然后安装，工欲善其事必先利其器。mac安装使用也比较简单，首先去JMeter的官网下载最新版本（官网地址：[http://jmeter.apache.org/download_jmeter.cgi](http://jmeter.apache.org/download_jmeter.cgi)）
 
-下载最新的[apache-jmeter-4.0.tgz](http://mirrors.tuna.tsinghua.edu.cn/apache//jmeter/binaries/apache-jmeter-4.0.tgz)，打不开的可以网盘下载（链接:https://pan.baidu.com/s/12Ylxr0PZTn7oe4lOHwEQLg  密码:5her）
+下载最新的[apache-jmeter-4.0.tgz](http://mirrors.tuna.tsinghua.edu.cn/apache//jmeter/binaries/apache-jmeter-4.0.tgz)，打不开的可以网盘下载（链接:[https://pan.baidu.com/s/12Ylxr0PZTn7oe4lOHwEQLg](https://pan.baidu.com/s/12Ylxr0PZTn7oe4lOHwEQLg)  密码:5her）
 
 
 
@@ -58,11 +58,15 @@ language=zh_CN
 
 
 
-参考：https://baike.baidu.com/item/Jmeter/3104456?fr=aladdin
+参考：
 
-           https://blog.csdn.net/GR9527/article/details/79876382
+          [https://baike.baidu.com/item/Jmeter/3104456?fr=aladdin](https://baike.baidu.com/item/Jmeter/3104456?fr=aladdin)
 
-	   https://blog.csdn.net/him2014/article/details/79603887
+           [https://blog.csdn.net/GR9527/article/details/79876382](https://blog.csdn.net/GR9527/article/details/79876382)
+
+	   [https://blog.csdn.net/him2014/article/details/79603887](https://blog.csdn.net/him2014/article/details/79603887)
+
+
 
 ## 结尾
 
