@@ -60,11 +60,11 @@ language=zh_CN
 
 参考：
 
-          [https://baike.baidu.com/item/Jmeter/3104456?fr=aladdin](https://baike.baidu.com/item/Jmeter/3104456?fr=aladdin)
+          https://baike.baidu.com/item/Jmeter/3104456?fr=aladdin
 
-          [https://blog.csdn.net/GR9527/article/details/79876382](https://blog.csdn.net/GR9527/article/details/79876382)
+          https://blog.csdn.net/GR9527/article/details/79876382
 
-	  [https://blog.csdn.net/him2014/article/details/79603887](https://blog.csdn.net/him2014/article/details/79603887)
+	  https://blog.csdn.net/him2014/article/details/79603887
 
 
 
