@@ -2,7 +2,7 @@
 layout: postlayout
 title: springboot使用@Validated进行请求参数校验
 categories: [java]
-tags: [validation]
+tags: [validation,springboot]
 ---
 
 @Validated 是springmvc 对@Valid的二次封装，是使用spring Validator的校验机制，而@Valid是JSR303-Bean Validation的一个数据验证规范。使用@Validated可以进行分组校验，大大减少了代码量，非常的好用。
