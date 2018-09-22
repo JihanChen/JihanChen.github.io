@@ -1,8 +1,8 @@
 ---
 layout: postlayout
 title: 自定义参数解析
-categories: [springmvc]
-tags: [springmvc,MethodArgumentResolver]
+categories: [springboot]
+tags: [springmvc,springboot]
 ---
 
 Springmvc为我们提供了一系列的参数解析器，不管你是要获取Cookie中的值，Header中的值，JSON格式的数据，URI中的值。
